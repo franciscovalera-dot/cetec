@@ -1,0 +1,35 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
+import { writeClient } from '@/lib/sanity-admin'
+
+async function checkAuth() {
+  const cookieStore = await cookies()
+  return !!cookieStore.get('admin_session')?.value
+}
+
+/** POST /api/admin/upload — Subir imagen a Sanity */
+export async function POST(req: NextRequest) {
+  if (!(await checkAuth())) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+  }
+
+  const formData = await req.formData()
+  const file = formData.get('file') as File | null
+
+  if (!file) {
+    return NextResponse.json({ error: 'No se envió archivo' }, { status: 400 })
+  }
+
+  // Convertir File a Buffer para Sanity
+  const buffer = Buffer.from(await file.arrayBuffer())
+
+  const asset = await writeClient.assets.upload('image', buffer, {
+    filename: file.name,
+    contentType: file.type,
+  })
+
+  return NextResponse.json({
+    assetId: asset._id,
+    url: asset.url,
+  })
+}
