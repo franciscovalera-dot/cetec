@@ -5,6 +5,9 @@
 import { getPostsBySeccion } from '@/lib/sanity'
 import Link from 'next/link'
 import type { Post } from '@/lib/sanity'
+import Pagination from '@/components/Pagination'
+
+const ITEMS_PER_PAGE = 12
 
 export const revalidate = 60
 
@@ -43,7 +46,7 @@ const SECTOR_LABELS: Record<string, string> = {
 }
 
 interface Props {
-  searchParams: { tematica?: string; sector?: string }
+  searchParams: { tematica?: string; sector?: string; page?: string }
 }
 
 function PostCard({ post, seccion }: { post: Post; seccion: string }) {
@@ -59,7 +62,7 @@ function PostCard({ post, seccion }: { post: Post; seccion: string }) {
 
   return (
     <Link href={href} className="group">
-      <article className="bg-white rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
         {/* Badges: sector (naranja) + sección (morado) */}
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && (
@@ -114,13 +117,16 @@ function PostCard({ post, seccion }: { post: Post; seccion: string }) {
 }
 
 export default async function NoticiasPage({ searchParams }: Props) {
-  const { tematica, sector } = searchParams
-  const posts = await getPostsBySeccion('noticias', { tematica, sector })
+  const { tematica, sector, page } = searchParams
+  const allPosts = await getPostsBySeccion('noticias', { tematica, sector })
+  const currentPage = Math.max(1, parseInt(page || '1', 10))
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / ITEMS_PER_PAGE))
+  const posts = allPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
 
   return (
     <>
       {/* Hero centrado */}
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
           <p className="text-sm text-gray-400 tracking-widest uppercase mb-4">
             Observatorio Tecnológico CETEC
@@ -137,12 +143,12 @@ export default async function NoticiasPage({ searchParams }: Props) {
       </section>
 
       {/* Contenido: sidebar + grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex gap-10">
 
           {/* ─── SIDEBAR FILTROS ────────────────────────────── */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 space-y-8">
+            <div className="sticky top-24 space-y-8 bg-gray-50 rounded-xl p-4">
               {/* Temática */}
               <div>
                 <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">
@@ -291,11 +297,19 @@ export default async function NoticiasPage({ searchParams }: Props) {
             )}
 
             {posts.length > 0 ? (
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {posts.map((post) => (
-                  <PostCard key={post._id} post={post} seccion="noticias" />
-                ))}
-              </div>
+              <>
+                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {posts.map((post) => (
+                    <PostCard key={post._id} post={post} seccion="noticias" />
+                  ))}
+                </div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  basePath="/noticias"
+                  queryParams={{ ...(tematica ? { tematica } : {}), ...(sector ? { sector } : {}) }}
+                />
+              </>
             ) : (
               <div className="text-center py-20">
                 <p className="text-gray-500">No hay artículos con estos filtros.</p>

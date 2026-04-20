@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { writeClient, generateSlug, textToPortableText } from '@/lib/sanity-admin'
+import { writeClient, generateSlug } from '@/lib/sanity-admin'
+import { htmlToPortableText } from '@/lib/portable-text-html'
 
 /** Verifica que la sesión de admin es válida */
 async function checkAuth() {
@@ -73,6 +74,8 @@ export async function POST(req: NextRequest) {
     excerpt,
     body,
     tags,
+    tecnologias,
+    descriptores,
     imageAssetId,
     imageAlt,
   } = data
@@ -86,6 +89,8 @@ export async function POST(req: NextRequest) {
 
   const slug = generateSlug(title)
 
+  const parseTags = (v: string) => v ? v.split(',').map((t: string) => t.trim()).filter(Boolean) : undefined
+
   const doc = {
     _type: 'post' as const,
     title,
@@ -95,8 +100,10 @@ export async function POST(req: NextRequest) {
     tematica: tematica || undefined,
     sector: sector || undefined,
     excerpt: excerpt || undefined,
-    body: body ? textToPortableText(body) : undefined,
-    tags: tags ? tags.split(',').map((t: string) => t.trim()).filter(Boolean) : undefined,
+    body: body ? htmlToPortableText(body) : undefined,
+    tags: parseTags(tags),
+    tecnologias: parseTags(tecnologias),
+    descriptores: parseTags(descriptores),
     image: imageAssetId
       ? {
           _type: 'image' as const,

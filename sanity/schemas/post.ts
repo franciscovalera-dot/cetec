@@ -68,6 +68,19 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'idioma',
+      title: 'Idioma',
+      type: 'string',
+      initialValue: 'es',
+      options: {
+        list: [
+          { title: 'Español', value: 'es' },
+          { title: 'English', value: 'en' },
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'category',
       title: 'Categoría (legacy)',
       type: 'reference',
@@ -114,6 +127,20 @@ export default defineType({
     defineField({
       name: 'tags',
       title: 'Etiquetas',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'tecnologias',
+      title: 'Tecnologías asociadas',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'descriptores',
+      title: 'Descriptores',
       type: 'array',
       of: [{ type: 'string' }],
       options: { layout: 'tags' },

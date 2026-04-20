@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import AdminNav from '@/components/AdminNav'
 
 // Constantes de filtros (duplicadas aquí para uso client-side)
 const SECCIONES = [
@@ -129,6 +130,8 @@ export default function AdminDashboard() {
           </div>
         </div>
       </header>
+
+      <AdminNav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* ─── TÍTULO Y BOTÓN NUEVA ENTRADA ──────────────────── */}

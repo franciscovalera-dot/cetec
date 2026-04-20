@@ -33,7 +33,7 @@ function DocCard({ doc }: { doc: Document }) {
   const sectorLabel = d.sector ? SECTOR_LABELS[d.sector] : null
   return (
     <a href={doc.file?.asset?.url || '#'} target="_blank" rel="noopener noreferrer" className="group">
-      <article className="bg-white rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}>{sectorLabel}</span>}
           {tipoLabel && <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)' }}>{tipoLabel}</span>}
@@ -61,17 +61,17 @@ export default async function DocumentosPage({ searchParams }: Props) {
   })
   return (
     <>
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
           <p className="text-sm text-gray-400 tracking-widest uppercase mb-4">Observatorio Tecnológico CETEC</p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">Documentos técnicos y<br />publicaciones especializadas</h1>
           <p className="mt-5 text-gray-500 max-w-2xl mx-auto leading-relaxed">El observatorio tecnológico de CETEC centraliza información estratégica sobre materiales, procesos, sostenibilidad e innovación.</p>
         </div>
       </section>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex gap-10">
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 space-y-8">
+            <div className="sticky top-24 space-y-8 bg-gray-50 rounded-xl p-4">
               <div>
                 <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">Tipo de documento</h3>
                 <ul className="space-y-0.5">{TIPOS_DOCUMENTO.map((t) => (<li key={t.value}><Link href={{ pathname: '/documentos', query: { ...(sector ? { sector } : {}), ...(tipo === t.value ? {} : { tipo: t.value }) } }} className={`block px-3 py-2 text-sm rounded-lg transition-colors ${tipo === t.value ? 'text-orange-600 font-semibold bg-orange-50' : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'}`}>{t.label}</Link></li>))}</ul>

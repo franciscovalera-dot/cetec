@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { writeClient, generateSlug, textToPortableText } from '@/lib/sanity-admin'
+import { writeClient, generateSlug } from '@/lib/sanity-admin'
+import { htmlToPortableText } from '@/lib/portable-text-html'
 
 async function checkAuth() {
   const cookieStore = await cookies()
@@ -20,7 +21,7 @@ export async function GET(
     const { id } = await params
     const post = await writeClient.fetch(
       `*[_type == "post" && _id == $id][0] {
-        _id, title, slug, seccion, tematica, sector, publishedAt, excerpt, body, tags, image,
+        _id, title, slug, seccion, tematica, sector, publishedAt, excerpt, body, tags, tecnologias, descriptores, image,
         "author": author->{_id, name}
       }`,
       { id }
@@ -59,12 +60,16 @@ export async function PUT(
     excerpt,
     body,
     tags,
+    tecnologias,
+    descriptores,
     imageAssetId,
     imageAlt,
   } = data
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const patch: Record<string, any> = {}
+
+  const parseTags = (v: string) => v.split(',').map((t: string) => t.trim()).filter(Boolean)
 
   if (title) {
     patch.title = title
@@ -74,11 +79,15 @@ export async function PUT(
   if (tematica !== undefined) patch.tematica = tematica || ''
   if (sector !== undefined) patch.sector = sector || ''
   if (excerpt !== undefined) patch.excerpt = excerpt
-  if (body !== undefined) patch.body = textToPortableText(body)
+  if (body !== undefined) patch.body = htmlToPortableText(body)
   if (tags !== undefined) {
-    patch.tags = typeof tags === 'string'
-      ? tags.split(',').map((t: string) => t.trim()).filter(Boolean)
-      : tags
+    patch.tags = typeof tags === 'string' ? parseTags(tags) : tags
+  }
+  if (tecnologias !== undefined) {
+    patch.tecnologias = typeof tecnologias === 'string' ? parseTags(tecnologias) : tecnologias
+  }
+  if (descriptores !== undefined) {
+    patch.descriptores = typeof descriptores === 'string' ? parseTags(descriptores) : descriptores
   }
 
   if (imageAssetId) {

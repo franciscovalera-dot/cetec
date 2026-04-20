@@ -6,7 +6,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 
 // Subenlaces dentro del desplegable "Contenido"
 const contentLinks = [
@@ -24,19 +24,9 @@ export default function Header() {
   const [mobileContentOpen, setMobileContentOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Cerrar dropdown al hacer clic fuera
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setContentOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* ─── Logo ─────────────────────────────────────── */}
@@ -69,9 +59,13 @@ export default function Header() {
             </Link>
 
             {/* Contenido (dropdown) */}
-            <div ref={dropdownRef} className="relative">
+            <div
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={() => setContentOpen(true)}
+              onMouseLeave={() => setContentOpen(false)}
+            >
               <button
-                onClick={() => setContentOpen(!contentOpen)}
                 className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
               >
                 Contenido
@@ -88,27 +82,28 @@ export default function Header() {
 
               {/* Panel desplegable */}
               {contentOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] bg-white rounded-xl shadow-lg border border-gray-200 p-6 z-50">
-                  <div className="grid grid-cols-2 gap-3">
-                    {contentLinks.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setContentOpen(false)}
-                        className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm text-gray-700 hover:bg-gray-50 hover:text-orange-600 transition-colors"
-                      >
-                        {/* Icono */}
-                        <svg
-                          className="w-5 h-5 text-gray-400 flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[480px] z-50 pt-2">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                    <div className="grid grid-cols-2 gap-3">
+                      {contentLinks.map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setContentOpen(false)}
+                          className="flex items-center gap-3 px-3 py-3 rounded-lg text-sm text-gray-700 hover:bg-gray-50 hover:text-orange-600 transition-colors"
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
-                        </svg>
-                        <span className="font-medium">{item.label}</span>
-                      </Link>
-                    ))}
+                          <svg
+                            className="w-5 h-5 text-gray-400 flex-shrink-0"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
+                          </svg>
+                          <span className="font-medium">{item.label}</span>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

@@ -4,6 +4,9 @@
 import { getPostsBySeccion } from '@/lib/sanity'
 import Link from 'next/link'
 import type { Post } from '@/lib/sanity'
+import Pagination from '@/components/Pagination'
+
+const ITEMS_PER_PAGE = 12
 
 export const revalidate = 60
 export const metadata = { title: 'Normativa' }
@@ -23,7 +26,7 @@ const SECTORES = [
 const SECCION_LABELS: Record<string, string> = { noticias: 'Noticias', normativa: 'Normativa', formacion: 'Formación', ayudas: 'Ayudas', agenda: 'Agenda', markettech: 'MarketTech' }
 const SECTOR_LABELS: Record<string, string> = { plastico: 'Plástico', calzado: 'Calzado', agroalimentario: 'Agroalimentario' }
 
-interface Props { searchParams: { tematica?: string; sector?: string } }
+interface Props { searchParams: { tematica?: string; sector?: string; page?: string } }
 
 function PostCard({ post }: { post: Post }) {
   const href = `/${post.seccion || 'normativa'}/${post.slug.current}`
@@ -32,7 +35,7 @@ function PostCard({ post }: { post: Post }) {
   const sectorLabel = post.sector ? SECTOR_LABELS[post.sector] : null
   return (
     <Link href={href} className="group">
-      <article className="bg-white rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}>{sectorLabel}</span>}
           <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)' }}>{secLabel}</span>
@@ -49,21 +52,24 @@ function PostCard({ post }: { post: Post }) {
 }
 
 export default async function NormativaPage({ searchParams }: Props) {
-  const { tematica, sector } = searchParams
-  const posts = await getPostsBySeccion('normativa', { tematica, sector })
+  const { tematica, sector, page } = searchParams
+  const allPosts = await getPostsBySeccion('normativa', { tematica, sector })
+  const currentPage = Math.max(1, parseInt(page || '1', 10))
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / ITEMS_PER_PAGE))
+  const posts = allPosts.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
   return (
     <>
-      <section className="bg-white border-b border-gray-200">
+      <section className="bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
           <p className="text-sm text-gray-400 tracking-widest uppercase mb-4">Observatorio Tecnológico CETEC</p>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">Normativa y legislación del<br />sector del plástico y el calzado</h1>
           <p className="mt-5 text-gray-500 max-w-2xl mx-auto leading-relaxed">Cambios normativos relevantes, legislación europea y nacional, y fechas de entrada en vigor que afectan al sector.</p>
         </div>
       </section>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex gap-10">
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 space-y-8">
+            <div className="sticky top-24 space-y-8 bg-gray-50 rounded-xl p-4">
               <div>
                 <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">Temática</h3>
                 <ul className="space-y-0.5">{TEMATICAS.map((t) => (<li key={t.value}><Link href={{ pathname: '/normativa', query: { ...(sector ? { sector } : {}), ...(tematica === t.value ? {} : { tematica: t.value }) } }} className={`block px-3 py-2 text-sm rounded-lg transition-colors ${tematica === t.value ? 'text-orange-600 font-semibold bg-orange-50' : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'}`}>{t.label}</Link></li>))}</ul>
@@ -76,7 +82,10 @@ export default async function NormativaPage({ searchParams }: Props) {
           </aside>
           <div className="flex-1 min-w-0">
             {posts.length > 0 ? (
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">{posts.map((post) => <PostCard key={post._id} post={post} />)}</div>
+              <>
+                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">{posts.map((post) => <PostCard key={post._id} post={post} />)}</div>
+                <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/normativa" queryParams={{ ...(tematica ? { tematica } : {}), ...(sector ? { sector } : {}) }} />
+              </>
             ) : (<p className="text-center text-gray-500 py-20">No hay artículos de normativa con estos filtros.</p>)}
           </div>
         </div>

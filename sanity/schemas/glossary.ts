@@ -26,6 +26,34 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'tematica',
+      title: 'Temática',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Materiales', value: 'materiales' },
+          { title: 'Procesos', value: 'procesos' },
+          { title: 'Digitalización', value: 'digitalizacion' },
+          { title: 'Reciclado', value: 'reciclado' },
+          { title: 'Ecodiseño', value: 'ecodiseno' },
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'sector',
+      title: 'Sector',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Plástico', value: 'plastico' },
+          { title: 'Calzado', value: 'calzado' },
+          { title: 'Agroalimentario', value: 'agroalimentario' },
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
       name: 'category',
       title: 'Categoría',
       type: 'reference',

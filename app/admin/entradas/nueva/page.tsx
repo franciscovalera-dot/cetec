@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), { ssr: false })
 
 const SECCIONES = [
   { value: 'noticias', label: 'Noticias' },
@@ -42,6 +44,8 @@ export default function NuevaEntradaPage() {
     excerpt: '',
     body: '',
     tags: '',
+    tecnologias: '',
+    descriptores: '',
     imageAssetId: '',
     imageAlt: '',
   })
@@ -295,29 +299,48 @@ export default function NuevaEntradaPage() {
           <label className="block text-sm font-semibold text-gray-900 mb-2">
             Contenido
           </label>
-          <p className="text-xs text-gray-900 mb-2">Separa los párrafos con líneas en blanco</p>
-          <textarea
-            value={form.body}
-            onChange={(e) => updateField('body', e.target.value)}
+          <RichTextEditor
+            content={form.body}
+            onChange={(html) => updateField('body', html)}
             placeholder="Escribe el contenido del artículo..."
-            rows={15}
-            className="w-full px-4 py-3 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-y font-mono leading-relaxed"
           />
         </div>
 
-        {/* ─── ETIQUETAS ─────────────────────────────────────── */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Etiquetas
-          </label>
-          <p className="text-xs text-gray-900 mb-2">Separadas por comas</p>
-          <input
-            type="text"
-            value={form.tags}
-            onChange={(e) => updateField('tags', e.target.value)}
-            placeholder="plástico, reciclaje, innovación..."
-            className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-          />
+        {/* ─── ETIQUETAS, TECNOLOGÍAS Y DESCRIPTORES ──────────── */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Etiquetas</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.tags}
+              onChange={(e) => updateField('tags', e.target.value)}
+              placeholder="plástico, reciclaje, innovación..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Tecnologías asociadas</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.tecnologias}
+              onChange={(e) => updateField('tecnologias', e.target.value)}
+              placeholder="Línea blanca, Reciclado, Novedades y tendencias..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Descriptores</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.descriptores}
+              onChange={(e) => updateField('descriptores', e.target.value)}
+              placeholder="Residuos, Envases, Sostenibilidad..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
         </div>
 
         {/* ─── BOTÓN FINAL ───────────────────────────────────── */}

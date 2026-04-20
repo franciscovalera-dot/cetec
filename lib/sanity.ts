@@ -39,6 +39,7 @@ export interface Post {
   seccion?: string
   tematica?: string
   sector?: string
+  idioma?: string
   category?: {
     name: string
     slug: { current: string }
@@ -55,6 +56,8 @@ export interface Post {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: any[]
   tags?: string[]
+  tecnologias?: string[]
+  descriptores?: string[]
 }
 
 export interface Category {
@@ -95,6 +98,8 @@ export interface GlossaryTerm {
   slug: { current: string }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   definition: any[]
+  tematica?: string
+  sector?: string
   category?: { name: string }
   relatedTerms?: { term: string; slug: { current: string } }[]
 }
@@ -109,10 +114,13 @@ const postFields = `
   seccion,
   tematica,
   sector,
+  idioma,
   publishedAt,
   excerpt,
   image,
   tags,
+  tecnologias,
+  descriptores,
   "category": category->{name, slug, color},
   "author": author->{name, image, bio}
 `
@@ -188,6 +196,17 @@ export async function getCategories(): Promise<Category[]> {
   )
 }
 
+/** Obtener todos los eventos de la agenda (futuros primero, luego pasados) */
+export async function getAllEvents(): Promise<AgendaEvent[]> {
+  return client.fetch(
+    `*[_type == "agenda"] | order(date desc) {
+      _id, title, slug, date, endDate, location, image, link, description
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  )
+}
+
 /** Obtener próximos eventos de la agenda */
 export async function getUpcomingEvents(limit = 10): Promise<AgendaEvent[]> {
   return client.fetch(
@@ -206,7 +225,7 @@ export async function getDocuments(categorySlug?: string): Promise<Document[]> {
     : ''
   return client.fetch(
     `*[_type == "document" ${filter}] | order(date desc) {
-      _id, title, slug, description, fileType, date,
+      _id, title, slug, description, fileType, date, tipoDocumento, sector,
       "file": file{asset->{url}},
       "category": category->{name, slug}
     }`,
@@ -219,7 +238,7 @@ export async function getDocuments(categorySlug?: string): Promise<Document[]> {
 export async function getGlossaryTerms(): Promise<GlossaryTerm[]> {
   return client.fetch(
     `*[_type == "glossary"] | order(term asc) {
-      _id, term, slug, definition,
+      _id, term, slug, definition, tematica, sector,
       "category": category->{name},
       "relatedTerms": relatedTerms[]->{term, slug}
     }`,
@@ -287,6 +306,38 @@ export async function searchContent(searchTerm: string): Promise<{
     ),
   ])
 
+  return { posts, events, documents, glossary }
+}
+
+/** Obtener todo el contenido ordenado por fecha descendente (página de búsqueda sin query) */
+export async function getAllContent(): Promise<{
+  posts: Post[]
+  events: AgendaEvent[]
+  documents: Document[]
+  glossary: GlossaryTerm[]
+}> {
+  const [posts, events, documents, glossary] = await Promise.all([
+    client.fetch(
+      `*[_type == "post"] | order(publishedAt desc) { ${postFields} }`,
+      {},
+      { next: { revalidate: 60 } }
+    ),
+    client.fetch(
+      `*[_type == "agenda"] | order(date desc) { _id, title, slug, date, location }`,
+      {},
+      { next: { revalidate: 60 } }
+    ),
+    client.fetch(
+      `*[_type == "document"] | order(date desc) { _id, title, slug, description, fileType, date, "file": file{asset->{url}} }`,
+      {},
+      { next: { revalidate: 60 } }
+    ),
+    client.fetch(
+      `*[_type == "glossary"] | order(term asc) { _id, term, slug, definition, tematica, sector, "category": category->{name} }`,
+      {},
+      { next: { revalidate: 60 } }
+    ),
+  ])
   return { posts, events, documents, glossary }
 }
 

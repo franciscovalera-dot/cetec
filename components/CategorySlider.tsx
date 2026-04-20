@@ -1,13 +1,12 @@
 /**
- * Slider infinito de categorías para "Explorar contenidos"
- * Duplica los items para crear el efecto de loop sin fin
+ * Slider de categorías para "Explorar contenidos"
+ * Avanza de 1 en 1, loop infinito con autoplay cada 5s
  */
 'use client'
 
-import { useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
-// Categorías del slider con iconos SVG path
 const categories = [
   {
     href: '/noticias',
@@ -51,41 +50,23 @@ const categories = [
   },
 ]
 
-// Ancho de cada tarjeta + gap (190px + 16px gap)
-const ITEM_WIDTH = 206
-const TOTAL_WIDTH = categories.length * ITEM_WIDTH
+// Ancho tarjeta + gap
+const CARD_W = 190
+const GAP = 16
+const STEP = CARD_W + GAP
 
-// Tarjeta individual extraída para reutilizar en las copias
 function CategoryCard({ cat }: { cat: (typeof categories)[number] }) {
   return (
-    <Link
-      href={cat.href}
-      className="group flex-shrink-0 w-[190px]"
-    >
+    <Link href={cat.href} className="group flex-shrink-0 w-[190px]">
       <div className="relative h-[230px] rounded-2xl border border-gray-200 bg-white p-6 flex flex-col items-center justify-between text-center overflow-hidden transition-all duration-300 group-hover:border-orange-400 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-600 group-hover:shadow-xl">
-        {/* Título arriba */}
         <h3 className="text-base font-bold text-gray-900 whitespace-pre-line leading-snug group-hover:text-white transition-colors pt-2">
           {cat.title}
         </h3>
-
-        {/* Icono de categoría en el medio */}
-        <svg
-          className="w-6 h-6 text-gray-400 group-hover:text-white/80 transition-colors"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-6 h-6 text-gray-400 group-hover:text-white/80 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={cat.icon} />
         </svg>
-
-        {/* Círculo con flecha diagonal abajo */}
         <div className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center group-hover:border-white/50 group-hover:bg-white/20 transition-all">
-          <svg
-            className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </div>
@@ -95,35 +76,79 @@ function CategoryCard({ cat }: { cat: (typeof categories)[number] }) {
 }
 
 export default function CategorySlider() {
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const total = categories.length
+  // Indice interno sobre el array triplicado (empieza en el set del medio)
+  const [index, setIndex] = useState(total)
+  const [isTransitioning, setIsTransitioning] = useState(true)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Al hacer scroll, si llega al final salta al principio y viceversa
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    // Si se pasó del set duplicado de la derecha, volver al set original
-    if (el.scrollLeft >= TOTAL_WIDTH * 2) {
-      el.scrollLeft -= TOTAL_WIDTH
-    }
-    // Si se pasó del set duplicado de la izquierda, avanzar al set original
-    if (el.scrollLeft <= 0) {
-      el.scrollLeft += TOTAL_WIDTH
-    }
+  // Triplicar para el efecto de loop infinito
+  const items = [...categories, ...categories, ...categories]
+
+  const goTo = useCallback((newIndex: number) => {
+    setIsTransitioning(true)
+    setIndex(newIndex)
   }, [])
 
-  // Desplazar con flechas
-  const scroll = (direction: 'left' | 'right') => {
-    const el = scrollRef.current
-    if (!el) return
-    el.scrollBy({ left: direction === 'left' ? -ITEM_WIDTH * 2 : ITEM_WIDTH * 2, behavior: 'smooth' })
+  const next = useCallback(() => goTo(index + 1), [index, goTo])
+  const prev = useCallback(() => goTo(index - 1), [index, goTo])
+
+  // Cuando la transicion termina, si estamos fuera del set del medio, saltar sin animacion
+  const handleTransitionEnd = useCallback(() => {
+    if (index >= total * 2) {
+      setIsTransitioning(false)
+      setIndex(total)
+    } else if (index < total) {
+      setIsTransitioning(false)
+      setIndex(total * 2 - 1)
+    }
+  }, [index, total])
+
+  // Autoplay cada 5s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsTransitioning(true)
+      setIndex((prev: number) => prev + 1)
+    }, 5000)
+    timerRef.current = timer
+    return () => clearInterval(timer)
+  }, [])
+
+  // Pausar autoplay al interactuar, reanudar al salir
+  const pauseAutoplay = () => {
+    if (timerRef.current) clearInterval(timerRef.current)
+  }
+  const resumeAutoplay = () => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      setIsTransitioning(true)
+      setIndex((prev: number) => prev + 1)
+    }, 5000)
+  }
+
+  const handlePrev = () => {
+    pauseAutoplay()
+    prev()
+    resumeAutoplay()
+  }
+
+  const handleNext = () => {
+    pauseAutoplay()
+    next()
+    resumeAutoplay()
   }
 
   return (
-    <div className="relative">
-      {/* Flechas de navegación */}
+    <div
+      className="relative"
+      onMouseEnter={pauseAutoplay}
+      onMouseLeave={resumeAutoplay}
+    >
+      {/* Flechas */}
       <div className="absolute -top-14 right-0 flex items-center gap-2">
         <button
-          onClick={() => scroll('left')}
+          onClick={handlePrev}
           className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-100 transition-colors"
           aria-label="Anterior"
         >
@@ -132,7 +157,7 @@ export default function CategorySlider() {
           </svg>
         </button>
         <button
-          onClick={() => scroll('right')}
+          onClick={handleNext}
           className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-100 transition-colors"
           aria-label="Siguiente"
         >
@@ -142,32 +167,21 @@ export default function CategorySlider() {
         </button>
       </div>
 
-      {/* Slider infinito: 3 copias del set (izq + original + der) */}
-      <div
-        ref={(el) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (scrollRef as any).current = el
-          // Posicionar inicialmente en el set del medio
-          if (el && el.scrollLeft === 0) {
-            el.scrollLeft = TOTAL_WIDTH
-          }
-        }}
-        onScroll={handleScroll}
-        className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {/* Copia izquierda */}
-        {categories.map((cat, i) => (
-          <CategoryCard key={`left-${i}`} cat={cat} />
-        ))}
-        {/* Set original */}
-        {categories.map((cat, i) => (
-          <CategoryCard key={`mid-${i}`} cat={cat} />
-        ))}
-        {/* Copia derecha */}
-        {categories.map((cat, i) => (
-          <CategoryCard key={`right-${i}`} cat={cat} />
-        ))}
+      {/* Track del slider */}
+      <div className="overflow-hidden -mx-4 px-4">
+        <div
+          ref={trackRef}
+          className="flex gap-4"
+          style={{
+            transform: `translateX(-${index * STEP}px)`,
+            transition: isTransitioning ? 'transform 400ms ease-in-out' : 'none',
+          }}
+          onTransitionEnd={handleTransitionEnd}
+        >
+          {items.map((cat, i) => (
+            <CategoryCard key={i} cat={cat} />
+          ))}
+        </div>
       </div>
     </div>
   )

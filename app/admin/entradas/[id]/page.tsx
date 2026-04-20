@@ -3,6 +3,9 @@
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), { ssr: false })
+import { portableTextToHtml } from '@/lib/portable-text-html'
 
 const SECCIONES = [
   { value: 'noticias', label: 'Noticias' },
@@ -27,20 +30,6 @@ const SECTORES = [
   { value: 'agroalimentario', label: 'Agroalimentario' },
 ]
 
-/** Extrae texto plano de bloques Portable Text */
-function portableTextToPlain(blocks: unknown[]): string {
-  if (!blocks || !Array.isArray(blocks)) return ''
-  return blocks
-    .filter((b: unknown) => {
-      const block = b as { _type?: string }
-      return block._type === 'block'
-    })
-    .map((b: unknown) => {
-      const block = b as { children?: { text?: string }[] }
-      return (block.children || []).map((c) => c.text || '').join('')
-    })
-    .join('\n\n')
-}
 
 export default function EditarEntradaPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -59,6 +48,8 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
     excerpt: '',
     body: '',
     tags: '',
+    tecnologias: '',
+    descriptores: '',
     imageAssetId: '',
     imageAlt: '',
   })
@@ -83,8 +74,10 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
         tematica: post.tematica || '',
         sector: post.sector || '',
         excerpt: post.excerpt || '',
-        body: portableTextToPlain(post.body),
+        body: portableTextToHtml(post.body),
         tags: (post.tags || []).join(', '),
+        tecnologias: (post.tecnologias || []).join(', '),
+        descriptores: (post.descriptores || []).join(', '),
         imageAssetId: post.image?.asset?._ref || '',
         imageAlt: post.image?.alt || '',
       })
@@ -359,28 +352,48 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
           <label className="block text-sm font-semibold text-gray-900 mb-2">
             Contenido
           </label>
-          <p className="text-xs text-gray-900 mb-2">Separa los párrafos con líneas en blanco</p>
-          <textarea
-            value={form.body}
-            onChange={(e) => updateField('body', e.target.value)}
+          <RichTextEditor
+            content={form.body}
+            onChange={(html) => updateField('body', html)}
             placeholder="Contenido del artículo..."
-            rows={15}
-            className="w-full px-4 py-3 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-y font-mono leading-relaxed"
           />
         </div>
 
-        {/* Etiquetas */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
-            Etiquetas
-          </label>
-          <input
-            type="text"
-            value={form.tags}
-            onChange={(e) => updateField('tags', e.target.value)}
-            placeholder="plástico, reciclaje, innovación..."
-            className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-          />
+        {/* Etiquetas, Tecnologías y Descriptores */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Etiquetas</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.tags}
+              onChange={(e) => updateField('tags', e.target.value)}
+              placeholder="plástico, reciclaje, innovación..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Tecnologías asociadas</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.tecnologias}
+              onChange={(e) => updateField('tecnologias', e.target.value)}
+              placeholder="Línea blanca, Reciclado, Novedades y tendencias..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-2">Descriptores</label>
+            <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
+            <input
+              type="text"
+              value={form.descriptores}
+              onChange={(e) => updateField('descriptores', e.target.value)}
+              placeholder="Residuos, Envases, Sostenibilidad..."
+              className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+            />
+          </div>
         </div>
 
         {/* Botones */}

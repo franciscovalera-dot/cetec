@@ -31,43 +31,43 @@ const demoReports = [
   },
 ]
 
-// Las 4 tarjetas de sección — gradiente de izq a der, izq apenas color, der difuminado fuerte
+// Las 4 tarjetas de sección — gradientes vibrantes con glow difuminado y perspectiva
 const sectionCards = [
   {
     href: '/noticias',
     title: 'Noticias',
     description: 'Novedades del sector, innovación y actualidad tecnológica.',
     button: 'Ver noticias',
-    // Izq casi blanco/transparente → der naranja intenso
-    bg: 'bg-gradient-to-r from-orange-100 via-orange-400 to-orange-500',
-    shadow: 'shadow-[12px_8px_40px_-4px_rgba(249,115,22,0.45)]',
+    gradient: 'linear-gradient(135deg, #FF8A3B 0%, #FF6B1A 40%, #E85D10 100%)',
+    glow: 'rgba(255, 138, 59, 0.5)',
+    skew: '-2deg',
   },
   {
     href: '/normativa',
     title: 'Normativa y\nLegislación',
     description: 'Cambios normativos relevantes y fechas de entrada en vigor.',
     button: 'Ver normativa',
-    // Izq naranja suave → der púrpura oscuro
-    bg: 'bg-gradient-to-r from-orange-300 via-rose-500 to-purple-900',
-    shadow: 'shadow-[12px_8px_40px_-4px_rgba(168,85,247,0.4)]',
+    gradient: 'linear-gradient(135deg, #E8457C 0%, #C2185B 40%, #9B1B5E 100%)',
+    glow: 'rgba(232, 69, 124, 0.45)',
+    skew: '-1deg',
   },
   {
     href: '/formacion',
     title: 'Formación\ny Cursos',
     description: 'Formación especializada para empresas y profesionales del sector.',
     button: 'Ver formación',
-    // Izq púrpura medio → der violeta/rosa claro
-    bg: 'bg-gradient-to-r from-purple-700 via-fuchsia-500 to-violet-400',
-    shadow: 'shadow-[12px_8px_40px_-4px_rgba(192,132,252,0.45)]',
+    gradient: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 40%, #5E1287 100%)',
+    glow: 'rgba(156, 39, 176, 0.45)',
+    skew: '1deg',
   },
   {
     href: '/ayudas',
     title: 'Ayudas y\nSubvenciones',
     description: 'Convocatorias abiertas y oportunidades de financiación.',
     button: 'Ver todas las ayudas',
-    // Izq azul medio → der azul/violeta claro
-    bg: 'bg-gradient-to-r from-blue-600 via-indigo-400 to-purple-400',
-    shadow: 'shadow-[12px_8px_40px_-4px_rgba(99,102,241,0.4)]',
+    gradient: 'linear-gradient(135deg, #5C6BC0 0%, #3F51B5 40%, #283593 100%)',
+    glow: 'rgba(92, 107, 192, 0.45)',
+    skew: '2deg',
   },
 ]
 
@@ -112,33 +112,50 @@ export default async function HomePage() {
       </section>
 
       {/* ─── 4 TARJETAS DE SECCIÓN CON GRADIENTES ───────────── */}
-      <section className="bg-white pb-20">
+      <section className="bg-white pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {sectionCards.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative aspect-[4/5] flex flex-col items-center justify-center text-center p-6 hover:scale-[1.02] transition-transform"
+                className="group relative"
               >
-                {/* Fondo: gradiente izq→der + sombra de color desplazada a la derecha */}
-                <div className={`absolute inset-0 rounded-2xl ${card.bg} ${card.shadow}`} />
+                {/* Glow difuminado que sobresale de la tarjeta */}
+                <div
+                  className="absolute -inset-4 rounded-[2rem] opacity-50 blur-2xl transition-opacity duration-500 group-hover:opacity-75 pointer-events-none"
+                  style={{ background: card.glow }}
+                />
 
-                {/* Difuminado blanco en el lado derecho (simula el blur del mockup) */}
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-white/10 rounded-r-2xl blur-xl pointer-events-none" />
+                {/* Tarjeta principal con perspectiva/skew */}
+                <div
+                  className="relative aspect-[4/5] rounded-2xl overflow-hidden p-6 flex flex-col items-center justify-center text-center transition-all duration-500 group-hover:scale-[1.03] group-hover:shadow-2xl"
+                  style={{
+                    background: card.gradient,
+                    transform: `perspective(800px) rotateY(${card.skew})`,
+                  }}
+                >
+                  {/* Capa glassmorphism sutil */}
+                  <div className="absolute inset-0 rounded-2xl bg-white/5 backdrop-blur-[1px] pointer-events-none" />
 
-                {/* Contenido centrado */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <h3 className="text-xl font-bold text-white whitespace-pre-line leading-tight">
-                    {card.title}
-                  </h3>
-                  <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-[180px]">
-                    {card.description}
-                  </p>
-                  {/* Botón con borde blanco */}
-                  <span className="mt-5 inline-block px-4 py-1.5 text-xs font-medium text-white border border-white/50 rounded-full group-hover:bg-white/20 transition-colors">
-                    {card.button}
-                  </span>
+                  {/* Reflejo de luz en la esquina superior izquierda */}
+                  <div className="absolute -top-12 -left-12 w-40 h-40 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+
+                  {/* Brillo inferior derecho */}
+                  <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-black/10 rounded-full blur-2xl pointer-events-none" />
+
+                  {/* Contenido */}
+                  <div className="relative z-10 flex flex-col items-center">
+                    <h3 className="text-xl font-bold text-white whitespace-pre-line leading-tight drop-shadow-sm">
+                      {card.title}
+                    </h3>
+                    <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-[190px]">
+                      {card.description}
+                    </p>
+                    <span className="mt-6 inline-block px-5 py-2 text-xs font-semibold text-white bg-white/15 border border-white/30 rounded-full backdrop-blur-sm transition-all duration-300 group-hover:bg-white/25 group-hover:scale-105 group-hover:shadow-lg">
+                      {card.button}
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -158,8 +175,8 @@ export default async function HomePage() {
               </h2>
             </div>
             <Link
-              href="/noticias"
-              className="hidden sm:inline-flex px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+              href="/busqueda"
+              className="hidden sm:inline-flex px-5 py-2.5 text-sm font-medium text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
             >
               Ver todos
             </Link>
@@ -217,8 +234,8 @@ export default async function HomePage() {
           {/* Botón "Ver todos" en móvil */}
           <div className="mt-8 text-center sm:hidden">
             <Link
-              href="/noticias"
-              className="inline-flex px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+              href="/busqueda"
+              className="inline-flex px-6 py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
             >
               Ver todos
             </Link>
