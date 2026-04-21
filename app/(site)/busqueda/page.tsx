@@ -136,6 +136,9 @@ export default async function SearchPage({ searchParams }: Props) {
     results = [...posts, ...events, ...docs, ...glossary]
       .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
 
+    // Excluir glosario y markettech del buscador
+    results = results.filter((r) => r.seccion !== 'glosario' && r.seccion !== 'markettech')
+
     if (tematica) results = results.filter((r) => r.tematica === tematica)
     if (sector)   results = results.filter((r) => r.sector === sector)
     if (idioma)   results = results.filter((r) => (r.idioma || 'es') === idioma)
