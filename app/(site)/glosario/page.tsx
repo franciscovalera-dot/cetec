@@ -48,9 +48,8 @@ export default async function GlosarioPage({ searchParams }: Props) {
     <>
       {/* Hero */}
       <section className="bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
-          <p className="text-sm text-gray-400 tracking-widest uppercase mb-4">Observatorio Tecnológico CETEC</p>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl  text-gray-900 leading-tight">
             Glosario de términos<br />tecnológicos
           </h1>
           <p className="mt-5 text-gray-500 max-w-2xl mx-auto leading-relaxed">
@@ -63,40 +62,48 @@ export default async function GlosarioPage({ searchParams }: Props) {
         <div className="flex gap-10">
 
           {/* ─── SIDEBAR ────────────────────────────────────────── */}
-          <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 space-y-8 bg-gray-50 rounded-xl p-4">
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-24 rounded-2xl p-6" style={{ backgroundColor: '#F5F5F5' }}>
 
               {/* Temática */}
               <div>
-                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">Temática</h3>
-                <ul className="space-y-0.5">
-                  {TEMATICAS.map((t) => (
-                    <li key={t.value}>
-                      <Link
-                        href={{ pathname: '/glosario', query: { ...(sector ? { sector } : {}), ...(query ? { q: query } : {}), ...(tematica === t.value ? {} : { tematica: t.value }) } }}
-                        className={`block px-3 py-2 text-sm rounded-lg transition-colors ${tematica === t.value ? 'text-orange-600 font-semibold bg-orange-50' : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'}`}
-                      >
-                        {t.label}
-                      </Link>
-                    </li>
-                  ))}
+                <h3 className="text-xs uppercase tracking-widest mb-5" style={{ color: '#333', fontWeight: 600 }}>Temática</h3>
+                <ul>
+                  {TEMATICAS.map((t) => {
+                    const active = tematica === t.value
+                    return (
+                      <li key={t.value}>
+                        <Link
+                          href={{ pathname: '/glosario', query: { ...(sector ? { sector } : {}), ...(query ? { q: query } : {}), ...(active ? {} : { tematica: t.value }) } }}
+                          className="block text-sm py-2.5 pl-4 transition-colors"
+                          style={{ borderLeft: active ? '3px solid #E8622A' : '2px solid #E0E0E0', color: active ? '#E8622A' : '#9E9E9E', fontWeight: active ? 600 : 400 }}
+                        >
+                          {t.label}
+                        </Link>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
 
               {/* Sector */}
-              <div>
-                <h3 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">Sector</h3>
-                <ul className="space-y-0.5">
-                  {SECTORES.map((s) => (
-                    <li key={s.value}>
-                      <Link
-                        href={{ pathname: '/glosario', query: { ...(tematica ? { tematica } : {}), ...(query ? { q: query } : {}), ...(sector === s.value ? {} : { sector: s.value }) } }}
-                        className={`block px-3 py-2 text-sm rounded-lg transition-colors ${sector === s.value ? 'text-orange-600 font-semibold bg-orange-50' : 'text-gray-700 hover:text-orange-600 hover:bg-orange-50'}`}
-                      >
-                        {s.label}
-                      </Link>
-                    </li>
-                  ))}
+              <div className="mt-12">
+                <h3 className="text-xs uppercase tracking-widest mb-5" style={{ color: '#333', fontWeight: 600 }}>Sector</h3>
+                <ul>
+                  {SECTORES.map((s) => {
+                    const active = sector === s.value
+                    return (
+                      <li key={s.value}>
+                        <Link
+                          href={{ pathname: '/glosario', query: { ...(tematica ? { tematica } : {}), ...(query ? { q: query } : {}), ...(active ? {} : { sector: s.value }) } }}
+                          className="block text-sm py-2.5 pl-4 transition-colors"
+                          style={{ borderLeft: active ? '3px solid #E8622A' : '2px solid #E0E0E0', color: active ? '#E8622A' : '#9E9E9E', fontWeight: active ? 600 : 400 }}
+                        >
+                          {s.label}
+                        </Link>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
 
@@ -120,7 +127,7 @@ export default async function GlosarioPage({ searchParams }: Props) {
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold transition-colors whitespace-nowrap flex-shrink-0"
+                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
                 >
                   Buscar
                 </button>
@@ -138,7 +145,7 @@ export default async function GlosarioPage({ searchParams }: Props) {
                   >
                     {/* Término */}
                     <div className="w-48 flex-shrink-0 pt-0.5">
-                      <span className="font-semibold text-sm text-gray-900 leading-snug">{term.term}</span>
+                      <span className=" text-sm text-gray-900 leading-snug">{term.term}</span>
                       {term.category && (
                         <span className="block text-xs text-orange-500 mt-0.5">{term.category.name}</span>
                       )}

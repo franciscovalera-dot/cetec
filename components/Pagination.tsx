@@ -26,10 +26,10 @@ export default function Pagination({ currentPage, totalPages, basePath, queryPar
         <Link
           key={p}
           href={buildHref(p)}
-          className={`w-10 h-10 rounded-full text-sm font-medium flex items-center justify-center transition-colors ${
+          className={`w-10 h-10 rounded-full text-sm  flex items-center justify-center transition-colors ${
             p === currentPage
               ? 'bg-orange-500 text-white'
-              : 'text-gray-500 hover:bg-gray-100'
+              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
           }`}
         >
           {p}

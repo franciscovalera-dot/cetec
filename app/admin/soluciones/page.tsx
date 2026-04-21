@@ -73,7 +73,7 @@ export default function AdminSolucionesPage() {
             <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
-            <h1 className="text-lg font-bold text-gray-900">Admin CETEC</h1>
+            <h1 className="text-lg  text-gray-900">Admin CETEC</h1>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/" className="text-sm text-gray-900 hover:text-gray-700 transition-colors">Ver sitio</Link>
@@ -85,10 +85,10 @@ export default function AdminSolucionesPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">MarketTech — Soluciones</h2>
+            <h2 className="text-2xl  text-gray-900">MarketTech — Soluciones</h2>
             <p className="text-sm text-gray-500 mt-1">{items.length} solución{items.length !== 1 ? 'es' : ''}</p>
           </div>
-          <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors">
+          <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
             Nueva solución
           </Link>
@@ -114,23 +114,23 @@ export default function AdminSolucionesPage() {
           ) : items.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-gray-500 text-sm">No hay soluciones</p>
-              <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-gray-900 hover:text-gray-700">Crear la primera<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></Link>
+              <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm  text-gray-900 hover:text-gray-700">Crear la primera<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg></Link>
             </div>
           ) : (
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Tecnología</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
-                  <th className="text-right text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Tecnología</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
+                  <th className="text-right text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {items.map((s) => (
                   <tr key={s._id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4"><p className="text-sm font-medium text-gray-900 line-clamp-1">{s.title}</p></td>
-                    <td className="px-4 py-4 hidden md:table-cell">{s.tecnologia ? <span className="inline-block text-xs font-medium px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTecLabel(s.tecnologia)}</span> : <span className="text-xs text-gray-400">—</span>}</td>
+                    <td className="px-6 py-4"><p className="text-sm  text-gray-900 line-clamp-1">{s.title}</p></td>
+                    <td className="px-4 py-4 hidden md:table-cell">{s.tecnologia ? <span className="inline-block text-xs  px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTecLabel(s.tecnologia)}</span> : <span className="text-xs text-gray-400">—</span>}</td>
                     <td className="px-4 py-4 hidden lg:table-cell">{s.sector ? <span className="text-xs text-gray-900">{getSectorLabel(s.sector)}</span> : <span className="text-xs text-gray-400">—</span>}</td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">

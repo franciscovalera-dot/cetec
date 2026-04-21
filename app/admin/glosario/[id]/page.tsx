@@ -104,12 +104,12 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </Link>
-            <h1 className="text-lg font-bold text-gray-900">Editar término</h1>
+            <h1 className="text-lg  text-gray-900">Editar término</h1>
           </div>
           <button
             onClick={handleSubmit}
             disabled={saving}
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
               <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Guardando...</>
@@ -125,7 +125,7 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
 
         {/* Término */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Término *</label>
+          <label className="block text-sm  text-gray-900 mb-2">Término *</label>
           <input
             type="text"
             value={form.term}
@@ -137,10 +137,10 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
 
         {/* Categorización */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Categorización</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Categorización</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Temática</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Temática</label>
               <select
                 value={form.tematica}
                 onChange={(e) => updateField('tematica', e.target.value)}
@@ -151,7 +151,7 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Sector</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Sector</label>
               <select
                 value={form.sector}
                 onChange={(e) => updateField('sector', e.target.value)}
@@ -166,7 +166,7 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
 
         {/* Definición */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Definición *</label>
+          <label className="block text-sm  text-gray-900 mb-2">Definición *</label>
           <RichTextEditor
             content={form.definition}
             onChange={(html) => updateField('definition', html)}
@@ -176,11 +176,11 @@ export default function EditarTerminoPage({ params }: { params: Promise<{ id: st
 
         {/* Botones */}
         <div className="flex items-center justify-end gap-3 pt-4">
-          <Link href="/admin/glosario" className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
+          <Link href="/admin/glosario" className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar cambios'}
           </button>

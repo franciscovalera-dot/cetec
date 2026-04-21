@@ -62,7 +62,7 @@ export default function AdminAgendaPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h1 className="text-lg font-bold text-gray-900">Admin CETEC</h1>
+            <h1 className="text-lg  text-gray-900">Admin CETEC</h1>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/" className="text-sm text-gray-900 hover:text-gray-700 transition-colors">Ver sitio</Link>
@@ -77,12 +77,12 @@ export default function AdminAgendaPage() {
         {/* Título y botón */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Agenda de eventos</h2>
+            <h2 className="text-2xl  text-gray-900">Agenda de eventos</h2>
             <p className="text-sm text-gray-500 mt-1">{events.length} evento{events.length !== 1 ? 's' : ''}</p>
           </div>
           <Link
             href="/admin/agenda/nuevo"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -128,7 +128,7 @@ export default function AdminAgendaPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <p className="text-gray-500 text-sm">No hay eventos</p>
-              <Link href="/admin/agenda/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-gray-900 hover:text-gray-700">
+              <Link href="/admin/agenda/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm  text-gray-900 hover:text-gray-700">
                 Crear el primer evento
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </Link>
@@ -137,11 +137,11 @@ export default function AdminAgendaPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Fecha</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Ubicación</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden sm:table-cell">Estado</th>
-                  <th className="text-right text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Fecha</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Ubicación</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden sm:table-cell">Estado</th>
+                  <th className="text-right text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -150,7 +150,7 @@ export default function AdminAgendaPage() {
                   return (
                     <tr key={event._id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
-                        <p className="text-sm font-medium text-gray-900 line-clamp-1">{event.title}</p>
+                        <p className="text-sm  text-gray-900 line-clamp-1">{event.title}</p>
                       </td>
                       <td className="px-4 py-4 hidden md:table-cell">
                         <span className="text-xs text-gray-900">
@@ -161,7 +161,7 @@ export default function AdminAgendaPage() {
                         {event.location ? <span className="text-xs text-gray-900">{event.location}</span> : <span className="text-xs text-gray-400">—</span>}
                       </td>
                       <td className="px-4 py-4 hidden sm:table-cell">
-                        <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full ${isPast ? 'bg-gray-100 text-gray-500' : 'bg-green-50 text-green-700'}`}>
+                        <span className={`inline-block text-xs  px-2.5 py-1 rounded-full ${isPast ? 'bg-gray-100 text-gray-500' : 'bg-green-50 text-green-700'}`}>
                           {isPast ? 'Finalizado' : 'Próximo'}
                         </span>
                       </td>

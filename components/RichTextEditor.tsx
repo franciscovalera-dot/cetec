@@ -21,10 +21,10 @@ function MenuBar({ editor }: { editor: ReturnType<typeof useEditor> | null }) {
     <div className="flex items-center gap-0.5 flex-wrap border-b border-gray-300 px-3 py-2 bg-gray-50 rounded-t-xl">
       {/* Encabezados */}
       <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} className={btnClass(editor.isActive('heading', { level: 2 }))} title="Encabezado 2">
-        <span className="text-xs font-bold w-5 h-5 flex items-center justify-center">H2</span>
+        <span className="text-xs  w-5 h-5 flex items-center justify-center">H2</span>
       </button>
       <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} className={btnClass(editor.isActive('heading', { level: 3 }))} title="Encabezado 3">
-        <span className="text-xs font-bold w-5 h-5 flex items-center justify-center">H3</span>
+        <span className="text-xs  w-5 h-5 flex items-center justify-center">H3</span>
       </button>
 
       <div className="w-px h-5 bg-gray-300 mx-1" />

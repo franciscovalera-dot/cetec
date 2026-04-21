@@ -21,7 +21,7 @@ export default function ContactoPage() {
 
         {/* ─── Columna izquierda ─────────────────────────── */}
         <div className="w-full lg:w-80 flex-shrink-0">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Contacto</h1>
+          <h1 className="text-4xl  text-gray-900 mb-6">Contacto</h1>
           <p className="text-sm text-gray-500 leading-relaxed mb-10">
             Si deseas obtener más información sobre el Observatorio Tecnológico de CETEC,
             realizar alguna consulta o ponerte en contacto con nuestro equipo,
@@ -64,7 +64,7 @@ export default function ContactoPage() {
 
         {/* ─── Columna derecha: formulario ───────────────── */}
         <div className="w-full lg:flex-1 lg:max-w-xl bg-gray-50 rounded-2xl p-6 sm:p-8 lg:ml-auto">
-          <p className="text-xl font-semibold text-gray-700 leading-snug mb-8">
+          <p className="text-xl  text-gray-700 leading-snug mb-8">
             ¿Tienes alguna consulta sobre innovación tecnológica o los contenidos del observatorio? Estamos aquí para ayudarte.
           </p>
 
@@ -128,7 +128,7 @@ export default function ContactoPage() {
             {/* Botón */}
             <button
               type="submit"
-              className="w-full py-3 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold rounded-lg transition-colors"
+              className="w-full py-3 bg-gray-900 hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
             >
               Enviar
             </button>

@@ -83,7 +83,7 @@ export default function AdminGlosarioPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <h1 className="text-lg font-bold text-gray-900">Admin CETEC</h1>
+            <h1 className="text-lg  text-gray-900">Admin CETEC</h1>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/" className="text-sm text-gray-900 hover:text-gray-700 transition-colors">Ver sitio</Link>
@@ -98,12 +98,12 @@ export default function AdminGlosarioPage() {
         {/* Título y botón */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Glosario</h2>
+            <h2 className="text-2xl  text-gray-900">Glosario</h2>
             <p className="text-sm text-gray-500 mt-1">{terms.length} término{terms.length !== 1 ? 's' : ''}</p>
           </div>
           <Link
             href="/admin/glosario/nuevo"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -160,7 +160,7 @@ export default function AdminGlosarioPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
               <p className="text-gray-500 text-sm">No hay términos en el glosario</p>
-              <Link href="/admin/glosario/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-gray-900 hover:text-gray-700">
+              <Link href="/admin/glosario/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm  text-gray-900 hover:text-gray-700">
                 Crear el primer término
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </Link>
@@ -169,22 +169,22 @@ export default function AdminGlosarioPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Término</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Temática</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
-                  <th className="text-right text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Término</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Temática</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
+                  <th className="text-right text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {terms.map((term) => (
                   <tr key={term._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
-                      <p className="text-sm font-medium text-gray-900">{term.term}</p>
+                      <p className="text-sm  text-gray-900">{term.term}</p>
                       {term.category && <p className="text-xs text-orange-500 mt-0.5">{term.category.name}</p>}
                     </td>
                     <td className="px-4 py-4 hidden md:table-cell">
                       {term.tematica ? (
-                        <span className="inline-block text-xs font-medium px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTematicaLabel(term.tematica)}</span>
+                        <span className="inline-block text-xs  px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTematicaLabel(term.tematica)}</span>
                       ) : <span className="text-xs text-gray-400">—</span>}
                     </td>
                     <td className="px-4 py-4 hidden lg:table-cell">

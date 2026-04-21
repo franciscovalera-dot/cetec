@@ -29,28 +29,6 @@ const IDIOMAS = [
   { value: 'en', label: 'English' },
 ]
 
-const SECCION_LABELS: Record<string, string> = {
-  noticias: 'Noticias',
-  normativa: 'Normativa',
-  formacion: 'Formación',
-  ayudas: 'Ayudas',
-  agenda: 'Agenda',
-  documentos: 'Documentos',
-  glosario: 'Glosario',
-  markettech: 'MarketTech',
-}
-
-const SECCION_GRADIENTS: Record<string, string> = {
-  noticias: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)',
-  normativa: 'linear-gradient(90deg, #1d4ed8 0%, #93c5fd 100%)',
-  formacion: 'linear-gradient(90deg, #15803d 0%, #86efac 100%)',
-  ayudas: 'linear-gradient(90deg, #b45309 0%, #fcd34d 100%)',
-  agenda: 'linear-gradient(90deg, #0e7490 0%, #67e8f9 100%)',
-  documentos: 'linear-gradient(90deg, #7c3aed 0%, #c4b5fd 100%)',
-  glosario: 'linear-gradient(90deg, #be185d 0%, #f9a8d4 100%)',
-  markettech: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)',
-}
-
 interface Props {
   searchParams: {
     q?: string
@@ -59,8 +37,11 @@ interface Props {
     dateFrom?: string
     dateTo?: string
     idioma?: string
+    page?: string
   }
 }
+
+const ITEMS_PER_PAGE = 12
 
 export function generateMetadata({ searchParams }: Props): Metadata {
   const q = searchParams.q
@@ -84,8 +65,9 @@ type SearchResult = {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
-  const { q = '', tematica, sector, dateFrom, dateTo, idioma } = searchParams
+  const { q = '', tematica, sector, dateFrom, dateTo, idioma, page } = searchParams
   const query = q.trim()
+  const currentPage = Math.max(1, parseInt(page || '1', 10))
 
   const raw = query ? await searchContent(query) : await getAllContent()
 
@@ -147,6 +129,22 @@ export default async function SearchPage({ searchParams }: Props) {
   }
 
   const totalResults = results.length
+  const totalPages = Math.max(1, Math.ceil(totalResults / ITEMS_PER_PAGE))
+  const pageSafe = Math.min(currentPage, totalPages)
+  const paginatedResults = results.slice((pageSafe - 1) * ITEMS_PER_PAGE, pageSafe * ITEMS_PER_PAGE)
+
+  function buildPageHref(p: number) {
+    const params: Record<string, string> = {}
+    if (query)    params.q = query
+    if (tematica) params.tematica = tematica
+    if (sector)   params.sector = sector
+    if (dateFrom) params.dateFrom = dateFrom
+    if (dateTo)   params.dateTo = dateTo
+    if (idioma)   params.idioma = idioma
+    if (p > 1)    params.page = String(p)
+    const qs = Object.entries(params).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
+    return qs ? `/busqueda?${qs}` : '/busqueda'
+  }
 
   return (
     <>
@@ -162,11 +160,11 @@ export default async function SearchPage({ searchParams }: Props) {
               {tematica && <input type="hidden" name="tematica" value={tematica} />}
               {sector   && <input type="hidden" name="sector"   value={sector} />}
 
-              <div className="sticky top-24 bg-gray-50 border border-gray-200 shadow-md rounded-xl p-5 space-y-6">
+              <div className="sticky top-24 border border-gray-200 shadow-md rounded-xl p-5 space-y-6" style={{ backgroundColor: '#F9F9F8' }}>
 
                 {/* Incorporado entre */}
                 <div>
-                  <label className="text-sm font-semibold text-gray-700 block mb-3">
+                  <label className="text-sm  text-gray-700 block mb-3">
                     Incorporado entre
                   </label>
                   <div className="flex gap-2">
@@ -187,7 +185,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
                 {/* Idioma */}
                 <div>
-                  <label className="text-sm font-semibold text-gray-700 block mb-3">
+                  <label className="text-sm  text-gray-700 block mb-3">
                     Idioma
                   </label>
                   <select
@@ -204,7 +202,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 {/* Botón buscar */}
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                  className="w-full py-2.5 bg-gray-900 hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
                 >
                   Buscar
                 </button>
@@ -278,7 +276,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 {/* Botón negro — dentro del mismo contenedor, sin border-radius propio */}
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold transition-colors whitespace-nowrap flex-shrink-0"
+                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
                 >
                   Buscar
                 </button>
@@ -288,7 +286,7 @@ export default async function SearchPage({ searchParams }: Props) {
             {/* Encabezado resultados */}
             {query && (
               <div className="flex items-baseline gap-3 mb-6">
-                <h2 className="text-lg font-bold text-gray-900">Resultados</h2>
+                <h2 className="text-lg  text-gray-900">Resultados</h2>
                 <span className="text-sm text-gray-400">
                   {totalResults > 0
                     ? `${totalResults} resultado${totalResults !== 1 ? 's' : ''} para "${query}"`
@@ -305,18 +303,17 @@ export default async function SearchPage({ searchParams }: Props) {
             )}
 
             {/* Lista de resultados */}
-            {results.length > 0 && (
-              <>
-                <div className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
-                  {results.map((r) => {
+            {paginatedResults.length > 0 && (
+              <div className="rounded-xl p-6" style={{ backgroundColor: '#F9F9F8' }}>
+                <h2 className="text-lg text-gray-900 mb-4">Resultados</h2>
+                <div className="space-y-2">
+                  {paginatedResults.map((r) => {
                     const dateStr = r.date
                       ? new Date(r.date).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })
                       : null
-                    const gradient = SECCION_GRADIENTS[r.seccion] || SECCION_GRADIENTS.noticias
-                    const label    = SECCION_LABELS[r.seccion] || r.seccion
 
                     const content = (
-                      <article className="flex items-center gap-4 px-5 py-3 bg-gray-50 hover:bg-gray-100 border-b border-gray-200 last:border-b-0 transition-colors">
+                      <article className="flex items-center gap-5 px-5 py-3 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
                         {/* Fecha */}
                         {dateStr ? (
                           <time className="text-xs text-gray-400 flex-shrink-0 w-20">{dateStr}</time>
@@ -324,23 +321,10 @@ export default async function SearchPage({ searchParams }: Props) {
                           <div className="w-20 flex-shrink-0" />
                         )}
 
-                        {/* Badge sección */}
-                        <span
-                          className="text-[10px] font-semibold text-white px-2.5 py-0.5 rounded-full flex-shrink-0"
-                          style={{ background: gradient }}
-                        >
-                          {label}
-                        </span>
-
                         {/* Título */}
-                        <p className="flex-1 text-sm text-gray-800 group-hover:text-gray-900 line-clamp-1 min-w-0">
+                        <p className="flex-1 text-sm text-gray-700 line-clamp-1 min-w-0">
                           {r.title}
                         </p>
-
-                        {/* Flecha */}
-                        <svg className="w-3.5 h-3.5 text-gray-300 group-hover:text-gray-500 flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
                       </article>
                     )
 
@@ -356,13 +340,38 @@ export default async function SearchPage({ searchParams }: Props) {
                   })}
                 </div>
 
-                {/* Footer: recuento */}
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                  <span className="text-sm text-gray-500">
-                    <strong className="text-gray-700">{totalResults}</strong> resultado{totalResults !== 1 ? 's' : ''}
-                  </span>
+                {/* Footer: recuento + paginación + crear alerta */}
+                <div className="flex items-center justify-between gap-4 mt-6 text-sm text-gray-500">
+                  <div className="flex items-center gap-6">
+                    <span>
+                      Resultados: <span className="text-gray-700">{totalResults}</span>
+                    </span>
+                    {totalPages > 1 && (
+                      <span className="flex items-center gap-3">
+                        <span>Página {pageSafe} de {totalPages}</span>
+                        {pageSafe < totalPages && (
+                          <Link
+                            href={buildPageHref(pageSafe + 1)}
+                            className="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors"
+                          >
+                            Siguiente
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        )}
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 text-xs text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
+                  >
+                    Crear alerta
+                  </button>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>

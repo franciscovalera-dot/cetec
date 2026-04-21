@@ -32,7 +32,7 @@ export default function MarketTechPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <p className="text-sm text-gray-400 uppercase tracking-widest mb-4">MarketTech</p>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl  text-gray-900 leading-tight">
                 Soluciones<br />
                 tecnológicas<br />
                 para la industria
@@ -46,7 +46,7 @@ export default function MarketTechPage() {
               </p>
               <Link
                 href="/markettech/soluciones"
-                className="inline-flex items-center gap-2 mt-8 px-6 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-2 mt-8 px-6 py-3 text-sm  text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
               >
                 Explorar soluciones tecnológicas
               </Link>
@@ -56,7 +56,7 @@ export default function MarketTechPage() {
               <div className="absolute -inset-4 rounded-3xl pointer-events-none" style={{ background: 'conic-gradient(from 180deg, #FF5B00 0%, #5E0360 50%, #FF5B00 100%)', filter: 'blur(30px)', opacity: 0.7 }} />
               <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden">
                 <div className="p-8 text-center">
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-8">
+                  <h2 className="text-xl md:text-2xl  text-gray-900 leading-snug mb-8">
                     Explora tecnologías y materiales
                     innovadores que pueden transformar
                     los procesos y productos de la
@@ -70,7 +70,7 @@ export default function MarketTechPage() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="text-sm font-bold text-gray-900 mb-1">Base de datos de soluciones tecnológicas</h3>
+                        <h3 className="text-sm  text-gray-900 mb-1">Base de datos de soluciones tecnológicas</h3>
                         <p className="text-xs text-gray-500 leading-relaxed">
                           MarketTech reúne fichas de soluciones
                           tecnológicas aplicables que muestran ejemplos de
@@ -86,7 +86,7 @@ export default function MarketTechPage() {
                         </svg>
                       </div>
                       <div>
-                        <h3 className="text-sm font-bold text-gray-900 mb-1">Base de datos de materiales</h3>
+                        <h3 className="text-sm  text-gray-900 mb-1">Base de datos de materiales</h3>
                         <p className="text-xs text-gray-500 leading-relaxed">
                           Además de soluciones tecnológicas, MarketTech
                           incluye información sobre materiales innovadores
@@ -108,7 +108,7 @@ export default function MarketTechPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+              <h2 className="text-3xl md:text-4xl  text-gray-900 leading-tight">
                 Clasificación de<br />
                 las soluciones
               </h2>
@@ -140,7 +140,7 @@ export default function MarketTechPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {clasificaciones.map((cat) => (
               <div key={cat.title} className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-sm">
-                <h3 className="text-sm font-bold text-gray-900 mb-5 leading-snug min-h-[40px]">{cat.title}</h3>
+                <h3 className="text-sm  text-gray-900 mb-5 leading-snug min-h-[40px]">{cat.title}</h3>
                 <ul className="space-y-2">
                   {cat.items.map((item) => (
                     <li key={item} className="text-sm text-gray-500 flex items-center gap-2">
@@ -158,7 +158,7 @@ export default function MarketTechPage() {
       {/* ─── CÓMO UTILIZAR MARKETTECH ────────────────────────── */}
       <section className="bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+          <h2 className="text-3xl md:text-4xl  text-gray-900 leading-tight">
             Cómo utilizar<br />
             MarketTech
           </h2>
@@ -174,7 +174,7 @@ export default function MarketTechPage() {
           </p>
           <Link
             href="/markettech/soluciones"
-            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
           >
             Explorar soluciones tecnológicas
           </Link>

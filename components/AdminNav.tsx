@@ -48,7 +48,7 @@ export default function AdminNav() {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-4 py-3 text-sm  border-b-2 transition-colors ${
               isActive(item.href)
                 ? 'border-gray-900 text-gray-900'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'

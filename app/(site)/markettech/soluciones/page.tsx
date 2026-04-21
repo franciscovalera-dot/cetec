@@ -74,7 +74,7 @@ export default function MarketTechSolucionesPage() {
               placeholder="Buscar por texto..."
               className="flex-1 px-5 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
             />
-            <button className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold transition-colors whitespace-nowrap flex-shrink-0">
+            <button className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0">
               Buscar
             </button>
           </div>
@@ -127,7 +127,7 @@ export default function MarketTechSolucionesPage() {
             {/* Sidebar izquierda con texto descriptivo */}
             <div className="hidden lg:block w-64 flex-shrink-0">
               <div className="sticky top-24">
-                <h2 className="text-2xl font-bold text-gray-900 leading-snug mb-4">
+                <h2 className="text-2xl  text-gray-900 leading-snug mb-4">
                   Soluciones<br />
                   tecnológicas<br />
                   para la industria
@@ -178,7 +178,7 @@ export default function MarketTechSolucionesPage() {
                       </div>
 
                       {/* Título */}
-                      <h3 className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2 leading-snug">
+                      <h3 className=" text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2 leading-snug">
                         {sol.title}
                       </h3>
 
@@ -195,7 +195,7 @@ export default function MarketTechSolucionesPage() {
 
                       {/* Ver más */}
                       <div className="mt-auto pt-4">
-                        <span className="inline-flex items-center gap-1 text-sm font-medium text-orange-600 group-hover:text-orange-700 transition-colors">
+                        <span className="inline-flex items-center gap-1 text-sm  text-orange-600 group-hover:text-orange-700 transition-colors">
                           Ver más
                           <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -217,7 +217,7 @@ export default function MarketTechSolucionesPage() {
                     <button
                       key={p}
                       onClick={() => { setPagina(p); document.getElementById('soluciones')?.scrollIntoView({ behavior: 'smooth' }) }}
-                      className={`w-10 h-10 rounded-full text-sm font-medium transition-colors ${
+                      className={`w-10 h-10 rounded-full text-sm  transition-colors ${
                         p === pagina
                           ? 'bg-orange-500 text-white'
                           : 'text-gray-500 hover:bg-gray-100'

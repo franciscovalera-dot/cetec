@@ -86,7 +86,7 @@ export default function AdminDocumentosPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h1 className="text-lg font-bold text-gray-900">Admin CETEC</h1>
+            <h1 className="text-lg  text-gray-900">Admin CETEC</h1>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/" className="text-sm text-gray-900 hover:text-gray-700 transition-colors">Ver sitio</Link>
@@ -101,12 +101,12 @@ export default function AdminDocumentosPage() {
         {/* Título y botón */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Documentos técnicos</h2>
+            <h2 className="text-2xl  text-gray-900">Documentos técnicos</h2>
             <p className="text-sm text-gray-500 mt-1">{docs.length} documento{docs.length !== 1 ? 's' : ''}</p>
           </div>
           <Link
             href="/admin/documentos/nuevo"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -163,7 +163,7 @@ export default function AdminDocumentosPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <p className="text-gray-500 text-sm">No hay documentos</p>
-              <Link href="/admin/documentos/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-gray-900 hover:text-gray-700">
+              <Link href="/admin/documentos/nuevo" className="inline-flex items-center gap-1 mt-3 text-sm  text-gray-900 hover:text-gray-700">
                 Crear el primer documento
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </Link>
@@ -172,23 +172,23 @@ export default function AdminDocumentosPage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Tipo</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
-                  <th className="text-left text-xs font-semibold text-gray-900 uppercase tracking-wide px-4 py-3 hidden sm:table-cell">Fecha</th>
-                  <th className="text-right text-xs font-semibold text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Título</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden md:table-cell">Tipo</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden lg:table-cell">Sector</th>
+                  <th className="text-left text-xs  text-gray-900 uppercase tracking-wide px-4 py-3 hidden sm:table-cell">Fecha</th>
+                  <th className="text-right text-xs  text-gray-900 uppercase tracking-wide px-6 py-3">Acciones</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {docs.map((doc) => (
                   <tr key={doc._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
-                      <p className="text-sm font-medium text-gray-900 line-clamp-1">{doc.title}</p>
+                      <p className="text-sm  text-gray-900 line-clamp-1">{doc.title}</p>
                       {doc.fileType && <p className="text-xs text-gray-400 mt-0.5 uppercase">{doc.fileType}</p>}
                     </td>
                     <td className="px-4 py-4 hidden md:table-cell">
                       {doc.tipoDocumento ? (
-                        <span className="inline-block text-xs font-medium px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTipoLabel(doc.tipoDocumento)}</span>
+                        <span className="inline-block text-xs  px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTipoLabel(doc.tipoDocumento)}</span>
                       ) : <span className="text-xs text-gray-400">—</span>}
                     </td>
                     <td className="px-4 py-4 hidden lg:table-cell">

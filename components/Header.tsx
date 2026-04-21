@@ -45,7 +45,7 @@ export default function Header() {
             {/* Inicio */}
             <Link
               href="/"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+              className="px-4 py-2 text-sm  text-gray-700 hover:text-orange-600 transition-colors"
             >
               Inicio
             </Link>
@@ -53,7 +53,7 @@ export default function Header() {
             {/* Buscador */}
             <Link
               href="/busqueda"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+              className="px-4 py-2 text-sm  text-gray-700 hover:text-orange-600 transition-colors"
             >
               Buscador
             </Link>
@@ -66,7 +66,7 @@ export default function Header() {
               onMouseLeave={() => setContentOpen(false)}
             >
               <button
-                className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+                className="flex items-center gap-1 px-4 py-2 text-sm  text-gray-700 hover:text-orange-600 transition-colors"
               >
                 Contenido
                 {/* Flecha desplegable */}
@@ -100,7 +100,7 @@ export default function Header() {
                           >
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
                           </svg>
-                          <span className="font-medium">{item.label}</span>
+                          <span className="">{item.label}</span>
                         </Link>
                       ))}
                     </div>
@@ -112,7 +112,7 @@ export default function Header() {
             {/* Glosario */}
             <Link
               href="/glosario"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+              className="px-4 py-2 text-sm  text-gray-700 hover:text-orange-600 transition-colors"
             >
               Glosario
             </Link>
@@ -120,7 +120,7 @@ export default function Header() {
             {/* Marketech */}
             <Link
               href="/markettech"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors"
+              className="px-4 py-2 text-sm  text-gray-700 hover:text-orange-600 transition-colors"
             >
               Marketech
             </Link>
@@ -129,7 +129,7 @@ export default function Header() {
           {/* ─── Botón Contacto (derecha, desktop) ────────── */}
           <Link
             href="/contacto"
-            className="hidden lg:inline-flex px-6 py-2.5 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
+            className="hidden lg:inline-flex px-6 py-2.5 text-sm  text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
           >
             Contacto
           </Link>
@@ -158,14 +158,14 @@ export default function Header() {
             <Link
               href="/"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+              className="block px-3 py-2 text-sm  text-gray-700 hover:bg-gray-50 rounded-md"
             >
               Inicio
             </Link>
             <Link
               href="/busqueda"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+              className="block px-3 py-2 text-sm  text-gray-700 hover:bg-gray-50 rounded-md"
             >
               Buscador
             </Link>
@@ -174,7 +174,7 @@ export default function Header() {
             <div>
               <button
                 onClick={() => setMobileContentOpen(!mobileContentOpen)}
-                className="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+                className="flex items-center justify-between w-full px-3 py-2 text-sm  text-gray-700 hover:bg-gray-50 rounded-md"
               >
                 Contenido
                 <svg
@@ -208,21 +208,21 @@ export default function Header() {
             <Link
               href="/glosario"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+              className="block px-3 py-2 text-sm  text-gray-700 hover:bg-gray-50 rounded-md"
             >
               Glosario
             </Link>
             <Link
               href="/markettech"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+              className="block px-3 py-2 text-sm  text-gray-700 hover:bg-gray-50 rounded-md"
             >
               Marketech
             </Link>
             <Link
               href="/contacto"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-full text-center mt-3"
+              className="block px-3 py-2.5 text-sm  text-white bg-gray-900 rounded-full text-center mt-3"
             >
               Contacto
             </Link>

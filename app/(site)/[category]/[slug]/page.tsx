@@ -104,7 +104,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-24 rounded-2xl p-6 space-y-8" style={{ backgroundColor: '#F9F9F8' }}>
               <div>
-                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
+                <h4 className="text-xs  text-gray-900 uppercase tracking-widest mb-4">
                   Tecnologías asociadas
                 </h4>
                 {hasTecnologias ? (
@@ -121,7 +121,7 @@ export default async function ArticlePage({ params }: PageProps) {
               </div>
 
               <div>
-                <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
+                <h4 className="text-xs  text-gray-900 uppercase tracking-widest mb-4">
                   Descriptores
                 </h4>
                 {hasDescriptores ? (
@@ -145,12 +145,12 @@ export default async function ArticlePage({ params }: PageProps) {
             {/* Contenedor único: título + imagen + cuerpo */}
             <div className="rounded-2xl px-6 sm:px-10 py-8 sm:py-10 mb-8" style={{ backgroundColor: '#F9F9F8' }}>
               {post.category && (
-                <p className="text-sm font-medium text-orange-600 uppercase tracking-wide mb-4">
+                <p className="text-sm  text-orange-600 uppercase tracking-wide mb-4">
                   {post.category.name}
                 </p>
               )}
 
-              <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 leading-[1.2]">
+              <h1 className="text-3xl md:text-4xl lg:text-[2.75rem]  text-gray-900 leading-[1.2]">
                 {post.title}
               </h1>
 
@@ -191,7 +191,7 @@ export default async function ArticlePage({ params }: PageProps) {
               <div className="lg:hidden rounded-2xl px-6 py-8 mb-8" style={{ backgroundColor: '#F9F9F8' }}>
                 {hasTecnologias && (
                   <div className="mb-8 last:mb-0">
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
+                    <h4 className="text-xs  text-gray-900 uppercase tracking-widest mb-4">
                       Tecnologías asociadas
                     </h4>
                     <div className="flex flex-wrap gap-2">
@@ -203,7 +203,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 )}
                 {hasDescriptores && (
                   <div>
-                    <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">
+                    <h4 className="text-xs  text-gray-900 uppercase tracking-widest mb-4">
                       Descriptores
                     </h4>
                     <div className="flex flex-wrap gap-2">
@@ -250,10 +250,10 @@ export default async function ArticlePage({ params }: PageProps) {
                 />
               )}
               <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide font-medium">
+                <p className="text-xs text-gray-400 uppercase tracking-wide ">
                   Sobre el autor
                 </p>
-                <p className="font-bold text-gray-900 mt-1">{post.author.name}</p>
+                <p className=" text-gray-900 mt-1">{post.author.name}</p>
                 <p className="text-sm text-gray-500 mt-1.5 leading-relaxed">
                   {post.author.bio}
                 </p>
@@ -267,7 +267,7 @@ export default async function ArticlePage({ params }: PageProps) {
       {relatedPosts.length > 0 && (
         <section className="bg-white border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">
+            <h2 className="text-2xl  text-gray-900 mb-8">
               Artículos relacionados
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

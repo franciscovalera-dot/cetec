@@ -140,12 +140,12 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </Link>
-            <h1 className="text-lg font-bold text-gray-900">Editar evento</h1>
+            <h1 className="text-lg  text-gray-900">Editar evento</h1>
           </div>
           <button
             onClick={handleSubmit}
             disabled={saving || uploadingImage}
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
               <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Guardando...</>
@@ -161,7 +161,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Título */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Título del evento *</label>
+          <label className="block text-sm  text-gray-900 mb-2">Título del evento *</label>
           <input
             type="text"
             value={form.title}
@@ -173,10 +173,10 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Fechas y ubicación */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Fecha y lugar</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Fecha y lugar</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Fecha de inicio *</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Fecha de inicio *</label>
               <input
                 type="datetime-local"
                 value={form.date}
@@ -185,7 +185,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Fecha de fin</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Fecha de fin</label>
               <input
                 type="datetime-local"
                 value={form.endDate}
@@ -194,7 +194,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Ubicación</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Ubicación</label>
               <input
                 type="text"
                 value={form.location}
@@ -208,7 +208,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Imagen */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Imagen del evento</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Imagen del evento</h3>
           {imagePreview ? (
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -241,7 +241,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Enlace externo */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Enlace externo</label>
+          <label className="block text-sm  text-gray-900 mb-2">Enlace externo</label>
           <input
             type="url"
             value={form.link}
@@ -253,7 +253,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Descripción */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Descripción</label>
+          <label className="block text-sm  text-gray-900 mb-2">Descripción</label>
           <RichTextEditor
             content={form.description}
             onChange={(html) => updateField('description', html)}
@@ -263,11 +263,11 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
         {/* Botones */}
         <div className="flex items-center justify-end gap-3 pt-4">
-          <Link href="/admin/agenda" className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
+          <Link href="/admin/agenda" className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
           <button
             type="submit"
             disabled={saving || uploadingImage}
-            className="px-6 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar cambios'}
           </button>

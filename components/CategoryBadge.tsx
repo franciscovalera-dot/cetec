@@ -15,7 +15,7 @@ export default function CategoryBadge({
 }: CategoryBadgeProps) {
   return (
     <span
-      className={`inline-block font-semibold uppercase tracking-wide rounded-full ${
+      className={`inline-block  uppercase tracking-wide rounded-full ${
         small ? 'text-[10px] px-2 py-0.5' : 'text-xs px-3 py-1'
       }`}
       style={{

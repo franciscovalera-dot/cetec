@@ -52,7 +52,7 @@ export default function Footer() {
               height={58}
               className="block mb-5"
             />
-            <p className="text-lg font-bold text-white leading-snug mb-4">
+            <p className="text-lg  text-white leading-snug mb-4">
               Observatorio<br />
               Tecnológico CETEC
             </p>
@@ -67,7 +67,7 @@ export default function Footer() {
           {/* ─── Columnas de enlaces ──────────────────────── */}
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-5">
+              <h3 className="text-xs  text-gray-500 uppercase tracking-widest mb-5">
                 {col.title}
               </h3>
               <ul className="space-y-3">

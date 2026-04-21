@@ -45,7 +45,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
                 small
               />
             )}
-            <h3 className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2 mt-1">
+            <h3 className=" text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2 mt-1">
               {post.title}
             </h3>
             <time className="text-xs text-gray-500 mt-1 block">
@@ -69,7 +69,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && (
             <span
-              className="text-[11px] font-semibold text-white px-3 py-1 rounded-full"
+              className="text-[11px]  text-white px-3 py-1 rounded-full"
               style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}
             >
               {sectorLabel}
@@ -77,7 +77,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
           )}
           {post.category && (
             <span
-              className="text-[11px] font-semibold text-white px-3 py-1 rounded-full"
+              className="text-[11px]  text-white px-3 py-1 rounded-full"
               style={{ background: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)' }}
             >
               {post.category.name}
@@ -86,7 +86,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
         </div>
 
         {/* Título con icono delante */}
-        <h3 className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-3 leading-snug">
+        <h3 className=" text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-3 leading-snug">
           <svg className="inline-block align-[-3px] w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 18 18">
             <path d="M3.375 15.75C3.075 15.75 2.8125 15.6375 2.5875 15.4125C2.3625 15.1875 2.25 14.925 2.25 14.625V3.375C2.25 3.075 2.3625 2.8125 2.5875 2.5875C2.8125 2.3625 3.075 2.25 3.375 2.25H12.0375L15.75 5.9625V14.625C15.75 14.925 15.6375 15.1875 15.4125 15.4125C15.1875 15.6375 14.925 15.75 14.625 15.75H3.375ZM3.375 14.625H14.625V6.58931H11.4188V3.375H3.375V14.625ZM5.23125 12.5438H12.7687V11.4188H5.23125V12.5438ZM5.23125 6.58125H9V5.45625H5.23125V6.58125ZM5.23125 9.5625H12.7687V8.4375H5.23125V9.5625Z" />
           </svg>
@@ -101,7 +101,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
 
         {/* Ver más */}
         <div className="mt-auto pt-4">
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-orange-600 group-hover:text-orange-700 transition-colors">
+          <span className="inline-flex items-center gap-1 text-sm  text-orange-600 group-hover:text-orange-700 transition-colors">
             Ver más
             <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

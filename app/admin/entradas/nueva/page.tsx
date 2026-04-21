@@ -120,13 +120,13 @@ export default function NuevaEntradaPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </Link>
-            <h1 className="text-lg font-bold text-gray-900">Nueva entrada</h1>
+            <h1 className="text-lg  text-gray-900">Nueva entrada</h1>
           </div>
 
           <button
             onClick={handleSubmit}
             disabled={saving || uploadingImage}
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
               <>
@@ -149,7 +149,7 @@ export default function NuevaEntradaPage() {
 
         {/* ─── TÍTULO ────────────────────────────────────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
+          <label className="block text-sm  text-gray-900 mb-2">
             Título *
           </label>
           <input
@@ -164,11 +164,11 @@ export default function NuevaEntradaPage() {
 
         {/* ─── CATEGORIZACIÓN ────────────────────────────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Categorización</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Categorización</h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Sección principal */}
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">
                 Sección *
               </label>
               <select
@@ -185,7 +185,7 @@ export default function NuevaEntradaPage() {
 
             {/* Temática */}
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">
                 Temática
               </label>
               <select
@@ -202,7 +202,7 @@ export default function NuevaEntradaPage() {
 
             {/* Sector */}
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">
                 Sector
               </label>
               <select
@@ -221,7 +221,7 @@ export default function NuevaEntradaPage() {
 
         {/* ─── IMAGEN ────────────────────────────────────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Imagen principal</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Imagen principal</h3>
           <div className="space-y-3">
             {imagePreview ? (
               <div className="relative">
@@ -277,7 +277,7 @@ export default function NuevaEntradaPage() {
 
         {/* ─── EXTRACTO ──────────────────────────────────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
+          <label className="block text-sm  text-gray-900 mb-2">
             Extracto
           </label>
           <p className="text-xs text-gray-900 mb-2">Resumen breve que aparecerá en los listados (máx. 250 caracteres)</p>
@@ -296,7 +296,7 @@ export default function NuevaEntradaPage() {
 
         {/* ─── CONTENIDO ─────────────────────────────────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">
+          <label className="block text-sm  text-gray-900 mb-2">
             Contenido
           </label>
           <RichTextEditor
@@ -309,7 +309,7 @@ export default function NuevaEntradaPage() {
         {/* ─── ETIQUETAS, TECNOLOGÍAS Y DESCRIPTORES ──────────── */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">Etiquetas</label>
+            <label className="block text-sm  text-gray-900 mb-2">Etiquetas</label>
             <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
             <input
               type="text"
@@ -320,7 +320,7 @@ export default function NuevaEntradaPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">Tecnologías asociadas</label>
+            <label className="block text-sm  text-gray-900 mb-2">Tecnologías asociadas</label>
             <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
             <input
               type="text"
@@ -331,7 +331,7 @@ export default function NuevaEntradaPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-2">Descriptores</label>
+            <label className="block text-sm  text-gray-900 mb-2">Descriptores</label>
             <p className="text-xs text-gray-500 mb-2">Separadas por comas</p>
             <input
               type="text"
@@ -347,14 +347,14 @@ export default function NuevaEntradaPage() {
         <div className="flex items-center justify-end gap-3 pt-4">
           <Link
             href="/admin"
-            className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
+            className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
           >
             Cancelar
           </Link>
           <button
             type="submit"
             disabled={saving || uploadingImage}
-            className="px-6 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Publicando...' : 'Publicar entrada'}
           </button>

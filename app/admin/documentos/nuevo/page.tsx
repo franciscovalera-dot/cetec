@@ -102,12 +102,12 @@ export default function NuevoDocumentoPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </Link>
-            <h1 className="text-lg font-bold text-gray-900">Nuevo documento</h1>
+            <h1 className="text-lg  text-gray-900">Nuevo documento</h1>
           </div>
           <button
             onClick={handleSubmit}
             disabled={saving || uploadingFile}
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
               <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Guardando...</>
@@ -123,7 +123,7 @@ export default function NuevoDocumentoPage() {
 
         {/* Título */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Título *</label>
+          <label className="block text-sm  text-gray-900 mb-2">Título *</label>
           <input
             type="text"
             value={form.title}
@@ -136,10 +136,10 @@ export default function NuevoDocumentoPage() {
 
         {/* Categorización */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Categorización</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Categorización</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Tipo de documento</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Tipo de documento</label>
               <select
                 value={form.tipoDocumento}
                 onChange={(e) => updateField('tipoDocumento', e.target.value)}
@@ -150,7 +150,7 @@ export default function NuevoDocumentoPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-900 uppercase tracking-wide mb-1.5">Sector</label>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">Sector</label>
               <select
                 value={form.sector}
                 onChange={(e) => updateField('sector', e.target.value)}
@@ -165,14 +165,14 @@ export default function NuevoDocumentoPage() {
 
         {/* Archivo */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4">Archivo</h3>
+          <h3 className="text-sm  text-gray-900 mb-4">Archivo</h3>
           {fileName ? (
             <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
               <svg className="w-8 h-8 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{fileName}</p>
+                <p className="text-sm  text-gray-900 truncate">{fileName}</p>
                 {uploadingFile && <p className="text-xs text-gray-500">Subiendo...</p>}
                 {!uploadingFile && form.fileAssetId && <p className="text-xs text-green-600">Subido correctamente</p>}
               </div>
@@ -200,7 +200,7 @@ export default function NuevoDocumentoPage() {
 
         {/* Descripción */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <label className="block text-sm font-semibold text-gray-900 mb-2">Descripción</label>
+          <label className="block text-sm  text-gray-900 mb-2">Descripción</label>
           <textarea
             value={form.description}
             onChange={(e) => updateField('description', e.target.value)}
@@ -212,11 +212,11 @@ export default function NuevoDocumentoPage() {
 
         {/* Botones */}
         <div className="flex items-center justify-end gap-3 pt-4">
-          <Link href="/admin/documentos" className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
+          <Link href="/admin/documentos" className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
           <button
             type="submit"
             disabled={saving || uploadingFile}
-            className="px-6 py-2.5 text-sm font-medium text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Publicando...' : 'Publicar documento'}
           </button>

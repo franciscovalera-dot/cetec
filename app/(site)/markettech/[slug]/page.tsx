@@ -16,8 +16,8 @@ export const dynamicParams = true
 const descriptionComponents: PortableTextComponents = {
   block: {
     normal: ({ children }) => <p className="text-gray-500 leading-relaxed mb-4 last:mb-0">{children}</p>,
-    h2: ({ children }) => <h2 className="text-xl font-bold text-gray-900 mt-6 mb-3">{children}</h2>,
-    h3: ({ children }) => <h3 className="text-lg font-bold text-gray-900 mt-4 mb-2">{children}</h3>,
+    h2: ({ children }) => <h2 className="text-xl  text-gray-900 mt-6 mb-3">{children}</h2>,
+    h3: ({ children }) => <h3 className="text-lg  text-gray-900 mt-4 mb-2">{children}</h3>,
     blockquote: ({ children }) => <blockquote className="border-l-4 border-orange-500 pl-4 italic text-gray-500 my-4">{children}</blockquote>,
   },
   list: {
@@ -25,7 +25,7 @@ const descriptionComponents: PortableTextComponents = {
     number: ({ children }) => <ol className="list-decimal list-inside text-gray-500 mb-4 space-y-1">{children}</ol>,
   },
   marks: {
-    strong: ({ children }) => <strong className="font-bold text-gray-700">{children}</strong>,
+    strong: ({ children }) => <strong className=" text-gray-700">{children}</strong>,
     em: ({ children }) => <em className="italic">{children}</em>,
     link: ({ children, value }) => (
       <a href={value?.href} target="_blank" rel="noopener noreferrer" className="text-orange-600 underline hover:text-orange-800 transition-colors">
@@ -122,7 +122,7 @@ export default async function SolucionPage({ params }: PageProps) {
 
           {/* Columna izquierda: título + descripción */}
           <div>
-            <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 leading-[1.15]">
+            <h1 className="text-3xl md:text-4xl lg:text-[2.75rem]  text-gray-900 leading-[1.15]">
               {sol.title}
             </h1>
 
@@ -173,7 +173,7 @@ export default async function SolucionPage({ params }: PageProps) {
                   </svg>
                 </div>
                 <p className="text-sm text-gray-700">
-                  <span className="font-semibold">{meta.label}:</span>{' '}
+                  <span className="">{meta.label}:</span>{' '}
                   <span className="text-gray-500">{display}</span>
                 </p>
               </div>
@@ -184,7 +184,7 @@ export default async function SolucionPage({ params }: PageProps) {
         {/* Volver */}
         <Link
           href="/markettech/soluciones"
-          className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+          className="inline-flex items-center gap-2 text-sm  text-gray-500 hover:text-gray-900 transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

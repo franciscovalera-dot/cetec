@@ -10,17 +10,17 @@ import { urlFor } from '@/lib/sanity'
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">
+      <h2 className="text-2xl  text-gray-900 mt-8 mb-4">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">
+      <h3 className="text-xl  text-gray-900 mt-6 mb-3">
         {children}
       </h3>
     ),
     h4: ({ children }) => (
-      <h4 className="text-lg font-semibold text-gray-900 mt-4 mb-2">
+      <h4 className="text-lg  text-gray-900 mt-4 mb-2">
         {children}
       </h4>
     ),
@@ -47,7 +47,7 @@ const components: PortableTextComponents = {
   },
   marks: {
     strong: ({ children }) => (
-      <strong className="font-bold">{children}</strong>
+      <strong className="">{children}</strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
     code: ({ children }) => (
