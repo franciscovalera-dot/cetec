@@ -3,7 +3,6 @@
  * Estructura según mockup: logo+descripción | Acceso directo | Acceder contenido | CETEC
  */
 import Link from 'next/link'
-import Image from 'next/image'
 
 const columns = [
   {
@@ -45,15 +44,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* ─── Logo + descripción (ocupa 2 columnas) ────── */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
-              <Image
-                src="/logo.svg"
-                alt="CETEC"
-                width={120}
-                height={52}
-                className="brightness-0 invert"
-              />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-cetec.png"
+              alt="CETEC Centro Tecnológico"
+              width={210}
+              height={58}
+              className="block mb-5"
+            />
             <p className="text-lg font-bold text-white leading-snug mb-4">
               Observatorio<br />
               Tecnológico CETEC

@@ -15,8 +15,10 @@ const demoReports = [
     _id: 'demo-1',
     title: 'PureCycle and TOPPAN establish partnership to deliver sustainable packaging solutions with recycled content',
     excerpt:
-      '06/04/2026 · A global plastics-to-power tool named has brought the production of two critical thermoset engine components in-house at its US plant to stabilize dimensional accuracy and functional quality. Chemie...',
+      'A global garden and power-tool brand has brought the production of two critical thermoset engine components in-house at its US plant to stabilise dimensional accuracy and functional quality. Central…',
     publishedAt: '2026-04-06',
+    seccion: 'noticias',
+    sector: 'plastico',
     slug: { current: 'purecycle-toppan-partnership' },
     category: { name: 'Noticias', slug: { current: 'noticias' }, color: '#F97316' },
   },
@@ -24,50 +26,59 @@ const demoReports = [
     _id: 'demo-2',
     title: 'PureCycle and TOPPAN establish partnership to deliver sustainable packaging solutions with recycled content',
     excerpt:
-      '06/04/2026 · A global plastics-to-power tool named has brought the production of two critical thermoset engine components in-house at its US plant to stabilize dimensional accuracy and functional quality. Chemie...',
+      'A global garden and power-tool brand has brought the production of two critical thermoset engine components in-house at its US plant to stabilise dimensional accuracy and functional quality. Central…',
     publishedAt: '2026-04-06',
+    seccion: 'formacion',
+    sector: 'plastico',
     slug: { current: 'purecycle-toppan-partnership-2' },
-    category: { name: 'Noticias', slug: { current: 'noticias' }, color: '#F97316' },
+    category: { name: 'Formación', slug: { current: 'formacion' }, color: '#F97316' },
   },
 ]
 
-// Las 4 tarjetas de sección — gradientes vibrantes con glow difuminado y perspectiva
+const SECCION_LABELS: Record<string, string> = {
+  noticias: 'Noticias',
+  normativa: 'Normativa',
+  formacion: 'Formación y cursos',
+  ayudas: 'Ayudas',
+  agenda: 'Agenda',
+  markettech: 'MarketTech',
+}
+
+const SECTOR_LABELS: Record<string, string> = {
+  plastico: 'Plástico',
+  calzado: 'Calzado',
+  agroalimentario: 'Agroalimentario',
+}
+
+// Las 4 tarjetas de sección — gradientes horizontales exactos de Figma
 const sectionCards = [
   {
     href: '/noticias',
     title: 'Noticias',
     description: 'Novedades del sector, innovación y actualidad tecnológica.',
     button: 'Ver noticias',
-    gradient: 'linear-gradient(135deg, #FF8A3B 0%, #FF6B1A 40%, #E85D10 100%)',
-    glow: 'rgba(255, 138, 59, 0.5)',
-    skew: '-2deg',
+    gradient: 'linear-gradient(to right, #FF5B00 0%, #FFA370 100%)',
   },
   {
     href: '/normativa',
     title: 'Normativa y\nLegislación',
     description: 'Cambios normativos relevantes y fechas de entrada en vigor.',
     button: 'Ver normativa',
-    gradient: 'linear-gradient(135deg, #E8457C 0%, #C2185B 40%, #9B1B5E 100%)',
-    glow: 'rgba(232, 69, 124, 0.45)',
-    skew: '-1deg',
+    gradient: 'linear-gradient(to right, #FF5B00 17%, #B12E5C 59%, #5E0360 100%)',
   },
   {
     href: '/formacion',
     title: 'Formación\ny Cursos',
     description: 'Formación especializada para empresas y profesionales del sector.',
     button: 'Ver formación',
-    gradient: 'linear-gradient(135deg, #9C27B0 0%, #7B1FA2 40%, #5E1287 100%)',
-    glow: 'rgba(156, 39, 176, 0.45)',
-    skew: '1deg',
+    gradient: 'linear-gradient(to right, #F675F9 0%, #5E0360 100%)',
   },
   {
     href: '/ayudas',
     title: 'Ayudas y\nSubvenciones',
     description: 'Convocatorias abiertas y oportunidades de financiación.',
     button: 'Ver todas las ayudas',
-    gradient: 'linear-gradient(135deg, #5C6BC0 0%, #3F51B5 40%, #283593 100%)',
-    glow: 'rgba(92, 107, 192, 0.45)',
-    skew: '2deg',
+    gradient: 'linear-gradient(to right, #5E0360 0%, #8DBEFF 100%)',
   },
 ]
 
@@ -76,7 +87,7 @@ export default async function HomePage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let posts: any[] = []
   try {
-    posts = await getLatestPosts(4)
+    posts = await getLatestPosts(2)
   } catch {
     // Si Sanity no está configurado, usar datos demo
   }
@@ -114,48 +125,33 @@ export default async function HomePage() {
       {/* ─── 4 TARJETAS DE SECCIÓN CON GRADIENTES ───────────── */}
       <section className="bg-white pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-4 gap-6 lg:gap-10">
             {sectionCards.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative"
+                className="group relative block aspect-[325/312]"
               >
-                {/* Glow difuminado que sobresale de la tarjeta */}
+                {/* Capa de desenfoque de fondo (halo difuminado) */}
                 <div
-                  className="absolute -inset-4 rounded-[2rem] opacity-50 blur-2xl transition-opacity duration-500 group-hover:opacity-75 pointer-events-none"
-                  style={{ background: card.glow }}
+                  className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-90 pointer-events-none"
+                  style={{ background: card.gradient, filter: 'blur(20px)' }}
                 />
 
-                {/* Tarjeta principal con perspectiva/skew */}
+                {/* Tarjeta principal con gradiente horizontal, sin bordes redondeados ni sombra */}
                 <div
-                  className="relative aspect-[4/5] rounded-2xl overflow-hidden p-6 flex flex-col items-center justify-center text-center transition-all duration-500 group-hover:scale-[1.03] group-hover:shadow-2xl"
-                  style={{
-                    background: card.gradient,
-                    transform: `perspective(800px) rotateY(${card.skew})`,
-                  }}
+                  className="relative w-full h-full overflow-hidden flex flex-col items-center justify-between py-10 px-6 text-center transition-transform duration-500 group-hover:scale-[1.02]"
+                  style={{ background: card.gradient }}
                 >
-                  {/* Capa glassmorphism sutil */}
-                  <div className="absolute inset-0 rounded-2xl bg-white/5 backdrop-blur-[1px] pointer-events-none" />
-
-                  {/* Reflejo de luz en la esquina superior izquierda */}
-                  <div className="absolute -top-12 -left-12 w-40 h-40 bg-white/20 rounded-full blur-3xl pointer-events-none" />
-
-                  {/* Brillo inferior derecho */}
-                  <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-black/10 rounded-full blur-2xl pointer-events-none" />
-
-                  {/* Contenido */}
-                  <div className="relative z-10 flex flex-col items-center">
-                    <h3 className="text-xl font-bold text-white whitespace-pre-line leading-tight drop-shadow-sm">
-                      {card.title}
-                    </h3>
-                    <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-[190px]">
-                      {card.description}
-                    </p>
-                    <span className="mt-6 inline-block px-5 py-2 text-xs font-semibold text-white bg-white/15 border border-white/30 rounded-full backdrop-blur-sm transition-all duration-300 group-hover:bg-white/25 group-hover:scale-105 group-hover:shadow-lg">
-                      {card.button}
-                    </span>
-                  </div>
+                  <h3 className="text-xl font-bold text-white whitespace-pre-line leading-tight">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-white/90 leading-relaxed max-w-[220px]">
+                    {card.description}
+                  </p>
+                  <span className="inline-block px-5 py-2 text-xs font-semibold text-white bg-white/20 backdrop-blur-sm rounded-full transition-colors duration-300 group-hover:bg-white/30">
+                    {card.button}
+                  </span>
                 </div>
               </Link>
             ))}
@@ -184,51 +180,45 @@ export default async function HomePage() {
 
           {/* Grid de tarjetas de informes */}
           <div className="grid md:grid-cols-2 gap-6">
-            {reports.map((report) => (
-              <Link
-                key={report._id}
-                href={`/${report.category?.slug?.current || 'noticias'}/${report.slug.current}`}
-                className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all"
-              >
-                {/* Barra superior naranja */}
-                <div className="h-1 bg-gradient-to-r from-orange-400 to-orange-600" />
-
-                <div className="p-6 sm:p-8">
-                  {/* Badge de categoría */}
-                  {report.category && (
-                    <span
-                      className="inline-block text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4"
-                      style={{
-                        color: report.category.color,
-                        backgroundColor: `${report.category.color}15`,
-                      }}
-                    >
-                      {report.category.name}
-                    </span>
-                  )}
-
-                  {/* Título del informe */}
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors leading-snug">
-                    {report.title}
-                  </h3>
-
-                  {/* Extracto */}
-                  {report.excerpt && (
-                    <p className="mt-3 text-sm text-gray-500 leading-relaxed line-clamp-3">
-                      {report.excerpt}
+            {reports.map((report) => {
+              const date = new Date(report.publishedAt).toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })
+              const secLabel = SECCION_LABELS[report.seccion || ''] || report.category?.name || 'Noticias'
+              const sectorLabel = report.sector ? SECTOR_LABELS[report.sector] : null
+              return (
+                <Link
+                  key={report._id}
+                  href={`/${report.seccion || report.category?.slug?.current || 'noticias'}/${report.slug.current}`}
+                  className="group"
+                >
+                  <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+                    <div className="flex items-center gap-2 mb-4">
+                      {sectorLabel && (
+                        <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}>
+                          {sectorLabel}
+                        </span>
+                      )}
+                      <span className="text-[11px] font-semibold text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)' }}>
+                        {secLabel}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-3 leading-snug">
+                      <svg className="inline-block align-[-3px] w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 18 18">
+                        <path d="M3.375 15.75C3.075 15.75 2.8125 15.6375 2.5875 15.4125C2.3625 15.1875 2.25 14.925 2.25 14.625V3.375C2.25 3.075 2.3625 2.8125 2.5875 2.5875C2.8125 2.3625 3.075 2.25 3.375 2.25H12.0375L15.75 5.9625V14.625C15.75 14.925 15.6375 15.1875 15.4125 15.4125C15.1875 15.6375 14.925 15.75 14.625 15.75H3.375ZM3.375 14.625H14.625V6.58931H11.4188V3.375H3.375V14.625ZM5.23125 12.5438H12.7687V11.4188H5.23125V12.5438ZM5.23125 6.58125H9V5.45625H5.23125V6.58125ZM5.23125 9.5625H12.7687V8.4375H5.23125V9.5625Z" />
+                      </svg>
+                      {report.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-2 line-clamp-4 leading-relaxed">
+                      <time>{date}</time>
+                      {report.excerpt ? ` - ${report.excerpt}` : ''}
                     </p>
-                  )}
-
-                  {/* Leer más */}
-                  <span className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-orange-600 group-hover:text-orange-700">
-                    Leer más
-                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  </article>
+                </Link>
+              )
+            })}
           </div>
 
           {/* Botón "Ver todos" en móvil */}
