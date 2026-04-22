@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { timingSafeEqual } from 'crypto'
+import { signSession, checkAuth, ADMIN_COOKIE_NAME, ADMIN_COOKIE_MAX_AGE_S } from '@/lib/admin-auth'
 
-const COOKIE_NAME = 'admin_session'
-const COOKIE_MAX_AGE = 60 * 60 * 24 // 24 horas
+/** Compara dos strings en tiempo constante para evitar timing attacks. */
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a)
+  const bufB = Buffer.from(b)
+  if (bufA.length !== bufB.length) return false
+  return timingSafeEqual(bufA, bufB)
+}
 
 /** POST /api/admin/auth — Login */
 export async function POST(req: NextRequest) {
@@ -17,19 +24,24 @@ export async function POST(req: NextRequest) {
 
   const { password } = await req.json()
 
-  if (password !== adminPassword) {
+  if (typeof password !== 'string' || !safeEqual(password, adminPassword)) {
     return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 })
   }
 
-  // Crear token simple (hash de password + timestamp)
-  const token = Buffer.from(`${adminPassword}:${Date.now()}`).toString('base64')
+  const token = signSession()
+  if (!token) {
+    return NextResponse.json(
+      { error: 'Error firmando sesión' },
+      { status: 500 }
+    )
+  }
 
   const cookieStore = await cookies()
-  cookieStore.set(COOKIE_NAME, token, {
+  cookieStore.set(ADMIN_COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: COOKIE_MAX_AGE,
+    maxAge: ADMIN_COOKIE_MAX_AGE_S,
     path: '/',
   })
 
@@ -39,18 +51,15 @@ export async function POST(req: NextRequest) {
 /** DELETE /api/admin/auth — Logout */
 export async function DELETE() {
   const cookieStore = await cookies()
-  cookieStore.delete(COOKIE_NAME)
+  cookieStore.delete(ADMIN_COOKIE_NAME)
   return NextResponse.json({ ok: true })
 }
 
 /** GET /api/admin/auth — Check session */
 export async function GET() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get(COOKIE_NAME)
-
-  if (!session?.value) {
+  const authenticated = await checkAuth()
+  if (!authenticated) {
     return NextResponse.json({ authenticated: false }, { status: 401 })
   }
-
   return NextResponse.json({ authenticated: true })
 }

@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { writeClient, generateSlug } from '@/lib/sanity-admin'
 import { htmlToPortableText } from '@/lib/portable-text-html'
-
-async function checkAuth() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get('admin_session')?.value
-}
+import { checkAuth } from '@/lib/admin-auth'
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
   if (!(await checkAuth())) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })

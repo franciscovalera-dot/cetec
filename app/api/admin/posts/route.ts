@@ -1,13 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { writeClient, generateSlug } from '@/lib/sanity-admin'
 import { htmlToPortableText } from '@/lib/portable-text-html'
-
-/** Verifica que la sesión de admin es válida */
-async function checkAuth() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get('admin_session')?.value
-}
+import { checkAuth } from '@/lib/admin-auth'
 
 /** GET /api/admin/posts — Listar entradas con filtros opcionales */
 export async function GET(req: NextRequest) {

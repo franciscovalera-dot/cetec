@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { writeClient } from '@/lib/sanity-admin'
-
-async function checkAuth() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get('admin_session')?.value
-}
+import { checkAuth } from '@/lib/admin-auth'
 
 /** DELETE /api/admin/subscriptions/[id] — Eliminar una suscripción */
 export async function DELETE(
@@ -18,13 +13,24 @@ export async function DELETE(
 
   try {
     const { id } = await params
-    await writeClient.delete(id)
+    // Borrado type-gated: solo permite eliminar si el documento es de tipo 'subscription'.
+    // Esto previene que se use este endpoint para borrar cualquier documento de Sanity.
+    const result = await writeClient.delete({
+      query: '*[_id == $id && _type == "subscription"]',
+      params: { id },
+    })
+
+    const deletedIds = (result?.results || [])
+      .map((r: { id?: string }) => r.id)
+      .filter(Boolean)
+
+    if (deletedIds.length === 0) {
+      return NextResponse.json({ error: 'Suscripción no encontrada' }, { status: 404 })
+    }
+
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('Error al eliminar suscripción:', err)
-    return NextResponse.json(
-      { error: 'Error al eliminar. Verifica SANITY_API_WRITE_TOKEN.' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 })
   }
 }

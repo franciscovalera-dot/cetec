@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { writeClient, generateSlug } from '@/lib/sanity-admin'
 import { htmlToPortableText } from '@/lib/portable-text-html'
-
-async function checkAuth() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get('admin_session')?.value
-}
+import { checkAuth } from '@/lib/admin-auth'
 
 /** GET /api/admin/posts/[id] — Obtener una entrada */
 export async function GET(

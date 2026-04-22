@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { writeClient } from '@/lib/sanity-admin'
-
-async function checkAuth() {
-  const cookieStore = await cookies()
-  return !!cookieStore.get('admin_session')?.value
-}
+import { checkAuth } from '@/lib/admin-auth'
 
 /** GET /api/admin/subscriptions — Listar suscripciones (con filtro opcional por tipo y email) */
 export async function GET(req: NextRequest) {
@@ -26,8 +21,14 @@ export async function GET(req: NextRequest) {
       params.type = type
     }
     if (q) {
-      filters.push('(email match $q || query match $q)')
-      params.q = `${q}*`
+      // Sanear wildcards GROQ: * y ? son tokens especiales en `match`.
+      // Eliminar también whitespace y backslashes para evitar patrones
+      // no intencionados que podrían exfiltrar datos arbitrarios.
+      const safeQ = String(q).replace(/[*?\\\s]/g, '').slice(0, 100)
+      if (safeQ) {
+        filters.push('(email match $q || query match $q)')
+        params.q = `${safeQ}*`
+      }
     }
 
     const query = `*[${filters.join(' && ')}] | order(createdAt desc) [0...500] {
@@ -39,7 +40,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     console.error('Error al listar suscripciones:', err)
     return NextResponse.json(
-      { error: 'Error al obtener suscripciones. Verifica SANITY_API_WRITE_TOKEN.' },
+      { error: 'Error interno del servidor' },
       { status: 500 }
     )
   }
