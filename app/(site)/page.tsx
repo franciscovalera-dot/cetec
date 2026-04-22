@@ -102,7 +102,7 @@ export default async function HomePage() {
       <section className="bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
           {/* Subtítulo — pill */}
-          <span className="inline-block px-5 py-2 mb-6 text-sm text-gray-500 border border-gray-200 rounded-full" style={{ backgroundColor: '#F9F9F8' }}>
+          <span className="inline-block px-5 py-2 mb-6 text-sm text-gray-500 border border-[#DFDFDF] rounded-full" style={{ backgroundColor: '#F9F9F8' }}>
             Observatorio Tecnológico CETEC
           </span>
 
@@ -163,7 +163,7 @@ export default async function HomePage() {
 
       {/* ─── ÚLTIMOS INFORMES DE VIGILANCIA ─────────────────── */}
       <section className="bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           {/* Cabecera de sección */}
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -196,7 +196,7 @@ export default async function HomePage() {
                   href={`/${report.seccion || report.category?.slug?.current || 'noticias'}/${report.slug.current}`}
                   className="group"
                 >
-                  <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+                  <article className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5">
                     <div className="flex items-center gap-2 mb-4">
                       {sectorLabel && (
                         <span className="text-[11px]  text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}>
@@ -236,7 +236,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── BLOQUE NEGRO MARKETTECH ────────────────────────── */}
-      <section className="relative bg-[#050505] overflow-hidden min-h-screen flex items-center justify-center">
+      <section className="relative bg-[#050505] overflow-hidden h-screen flex items-center justify-center">
         {/* Imagen de fondo (gradiente púrpura→naranja) centrada */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -283,7 +283,7 @@ export default async function HomePage() {
 
       {/* ─── EXPLORAR CONTENIDOS (slider de categorías) ─────── */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           {/* Cabecera */}
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl  text-gray-900 leading-tight">

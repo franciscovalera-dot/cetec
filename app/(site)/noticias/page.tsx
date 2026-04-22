@@ -75,7 +75,7 @@ function PostCard({ post, seccion }: { post: Post; seccion: string }) {
 
   return (
     <Link href={href} className="group">
-      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5">
         {/* Badges: sector (naranja) + sección (morado) */}
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && (
@@ -143,7 +143,7 @@ export default async function NoticiasPage({ searchParams }: Props) {
     <>
       {/* Buscador en la parte superior */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
           <SectionSearch basePath="/noticias" q={q} date={date} hiddenParams={{ tematica, sector }} />
         </div>
       </section>
@@ -169,7 +169,7 @@ export default async function NoticiasPage({ searchParams }: Props) {
 
           {/* ─── SIDEBAR FILTROS ────────────────────────────── */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24 rounded-2xl p-6" style={{ backgroundColor: '#F5F5F5' }}>
+            <div className="sticky top-24 rounded-md border border-[#DFDFDF] p-6" style={{ backgroundColor: '#F9F9F8' }}>
               {/* Temática */}
               <div>
                 <h3 className="text-xs uppercase tracking-widest mb-5" style={{ color: '#333', fontWeight: 600 }}>

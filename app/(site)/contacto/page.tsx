@@ -8,7 +8,7 @@ export const metadata = { title: 'Contacto' }
 
 export default function ContactoPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm text-gray-400 mb-10">
@@ -64,7 +64,7 @@ export default function ContactoPage() {
         </div>
 
         {/* ─── Columna derecha: formulario ───────────────── */}
-        <div className="w-full lg:flex-1 lg:max-w-xl bg-gray-50 rounded-2xl p-6 sm:p-8 lg:ml-auto">
+        <div className="w-full lg:flex-1 lg:max-w-xl bg-[#F9F9F8] rounded-2xl p-6 sm:p-8 lg:ml-auto">
           <p className="text-xl  text-gray-700 leading-snug mb-8">
             ¿Tienes alguna consulta sobre innovación tecnológica o los contenidos del observatorio? Estamos aquí para ayudarte.
           </p>

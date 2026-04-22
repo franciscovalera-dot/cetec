@@ -30,13 +30,14 @@ export default function SectionSearch({
       {Object.entries(hiddenParams).map(([key, value]) =>
         value ? <input key={key} type="hidden" name={key} value={value} /> : null
       )}
-      <div className="flex items-stretch border border-gray-200 rounded-md overflow-hidden shadow-sm bg-gray-50">
+      <div className="flex items-stretch border border-[#DFDFDF] rounded-md overflow-hidden shadow-sm" style={{ backgroundColor: '#F9F9F8' }}>
         <input
           type="text"
           name="q"
           defaultValue={q || ''}
           placeholder={placeholder}
-          className="flex-1 px-4 py-3 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
+          className="flex-1 px-4 py-5 text-sm focus:outline-none text-gray-800 placeholder-gray-400 min-w-0"
+          style={{ backgroundColor: '#F9F9F8' }}
         />
 
         {/* Separador */}
@@ -47,7 +48,8 @@ export default function SectionSearch({
           <select
             name="date"
             defaultValue={date || ''}
-            className="w-full pl-4 pr-8 py-3 text-sm bg-gray-50 focus:outline-none cursor-pointer border-none appearance-none text-gray-500"
+            className="w-full pl-4 pr-8 py-5 text-sm focus:outline-none cursor-pointer border-none appearance-none text-gray-500"
+            style={{ backgroundColor: '#F9F9F8' }}
           >
             {DATE_OPTIONS.map((d) => (
               <option key={d.value} value={d.value}>{d.label}</option>
@@ -60,7 +62,7 @@ export default function SectionSearch({
 
         <button
           type="submit"
-          className="px-6 py-3 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
+          className="px-6 py-5 bg-black hover:bg-gray-700 text-white text-sm transition-colors whitespace-nowrap flex-shrink-0"
         >
           Buscar
         </button>

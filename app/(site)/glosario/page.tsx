@@ -63,7 +63,7 @@ export default async function GlosarioPage({ searchParams }: Props) {
 
           {/* ─── SIDEBAR ────────────────────────────────────────── */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24 rounded-2xl p-6" style={{ backgroundColor: '#F5F5F5' }}>
+            <div className="sticky top-24 rounded-md border border-[#DFDFDF] p-6" style={{ backgroundColor: '#F9F9F8' }}>
 
               {/* Temática */}
               <div>
@@ -117,13 +117,13 @@ export default async function GlosarioPage({ searchParams }: Props) {
             <form action="/glosario" method="GET" className="mb-8">
               {tematica && <input type="hidden" name="tematica" value={tematica} />}
               {sector   && <input type="hidden" name="sector"   value={sector} />}
-              <div className="flex items-stretch border border-gray-200 rounded-md overflow-hidden shadow-sm bg-gray-50">
+              <div className="flex items-stretch border border-[#DFDFDF] rounded-md overflow-hidden shadow-sm bg-[#F9F9F8]">
                 <input
                   type="text"
                   name="q"
                   defaultValue={query}
                   placeholder="Buscar término..."
-                  className="flex-1 px-4 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
+                  className="flex-1 px-4 py-4 text-sm focus:outline-none bg-[#F9F9F8] text-gray-800 placeholder-gray-400 min-w-0"
                 />
                 <button
                   type="submit"
@@ -136,12 +136,12 @@ export default async function GlosarioPage({ searchParams }: Props) {
 
             {/* Resultados */}
             {terms.length > 0 ? (
-              <div className="bg-gray-50 border border-gray-200 rounded-xl overflow-hidden">
+              <div className="bg-[#F9F9F8] border border-[#DFDFDF] rounded-xl overflow-hidden">
                 {terms.map((term) => (
                   <div
                     key={term._id}
                     id={term.slug.current}
-                    className="flex gap-6 px-6 py-4 border-b border-gray-200 last:border-b-0 hover:bg-gray-100 transition-colors"
+                    className="flex gap-6 px-6 py-4 border-b border-[#DFDFDF] last:border-b-0 hover:bg-gray-100 transition-colors"
                   >
                     {/* Término */}
                     <div className="w-48 flex-shrink-0 pt-0.5">

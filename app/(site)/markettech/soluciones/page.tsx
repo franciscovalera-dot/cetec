@@ -63,16 +63,16 @@ export default function MarketTechSolucionesPage() {
     <>
       {/* ─── LISTADO DE SOLUCIONES ────────────────────────────── */}
       <section id="soluciones" className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
 
           {/* Barra de búsqueda */}
-          <div className="flex items-stretch border border-gray-200 rounded-lg overflow-hidden shadow-sm bg-gray-50 mb-3">
+          <div className="flex items-stretch border border-[#DFDFDF] rounded-lg overflow-hidden shadow-sm bg-[#F9F9F8] mb-3">
             <input
               type="text"
               value={busqueda}
               onChange={(e) => { setBusqueda(e.target.value); setPagina(1) }}
               placeholder="Buscar por texto..."
-              className="flex-1 px-5 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
+              className="flex-1 px-5 py-4 text-sm focus:outline-none bg-[#F9F9F8] text-gray-800 placeholder-gray-400 min-w-0"
             />
             <button className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0">
               Buscar
@@ -80,11 +80,11 @@ export default function MarketTechSolucionesPage() {
           </div>
 
           {/* Filtros dropdown */}
-          <div className="flex items-stretch border border-gray-200 rounded-lg bg-gray-50 mb-12">
+          <div className="flex items-stretch border border-[#DFDFDF] rounded-lg bg-[#F9F9F8] mb-12">
             <select
               value={filtroTecnologia}
               onChange={(e) => { setFiltroTecnologia(e.target.value); setPagina(1) }}
-              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-gray-200 appearance-none"
+              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-[#DFDFDF] appearance-none"
               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', paddingRight: '32px' }}
             >
               <option value="">Tecnología habilitadora</option>
@@ -93,7 +93,7 @@ export default function MarketTechSolucionesPage() {
             <select
               value={filtroSector}
               onChange={(e) => { setFiltroSector(e.target.value); setPagina(1) }}
-              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-gray-200 appearance-none"
+              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-[#DFDFDF] appearance-none"
               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', paddingRight: '32px' }}
             >
               <option value="">Sector</option>
@@ -102,7 +102,7 @@ export default function MarketTechSolucionesPage() {
             <select
               value={filtroReto}
               onChange={(e) => { setFiltroReto(e.target.value); setPagina(1) }}
-              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-gray-200 appearance-none"
+              className="flex-1 text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 border-r border-[#DFDFDF] appearance-none"
               style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', paddingRight: '32px' }}
             >
               <option value="">Reto que soluciona</option>
@@ -121,7 +121,7 @@ export default function MarketTechSolucionesPage() {
         </div>
 
         {/* Contenido: sidebar texto + grid de tarjetas */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <div className="flex gap-12">
 
             {/* Sidebar izquierda con texto descriptivo */}
@@ -160,7 +160,7 @@ export default function MarketTechSolucionesPage() {
                       className="group"
                     >
                     <article
-                      className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5"
+                      className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5"
                     >
                       {/* Icono hoja alternando naranja/púrpura */}
                       <div className="mb-4">

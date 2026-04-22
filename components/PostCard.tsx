@@ -64,7 +64,7 @@ export default function PostCard({ post, variant = 'vertical' }: PostCardProps) 
 
   return (
     <Link href={href} className="group">
-      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5">
         {/* Pills: sector (naranja) + categoría (morado) */}
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && (

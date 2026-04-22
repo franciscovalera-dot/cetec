@@ -34,7 +34,7 @@ export default function FiltersDrawer({ query, tematica, sector, dateFrom, dateT
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="lg:hidden inline-flex items-center gap-2 px-4 py-2 text-sm border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors mb-4"
+        className="lg:hidden inline-flex items-center gap-2 px-4 py-2 text-sm border border-[#DFDFDF] rounded-lg text-gray-700 hover:bg-gray-50 transition-colors mb-4"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -84,13 +84,13 @@ export default function FiltersDrawer({ query, tematica, sector, dateFrom, dateT
                     type="date"
                     name="dateFrom"
                     defaultValue={dateFrom || ''}
-                    className="w-0 flex-1 min-w-0 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 bg-white"
+                    className="w-0 flex-1 min-w-0 px-3 py-2 text-sm border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 bg-white"
                   />
                   <input
                     type="date"
                     name="dateTo"
                     defaultValue={dateTo || ''}
-                    className="w-0 flex-1 min-w-0 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 bg-white"
+                    className="w-0 flex-1 min-w-0 px-3 py-2 text-sm border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 bg-white"
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function FiltersDrawer({ query, tematica, sector, dateFrom, dateT
                 <select
                   name="idioma"
                   defaultValue={idioma || ''}
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer bg-white"
+                  className="w-full px-3 py-2 text-sm border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer bg-white"
                 >
                   {IDIOMAS.map((i) => (
                     <option key={i.value} value={i.value}>{i.label}</option>

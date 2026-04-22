@@ -162,7 +162,7 @@ export default async function SearchPage({ searchParams }: Props) {
               {tematica && <input type="hidden" name="tematica" value={tematica} />}
               {sector   && <input type="hidden" name="sector"   value={sector} />}
 
-              <div className="sticky top-24 border border-gray-200 shadow-md rounded-xl p-5 space-y-6" style={{ backgroundColor: '#F9F9F8' }}>
+              <div className="sticky top-24 border border-[#DFDFDF] shadow-md rounded-xl p-5 space-y-6" style={{ backgroundColor: '#F9F9F8' }}>
 
                 {/* Incorporado entre */}
                 <div>
@@ -174,14 +174,14 @@ export default async function SearchPage({ searchParams }: Props) {
                       type="date"
                       name="dateFrom"
                       defaultValue={dateFrom || ''}
-                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
                       style={{ backgroundColor: '#F9F9F8' }}
                     />
                     <input
                       type="date"
                       name="dateTo"
                       defaultValue={dateTo || ''}
-                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
                       style={{ backgroundColor: '#F9F9F8' }}
                     />
                   </div>
@@ -195,7 +195,7 @@ export default async function SearchPage({ searchParams }: Props) {
                   <select
                     name="idioma"
                     defaultValue={idioma || ''}
-                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer"
+                    className="w-full px-3 py-2 text-sm border border-[#DFDFDF] rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer"
                     style={{ backgroundColor: '#F9F9F8' }}
                   >
                     {IDIOMAS.map((i) => (
@@ -226,14 +226,15 @@ export default async function SearchPage({ searchParams }: Props) {
               {dateTo   && <input type="hidden" name="dateTo"   value={dateTo} />}
               {idioma   && <input type="hidden" name="idioma"   value={idioma} />}
 
-              <div className="flex flex-col md:flex-row items-stretch border border-gray-200 rounded-md overflow-hidden shadow-sm bg-gray-50 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+              <div className="flex flex-col md:flex-row items-stretch border border-[#DFDFDF] rounded-md overflow-hidden shadow-sm divide-y md:divide-y-0 md:divide-x divide-gray-200" style={{ backgroundColor: '#F9F9F8' }}>
                 {/* Input de texto */}
                 <input
                   type="text"
                   name="q"
                   defaultValue={query}
                   placeholder="Busca por texto..."
-                  className="flex-1 px-4 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
+                  className="flex-1 px-4 py-4 text-sm focus:outline-none text-gray-800 placeholder-gray-400 min-w-0"
+                  style={{ backgroundColor: '#F9F9F8' }}
                 />
 
                 {/* Tecnología */}
@@ -241,8 +242,8 @@ export default async function SearchPage({ searchParams }: Props) {
                   <select
                     name="tematica"
                     defaultValue={tematica || ''}
-                    className="w-full pl-4 pr-8 py-4 text-sm bg-gray-50 focus:outline-none cursor-pointer border-none appearance-none"
-                    style={{ color: '#878787' }}
+                    className="w-full pl-4 pr-8 py-4 text-sm focus:outline-none cursor-pointer border-none appearance-none"
+                    style={{ color: '#878787', backgroundColor: '#F9F9F8' }}
                   >
                     <option value="">Tecnología</option>
                     {TEMATICAS.map((t) => (
@@ -259,8 +260,8 @@ export default async function SearchPage({ searchParams }: Props) {
                   <select
                     name="sector"
                     defaultValue={sector || ''}
-                    className="w-full pl-4 pr-8 py-4 text-sm bg-gray-50 focus:outline-none cursor-pointer border-none appearance-none"
-                    style={{ color: '#878787' }}
+                    className="w-full pl-4 pr-8 py-4 text-sm focus:outline-none cursor-pointer border-none appearance-none"
+                    style={{ color: '#878787', backgroundColor: '#F9F9F8' }}
                   >
                     <option value="">Sector</option>
                     {SECTORES.map((s) => (
@@ -322,7 +323,7 @@ export default async function SearchPage({ searchParams }: Props) {
                       : null
 
                     const content = (
-                      <article className="flex items-center gap-5 px-5 py-3 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
+                      <article className="flex items-center gap-5 px-5 py-3 bg-white border border-[#DFDFDF] rounded-lg hover:border-gray-300 transition-colors">
                         {/* Fecha */}
                         {dateStr ? (
                           <time className="text-xs text-gray-400 flex-shrink-0 w-20">{dateStr}</time>

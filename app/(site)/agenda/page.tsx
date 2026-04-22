@@ -25,7 +25,7 @@ function EventCard({ event }: { event: AgendaEvent }) {
   const date = new Date(event.date).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })
   const isPast = new Date(event.date) < new Date()
   return (
-    <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+    <article className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5">
       <div className="flex items-center gap-2 mb-4">
         <span
           className="text-[11px]  text-white px-3 py-1 rounded-full"
@@ -78,7 +78,7 @@ export default async function AgendaPage({ searchParams }: Props) {
   return (
     <>
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
           <SectionSearch basePath="/agenda" q={q} date={date} />
         </div>
       </section>

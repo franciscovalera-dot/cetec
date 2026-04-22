@@ -28,9 +28,9 @@ export default function MarketTechPage() {
     <>
       {/* ─── SUB-NAV MARKETTECH ────────────────────────────── */}
       <section className="bg-white pt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-8 px-4 sm:px-6 py-4 border border-gray-200 rounded-lg"
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-8 px-4 sm:px-6 py-4 border border-[#DFDFDF] rounded-lg"
             style={{ backgroundColor: '#F9F9F8' }}
           >
             <span className="hidden sm:inline-block w-px h-4 bg-gray-300" />
@@ -52,10 +52,10 @@ export default function MarketTechPage() {
 
       {/* ─── HERO ────────────────────────────────────────────── */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
-              <span className="inline-block px-5 py-2 mb-6 text-sm text-gray-500 border border-gray-200 rounded-full" style={{ backgroundColor: '#F9F9F8' }}>
+              <span className="inline-block px-5 py-2 mb-6 text-sm text-gray-500 border border-[#DFDFDF] rounded-full" style={{ backgroundColor: '#F9F9F8' }}>
                 MarketTech
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl  text-gray-900 leading-snug">
@@ -72,7 +72,7 @@ export default function MarketTechPage() {
               </p>
               <Link
                 href="/markettech/soluciones"
-                className="inline-flex items-center gap-2 mt-8 px-6 py-3 text-sm  text-white bg-black rounded-full hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center gap-2 mt-8 px-6 py-3 text-sm  text-white bg-black rounded hover:bg-gray-800 transition-colors"
               >
                 Explorar soluciones tecnológicas
               </Link>
@@ -92,7 +92,7 @@ export default function MarketTechPage() {
 
       {/* ─── CLASIFICACIÓN DE LAS SOLUCIONES ─────────────────── */}
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
               <h2 className="text-3xl md:text-4xl  text-gray-900 leading-tight">
@@ -111,34 +111,29 @@ export default function MarketTechPage() {
         </div>
       </section>
 
-      {/* Tarjetas de clasificación — full width con patrón de círculos */}
-      <section
-        className="relative overflow-hidden py-16 md:py-24"
-        style={{ background: 'linear-gradient(180deg, #FFD6B8 0%, #5E0360 100%)' }}
-      >
+      {/* Tarjetas de clasificación — bloque con fondo imagen (bordes redondeados + margen lateral) */}
+      <section className="bg-white px-4 md:px-8 py-8">
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='38' fill='none' stroke='%23ffffff' stroke-width='0.6' stroke-opacity='0.4'/%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px',
-          }}
-        />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="border border-white/60 rounded-2xl p-2 md:p-3">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {clasificaciones.map((cat) => (
-                <div key={cat.title} className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-sm">
-                  <h3 className="text-sm  text-gray-900 mb-5 leading-snug min-h-[40px]">{cat.title}</h3>
-                  <ul className="space-y-2">
-                    {cat.items.map((item) => (
-                      <li key={item} className="text-sm text-gray-500 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+          className="relative overflow-hidden rounded-2xl py-28 md:py-40 bg-cover bg-center"
+          style={{ backgroundImage: `url('/markettech-bg-clasificacion.png')` }}
+        >
+          <div className="relative z-10 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="border border-white/60 rounded-2xl p-2 md:p-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {clasificaciones.map((cat) => (
+                  <div key={cat.title} className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-sm">
+                    <h3 className="text-sm  text-gray-900 mb-5 leading-snug min-h-[40px]">{cat.title}</h3>
+                    <ul className="space-y-2">
+                      {cat.items.map((item) => (
+                        <li key={item} className="text-sm text-gray-500 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -163,7 +158,7 @@ export default function MarketTechPage() {
           </p>
           <Link
             href="/markettech/soluciones"
-            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black rounded-full hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black rounded hover:bg-gray-800 transition-colors"
           >
             Explorar soluciones tecnológicas
           </Link>

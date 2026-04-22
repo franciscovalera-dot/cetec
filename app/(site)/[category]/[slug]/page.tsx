@@ -102,7 +102,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* ─── SIDEBAR IZQUIERDA (tecnologías + descriptores) ─── */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24 rounded-2xl p-6 space-y-8" style={{ backgroundColor: '#F9F9F8' }}>
+            <div className="sticky top-24 rounded-md border border-[#DFDFDF] p-6 space-y-8" style={{ backgroundColor: '#F9F9F8' }}>
               <div>
                 <h4 className="text-xs  text-gray-900 uppercase tracking-widest mb-4">
                   Tecnologías asociadas
@@ -143,7 +143,7 @@ export default async function ArticlePage({ params }: PageProps) {
           <div className="flex-1 min-w-0">
 
             {/* Contenedor único: título + imagen + cuerpo */}
-            <div className="rounded-2xl px-6 sm:px-10 py-8 sm:py-10 mb-8" style={{ backgroundColor: '#F9F9F8' }}>
+            <div className="rounded-md px-8 sm:px-12 py-10 sm:py-12 mb-8 border border-[#DFDFDF]" style={{ backgroundColor: '#F9F9F8' }}>
               {post.category && (
                 <p className="text-sm  text-orange-600 uppercase tracking-wide mb-4">
                   {post.category.name}
@@ -164,11 +164,11 @@ export default async function ArticlePage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* Imagen principal (centrada) */}
+              {/* Imagen principal — ancho completo del contenedor */}
               {post.image && (
-                <div className="relative aspect-[16/9] rounded-2xl overflow-hidden my-10 max-w-3xl mx-auto">
+                <div className="relative aspect-[16/9] rounded-md overflow-hidden my-10">
                   <Image
-                    src={urlFor(post.image).width(1200).height(675).url()}
+                    src={urlFor(post.image).width(1600).height(900).url()}
                     alt={post.image.alt || post.title}
                     fill
                     className="object-cover"
@@ -178,7 +178,7 @@ export default async function ArticlePage({ params }: PageProps) {
               )}
 
               {post.excerpt && (
-                <p className="text-lg text-gray-600 leading-relaxed mb-10 pb-10 border-b border-gray-200">
+                <p className="text-lg text-gray-600 leading-relaxed mb-10 pb-10 border-b border-[#DFDFDF]">
                   {post.excerpt}
                 </p>
               )}
@@ -265,8 +265,8 @@ export default async function ArticlePage({ params }: PageProps) {
 
       {/* ─── ARTÍCULOS RELACIONADOS ────────────────────────────── */}
       {relatedPosts.length > 0 && (
-        <section className="bg-white border-t border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <section className="bg-white border-t border-[#DFDFDF]">
+          <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <h2 className="text-2xl  text-gray-900 mb-8">
               Artículos relacionados
             </h2>

@@ -45,7 +45,7 @@ function DocCard({ doc }: { doc: Document }) {
   const sectorLabel = d.sector ? SECTOR_LABELS[d.sector] : null
   return (
     <a href={doc.file?.asset?.url || '#'} target="_blank" rel="noopener noreferrer" className="group">
-      <article className="bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-lg transition-all h-full flex flex-col p-5">
+      <article className="bg-[#F9F9F8] rounded-md border border-[#DFDFDF] hover:shadow-lg transition-all h-full flex flex-col p-5">
         <div className="flex items-center gap-2 mb-4">
           {sectorLabel && <span className="text-[11px]  text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #FF813B 0%, #FFD4B8 100%)' }}>{sectorLabel}</span>}
           {tipoLabel && <span className="text-[11px]  text-white px-3 py-1 rounded-full" style={{ background: 'linear-gradient(90deg, #5E0360 0%, #C98BCB 100%)' }}>{tipoLabel}</span>}
@@ -86,7 +86,7 @@ export default async function DocumentosPage({ searchParams }: Props) {
   return (
     <>
       <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
           <SectionSearch basePath="/documentos" q={q} date={date} hiddenParams={{ tipo, sector }} />
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 text-center">
@@ -97,7 +97,7 @@ export default async function DocumentosPage({ searchParams }: Props) {
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex gap-10">
           <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-24 rounded-2xl p-6" style={{ backgroundColor: '#F5F5F5' }}>
+            <div className="sticky top-24 rounded-md border border-[#DFDFDF] p-6" style={{ backgroundColor: '#F9F9F8' }}>
               <div>
                 <h3 className="text-xs uppercase tracking-widest mb-5" style={{ color: '#333', fontWeight: 600 }}>Tipo de documento</h3>
                 <ul>
