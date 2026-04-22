@@ -34,17 +34,17 @@ export default function MarketTechPage() {
             style={{ backgroundColor: '#F9F9F8' }}
           >
             <span className="hidden sm:inline-block w-px h-4 bg-gray-300" />
-            <a href="#soluciones" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/markettech/soluciones" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Soluciones tecnológicas
-            </a>
+            </Link>
             <span className="w-px h-4 bg-gray-300" />
-            <a href="#materiales" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/markettech/soluciones" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Materiales
-            </a>
+            </Link>
             <span className="w-px h-4 bg-gray-300" />
-            <a href="#tecnologias" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/markettech/soluciones" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Tecnologías habilitadoras
-            </a>
+            </Link>
             <span className="hidden sm:inline-block w-px h-4 bg-gray-300" />
           </div>
         </div>

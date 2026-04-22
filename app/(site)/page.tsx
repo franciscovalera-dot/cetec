@@ -302,7 +302,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── SUSCRIPCIÓN A ALERTAS ──────────────────────────── */}
-      <section className="bg-white py-12 px-4">
+      <section id="suscripcion" className="bg-white py-12 px-4 scroll-mt-24">
         <div
           className="relative overflow-hidden rounded-3xl py-28 md:py-36"
           style={{ backgroundColor: '#F0F0F0' }}

@@ -4,7 +4,9 @@
  */
 import Link from 'next/link'
 
-const columns = [
+type FooterLink = { href: string; label: string; external?: boolean }
+
+const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Acceso directo',
     links: [
@@ -21,17 +23,17 @@ const columns = [
     title: 'Acceder contenido',
     links: [
       { href: '/busqueda', label: 'Buscador tecnológico' },
-      { href: '/markettech', label: 'MarketTech · Soluciones tecnológicas' },
+      { href: '/markettech/soluciones', label: 'MarketTech · Soluciones tecnológicas' },
       { href: '/markettech', label: 'Base de datos de materiales' },
-      { href: '#suscripcion', label: 'Suscripción a alertas tecnológicas' },
+      { href: '/#suscripcion', label: 'Suscripción a alertas tecnológicas' },
     ],
   },
   {
     title: 'CETEC',
     links: [
-      { href: '#', label: 'Web de CETEC' },
+      { href: 'https://www.ctcalzado.org', label: 'Web de CETEC', external: true },
       { href: '/privacidad', label: 'Política de privacidad' },
-      { href: '#', label: 'Servicios tecnológicos' },
+      { href: 'https://www.ctcalzado.org/servicios', label: 'Servicios tecnológicos', external: true },
       { href: '/contacto', label: 'Contacto' },
     ],
   },
@@ -71,16 +73,29 @@ export default function Footer() {
                 {col.title}
               </h3>
               <ul className="space-y-3">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-gray-400 hover:text-orange-400 transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.links.map((link) =>
+                  link.external ? (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-gray-400 hover:text-orange-400 transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-gray-400 hover:text-orange-400 transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ))}
