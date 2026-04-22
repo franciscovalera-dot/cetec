@@ -6,6 +6,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { searchContent, getAllContent } from '@/lib/sanity'
+import AlertModal from '@/components/AlertModal'
 
 export const revalidate = 60
 
@@ -172,13 +173,15 @@ export default async function SearchPage({ searchParams }: Props) {
                       type="date"
                       name="dateFrom"
                       defaultValue={dateFrom || ''}
-                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      style={{ backgroundColor: '#F9F9F8' }}
                     />
                     <input
                       type="date"
                       name="dateTo"
                       defaultValue={dateTo || ''}
-                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      className="w-0 flex-1 min-w-0 px-2 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700"
+                      style={{ backgroundColor: '#F9F9F8' }}
                     />
                   </div>
                 </div>
@@ -191,7 +194,8 @@ export default async function SearchPage({ searchParams }: Props) {
                   <select
                     name="idioma"
                     defaultValue={idioma || ''}
-                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer"
+                    className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-gray-700 cursor-pointer"
+                    style={{ backgroundColor: '#F9F9F8' }}
                   >
                     {IDIOMAS.map((i) => (
                       <option key={i.value} value={i.value}>{i.label}</option>
@@ -202,7 +206,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 {/* Botón buscar */}
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-gray-900 hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
+                  className="w-full py-2.5 bg-black hover:bg-gray-800 text-white text-sm rounded-lg transition-colors"
                 >
                   Buscar
                 </button>
@@ -276,7 +280,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 {/* Botón negro — dentro del mismo contenedor, sin border-radius propio */}
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
+                  className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
                 >
                   Buscar
                 </button>
@@ -364,12 +368,12 @@ export default async function SearchPage({ searchParams }: Props) {
                     )}
                   </div>
 
-                  <button
-                    type="button"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 text-xs text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
-                  >
-                    Crear alerta
-                  </button>
+                  <AlertModal
+                    query={query || undefined}
+                    tematica={tematica}
+                    sector={sector}
+                    idioma={idioma}
+                  />
                 </div>
               </div>
             )}

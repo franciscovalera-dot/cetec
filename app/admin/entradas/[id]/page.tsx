@@ -30,6 +30,11 @@ const SECTORES = [
   { value: 'agroalimentario', label: 'Agroalimentario' },
 ]
 
+const IDIOMAS = [
+  { value: 'es', label: 'Español' },
+  { value: 'en', label: 'English' },
+]
+
 
 export default function EditarEntradaPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -45,6 +50,7 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
     seccion: '',
     tematica: '',
     sector: '',
+    idioma: 'es',
     excerpt: '',
     body: '',
     tags: '',
@@ -73,6 +79,7 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
         seccion: post.seccion || '',
         tematica: post.tematica || '',
         sector: post.sector || '',
+        idioma: post.idioma || 'es',
         excerpt: post.excerpt || '',
         body: portableTextToHtml(post.body),
         tags: (post.tags || []).join(', '),
@@ -185,7 +192,7 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
           <button
             onClick={handleSubmit}
             disabled={saving || uploadingImage}
-            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
               <>
@@ -223,7 +230,7 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
         {/* Categorización */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <h3 className="text-sm  text-gray-900 mb-4">Categorización</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">
                 Sección *
@@ -268,6 +275,21 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
                 <option value="">Seleccionar...</option>
                 {SECTORES.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs  text-gray-900 uppercase tracking-wide mb-1.5">
+                Idioma
+              </label>
+              <select
+                value={form.idioma}
+                onChange={(e) => updateField('idioma', e.target.value)}
+                className="w-full px-4 py-2.5 text-sm text-gray-900 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+              >
+                {IDIOMAS.map((i) => (
+                  <option key={i.value} value={i.value}>{i.label}</option>
                 ))}
               </select>
             </div>
@@ -407,7 +429,7 @@ export default function EditarEntradaPage({ params }: { params: Promise<{ id: st
           <button
             type="submit"
             disabled={saving || uploadingImage}
-            className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar cambios'}
           </button>

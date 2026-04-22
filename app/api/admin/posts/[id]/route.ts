@@ -21,7 +21,7 @@ export async function GET(
     const { id } = await params
     const post = await writeClient.fetch(
       `*[_type == "post" && _id == $id][0] {
-        _id, title, slug, seccion, tematica, sector, publishedAt, excerpt, body, tags, tecnologias, descriptores, image,
+        _id, title, slug, seccion, tematica, sector, idioma, publishedAt, excerpt, body, tags, tecnologias, descriptores, image,
         "author": author->{_id, name}
       }`,
       { id }
@@ -57,6 +57,7 @@ export async function PUT(
     seccion,
     tematica,
     sector,
+    idioma,
     excerpt,
     body,
     tags,
@@ -78,6 +79,7 @@ export async function PUT(
   if (seccion) patch.seccion = seccion
   if (tematica !== undefined) patch.tematica = tematica || ''
   if (sector !== undefined) patch.sector = sector || ''
+  if (idioma !== undefined) patch.idioma = idioma || 'es'
   if (excerpt !== undefined) patch.excerpt = excerpt
   if (body !== undefined) patch.body = htmlToPortableText(body)
   if (tags !== undefined) {

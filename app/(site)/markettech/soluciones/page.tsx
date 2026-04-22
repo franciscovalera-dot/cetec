@@ -74,7 +74,7 @@ export default function MarketTechSolucionesPage() {
               placeholder="Buscar por texto..."
               className="flex-1 px-5 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
             />
-            <button className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0">
+            <button className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0">
               Buscar
             </button>
           </div>

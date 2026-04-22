@@ -70,7 +70,7 @@ export default function AdminSolucionesPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
             </div>
             <h1 className="text-lg  text-gray-900">Admin CETEC</h1>
@@ -88,7 +88,7 @@ export default function AdminSolucionesPage() {
             <h2 className="text-2xl  text-gray-900">MarketTech — Soluciones</h2>
             <p className="text-sm text-gray-500 mt-1">{items.length} solución{items.length !== 1 ? 'es' : ''}</p>
           </div>
-          <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors">
+          <Link href="/admin/soluciones/nuevo" className="inline-flex items-center gap-2 px-5 py-2.5 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
             Nueva solución
           </Link>

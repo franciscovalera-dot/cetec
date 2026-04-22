@@ -129,7 +129,7 @@ export default function Header() {
           {/* ─── Botón Contacto (derecha, desktop) ────────── */}
           <Link
             href="/contacto"
-            className="hidden lg:inline-flex px-6 py-2.5 text-sm  text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-colors"
+            className="hidden lg:inline-flex px-6 py-2.5 text-sm  text-white bg-black hover:bg-gray-800 rounded-full transition-colors"
           >
             Contacto
           </Link>
@@ -222,7 +222,7 @@ export default function Header() {
             <Link
               href="/contacto"
               onClick={() => setMobileOpen(false)}
-              className="block px-3 py-2.5 text-sm  text-white bg-gray-900 rounded-full text-center mt-3"
+              className="block px-3 py-2.5 text-sm  text-white bg-black rounded-full text-center mt-3"
             >
               Contacto
             </Link>

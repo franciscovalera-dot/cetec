@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import { getLatestPosts } from '@/lib/sanity'
 import CategorySlider from '@/components/CategorySlider'
+import SubscriptionForm from '@/components/SubscriptionForm'
 
 // ISR: revalidar cada 60 segundos
 export const revalidate = 60
@@ -50,35 +51,35 @@ const SECTOR_LABELS: Record<string, string> = {
   agroalimentario: 'Agroalimentario',
 }
 
-// Las 4 tarjetas de sección — gradientes horizontales exactos de Figma
+// Las 4 tarjetas de sección — imagen de fondo desde public/
 const sectionCards = [
   {
     href: '/noticias',
     title: 'Noticias',
     description: 'Novedades del sector, innovación y actualidad tecnológica.',
     button: 'Ver noticias',
-    gradient: 'linear-gradient(to right, #FF5B00 0%, #FFA370 100%)',
+    image: '/card-noticias.png',
   },
   {
     href: '/normativa',
     title: 'Normativa y\nLegislación',
     description: 'Cambios normativos relevantes y fechas de entrada en vigor.',
     button: 'Ver normativa',
-    gradient: 'linear-gradient(to right, #5E0360 0%, #B12E5C 41%, #FF5B00 83%)',
+    image: '/card-normativa.png',
   },
   {
     href: '/formacion',
     title: 'Formación\ny Cursos',
     description: 'Formación especializada para empresas y profesionales del sector.',
     button: 'Ver formación',
-    gradient: 'linear-gradient(to right, #5E0360 0%, #F675F9 100%)',
+    image: '/card-formacion.png',
   },
   {
     href: '/ayudas',
     title: 'Ayudas y\nSubvenciones',
     description: 'Convocatorias abiertas y oportunidades de financiación.',
     button: 'Ver todas las ayudas',
-    gradient: 'linear-gradient(to right, #5E0360 0%, #8DBEFF 100%)',
+    image: '/card-ayudas.png',
   },
 ]
 
@@ -124,32 +125,31 @@ export default async function HomePage() {
 
       {/* ─── 4 TARJETAS DE SECCIÓN CON GRADIENTES ───────────── */}
       <section className="bg-white pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-4 gap-6 lg:gap-10">
+        <div className="w-full mx-auto">
+          <div className="grid grid-cols-4 gap-0">
             {sectionCards.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative block aspect-[325/312]"
+                className="group relative block aspect-square"
               >
-                {/* Capa de desenfoque de fondo (halo difuminado) */}
-                <div
-                  className="absolute inset-0 opacity-70 transition-opacity duration-500 group-hover:opacity-90 pointer-events-none"
-                  style={{ background: card.gradient, filter: 'blur(20px)' }}
+                {/* Imagen de fondo */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={card.image}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
-                {/* Tarjeta principal con gradiente horizontal, sin bordes redondeados ni sombra */}
-                <div
-                  className="relative w-full h-full overflow-hidden flex flex-col items-center justify-between py-10 px-6 text-center transition-transform duration-500 group-hover:scale-[1.02]"
-                  style={{ background: card.gradient }}
-                >
+                {/* Contenido superpuesto — texto y botón intactos */}
+                <div className="relative w-full h-full flex flex-col items-center justify-center gap-4 py-6 px-12 text-center">
                   <h3 className="text-xl  text-white whitespace-pre-line leading-tight">
                     {card.title}
                   </h3>
                   <p className="text-sm text-white/90 leading-relaxed max-w-[220px]">
                     {card.description}
                   </p>
-                  <span className="inline-block px-5 py-2 text-xs  text-white bg-white/20 backdrop-blur-sm rounded-full transition-colors duration-300 group-hover:bg-white/30">
+                  <span className="inline-block px-6 py-2.5 text-sm  text-white bg-white/20 backdrop-blur-sm rounded-full transition-colors duration-300 group-hover:bg-white/30">
                     {card.button}
                   </span>
                 </div>
@@ -172,7 +172,7 @@ export default async function HomePage() {
             </div>
             <Link
               href="/busqueda"
-              className="hidden sm:inline-flex px-5 py-2.5 text-sm  text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
+              className="hidden sm:inline-flex px-5 py-2.5 text-sm  text-white bg-black hover:bg-gray-700 rounded-full transition-colors"
             >
               Ver todos
             </Link>
@@ -225,7 +225,7 @@ export default async function HomePage() {
           <div className="mt-8 text-center sm:hidden">
             <Link
               href="/busqueda"
-              className="inline-flex px-6 py-3 text-sm  text-white bg-gray-900 hover:bg-gray-700 rounded-full transition-colors"
+              className="inline-flex px-6 py-3 text-sm  text-white bg-black hover:bg-gray-700 rounded-full transition-colors"
             >
               Ver todos
             </Link>
@@ -235,33 +235,14 @@ export default async function HomePage() {
 
       {/* ─── BLOQUE NEGRO MARKETTECH ────────────────────────── */}
       <section className="relative bg-[#050505] overflow-hidden min-h-[600px] md:min-h-[720px] flex items-center justify-center">
-        {/* Cuadro con gradiente lineal: púrpura izq → naranja der (difuminado) */}
+        {/* Imagen de fondo (gradiente púrpura→naranja) centrada */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[340px] h-[380px] md:w-[560px] md:h-[500px] lg:w-[686px] lg:h-[560px]">
-            {/* Halo naranja difuminado que sobresale a la derecha */}
-            <div
-              className="absolute -top-20 -right-40 w-[450px] h-[450px] md:w-[600px] md:h-[600px] rounded-full"
-              style={{
-                background: 'rgba(255, 91, 0, 0.45)',
-                filter: 'blur(130px)',
-              }}
-            />
-            {/* Cuadro principal — relleno más tenue */}
-            <div
-              className="absolute inset-0 opacity-60"
-              style={{
-                background: 'linear-gradient(to right, #5E0360 0%, rgba(255, 91, 0, 0.8) 100%)',
-              }}
-            />
-            {/* Difuminado del borde derecho del cuadro (hace que el naranja se desvanezca) */}
-            <div
-              className="absolute top-0 -right-32 w-56 h-full rounded-full"
-              style={{
-                background: 'rgba(255, 91, 0, 0.3)',
-                filter: 'blur(110px)',
-              }}
-            />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/card-markettech.png"
+            alt=""
+            className="w-[340px] h-[380px] md:w-[560px] md:h-[500px] lg:w-[686px] lg:h-[560px] object-cover"
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
@@ -288,7 +269,7 @@ export default async function HomePage() {
           {/* Botón — fondo negro sólido */}
           <Link
             href="/markettech"
-            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black border border-white/10 rounded-full hover:bg-gray-900 transition-colors"
+            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black border border-white/10 rounded-full hover:bg-gray-800 transition-colors"
           >
             Entrar en MarketTech
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -333,20 +314,20 @@ export default async function HomePage() {
             }}
           />
 
-          {/* Círculo gradiente central — naranja #FF5B00 → morado #BD87BE */}
+          {/* Círculo gradiente central (imagen) */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-            <div
-              className="w-[480px] h-[480px] md:w-[600px] md:h-[600px] rounded-full"
-              style={{
-                background: 'radial-gradient(circle, #FF5B00 0%, #BD87BE 43%, transparent 70%)',
-              }}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/ellipse-suscripcion.png"
+              alt=""
+              className="w-[560px] h-[560px] md:w-[720px] md:h-[720px] object-contain"
             />
           </div>
 
           {/* Contenido centrado dentro del círculo */}
           <div className="relative z-10 max-w-lg mx-auto px-4 text-center">
           {/* Badge */}
-          <span className="inline-block px-5 py-2 text-xs bg-white rounded-full mb-8" style={{ color: '#000000' }}>
+          <span className="inline-block px-5 py-2 text-xs bg-white rounded-full mb-8" style={{ color: '#878787' }}>
             Suscripción
           </span>
 
@@ -362,21 +343,7 @@ export default async function HomePage() {
           </p>
 
           {/* Formulario de suscripción */}
-          <form className="mt-8 flex items-stretch max-w-md mx-auto bg-white rounded-md overflow-hidden">
-            <input
-              type="email"
-              placeholder="Email"
-              className="flex-1 px-5 py-3 text-sm focus:outline-none bg-white placeholder-gray-400 min-w-0"
-              style={{ color: '#000000' }}
-            />
-            <button
-              type="submit"
-              className="px-7 py-3 text-sm text-white transition-colors whitespace-nowrap flex-shrink-0"
-              style={{ backgroundColor: '#000000' }}
-            >
-              Suscríbete
-            </button>
-          </form>
+          <SubscriptionForm />
         </div>
         </div>
       </section>

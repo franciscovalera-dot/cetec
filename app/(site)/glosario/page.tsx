@@ -127,7 +127,7 @@ export default async function GlosarioPage({ searchParams }: Props) {
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
+                  className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
                 >
                   Buscar
                 </button>

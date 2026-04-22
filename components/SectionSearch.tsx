@@ -60,7 +60,7 @@ export default function SectionSearch({
 
         <button
           type="submit"
-          className="px-6 py-3 bg-gray-900 hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
+          className="px-6 py-3 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
         >
           Buscar
         </button>

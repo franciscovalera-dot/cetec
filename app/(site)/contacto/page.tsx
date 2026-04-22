@@ -128,7 +128,7 @@ export default function ContactoPage() {
             {/* Botón */}
             <button
               type="submit"
-              className="w-full py-3 bg-gray-900 hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
+              className="w-full py-3 bg-black hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
             >
               Enviar
             </button>

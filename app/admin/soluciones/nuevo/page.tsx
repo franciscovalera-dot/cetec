@@ -62,7 +62,7 @@ export default function NuevaSolucionPage() {
             <Link href="/admin/soluciones" className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg></Link>
             <h1 className="text-lg  text-gray-900">Nueva solución</h1>
           </div>
-          <button onClick={handleSubmit} disabled={saving} className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50">
+          <button onClick={handleSubmit} disabled={saving} className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50">
             {saving ? <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Guardando...</> : 'Publicar'}
           </button>
         </div>
@@ -156,7 +156,7 @@ export default function NuevaSolucionPage() {
         </div>
         <div className="flex items-center justify-end gap-3 pt-4">
           <Link href="/admin/soluciones" className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
-          <button type="submit" disabled={saving} className="px-6 py-2.5 text-sm  text-white bg-gray-900 rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50">{saving ? 'Publicando...' : 'Publicar solución'}</button>
+          <button type="submit" disabled={saving} className="px-6 py-2.5 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50">{saving ? 'Publicando...' : 'Publicar solución'}</button>
         </div>
       </form>
     </div>
