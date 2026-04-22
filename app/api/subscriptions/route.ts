@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/lib/sanity-admin'
+import { verifyRecaptcha } from '@/lib/recaptcha'
 
 /** POST /api/subscriptions — Alta pública de suscripción (general o alerta de búsqueda) */
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json()
-    const { email, type, query, seccion, tematica, sector, idioma } = data
+    const { email, type, query, seccion, tematica, sector, idioma, captchaToken } = data
+
+    if (!(await verifyRecaptcha(captchaToken))) {
+      return NextResponse.json({ error: 'Verificación anti-bot fallida' }, { status: 400 })
+    }
 
     if (!email || typeof email !== 'string' || !/^\S+@\S+\.\S+$/.test(email)) {
       return NextResponse.json({ error: 'Email no válido' }, { status: 400 })

@@ -12,7 +12,6 @@ const SECCIONES = [
   { value: 'formacion', label: 'Formación y Cursos' },
   { value: 'ayudas', label: 'Ayudas y Subvenciones' },
   { value: 'agenda', label: 'Agenda / Eventos' },
-  { value: 'markettech', label: 'MarketTech' },
 ]
 
 const TEMATICAS = [

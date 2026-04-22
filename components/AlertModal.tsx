@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type ReCAPTCHA from 'react-google-recaptcha'
+import RecaptchaWidget from './RecaptchaWidget'
 
 interface Props {
   query?: string
@@ -44,10 +46,15 @@ export default function AlertModal({ query, seccion, tematica, sector, idioma }:
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const captchaRef = useRef<ReCAPTCHA>(null)
+
+  const captchaEnabled = Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY)
+  const canSubmit = captchaEnabled ? Boolean(captchaToken) : true
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (status === 'loading') return
+    if (status === 'loading' || !canSubmit) return
     setStatus('loading')
     setMessage('')
 
@@ -63,6 +70,7 @@ export default function AlertModal({ query, seccion, tematica, sector, idioma }:
           tematica,
           sector,
           idioma,
+          captchaToken,
         }),
       })
       const data = await res.json()
@@ -77,6 +85,9 @@ export default function AlertModal({ query, seccion, tematica, sector, idioma }:
     } catch {
       setStatus('error')
       setMessage('Error de conexión')
+    } finally {
+      captchaRef.current?.reset()
+      setCaptchaToken(null)
     }
   }
 
@@ -159,9 +170,16 @@ export default function AlertModal({ query, seccion, tematica, sector, idioma }:
                 placeholder="tu@email.com"
                 className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 text-gray-900"
               />
+
+              {captchaEnabled && (
+                <div className="flex justify-center">
+                  <RecaptchaWidget ref={captchaRef} onChange={setCaptchaToken} />
+                </div>
+              )}
+
               <button
                 type="submit"
-                disabled={status === 'loading' || status === 'ok'}
+                disabled={status === 'loading' || status === 'ok' || !canSubmit}
                 className="w-full py-2.5 text-sm text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-60"
               >
                 {status === 'loading' ? 'Creando…' : status === 'ok' ? '¡Creada!' : 'Confirmar alerta'}

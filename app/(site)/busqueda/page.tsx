@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { searchContent, getAllContent } from '@/lib/sanity'
 import AlertModal from '@/components/AlertModal'
+import FiltersDrawer from '@/components/FiltersDrawer'
 
 export const revalidate = 60
 
@@ -225,7 +226,7 @@ export default async function SearchPage({ searchParams }: Props) {
               {dateTo   && <input type="hidden" name="dateTo"   value={dateTo} />}
               {idioma   && <input type="hidden" name="idioma"   value={idioma} />}
 
-              <div className="flex items-stretch border border-gray-200 rounded-md overflow-hidden shadow-sm bg-gray-50">
+              <div className="flex flex-col md:flex-row items-stretch border border-gray-200 rounded-md overflow-hidden shadow-sm bg-gray-50 divide-y md:divide-y-0 md:divide-x divide-gray-200">
                 {/* Input de texto */}
                 <input
                   type="text"
@@ -235,11 +236,8 @@ export default async function SearchPage({ searchParams }: Props) {
                   className="flex-1 px-4 py-4 text-sm focus:outline-none bg-gray-50 text-gray-800 placeholder-gray-400 min-w-0"
                 />
 
-                {/* Separador */}
-                <div className="w-px bg-gray-200 self-stretch" />
-
                 {/* Tecnología */}
-                <div className="relative w-44 flex-shrink-0 flex items-center">
+                <div className="relative md:w-44 md:flex-shrink-0 flex items-center">
                   <select
                     name="tematica"
                     defaultValue={tematica || ''}
@@ -256,11 +254,8 @@ export default async function SearchPage({ searchParams }: Props) {
                   </svg>
                 </div>
 
-                {/* Separador */}
-                <div className="w-px bg-gray-200 self-stretch" />
-
                 {/* Sector */}
-                <div className="relative w-44 flex-shrink-0 flex items-center">
+                <div className="relative md:w-44 md:flex-shrink-0 flex items-center">
                   <select
                     name="sector"
                     defaultValue={sector || ''}
@@ -277,15 +272,25 @@ export default async function SearchPage({ searchParams }: Props) {
                   </svg>
                 </div>
 
-                {/* Botón negro — dentro del mismo contenedor, sin border-radius propio */}
+                {/* Botón negro — en móvil ocupa todo el ancho, en desktop se alinea a la derecha */}
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm  transition-colors whitespace-nowrap flex-shrink-0"
+                  className="px-8 py-4 bg-black hover:bg-gray-700 text-white text-sm transition-colors whitespace-nowrap md:flex-shrink-0"
                 >
                   Buscar
                 </button>
               </div>
             </form>
+
+            {/* Botón Filtros (sólo móvil/tablet — el sidebar es lg:block) */}
+            <FiltersDrawer
+              query={query || undefined}
+              tematica={tematica}
+              sector={sector}
+              dateFrom={dateFrom}
+              dateTo={dateTo}
+              idioma={idioma}
+            />
 
             {/* Encabezado resultados */}
             {query && (

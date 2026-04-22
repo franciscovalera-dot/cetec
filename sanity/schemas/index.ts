@@ -8,6 +8,7 @@ import glossary from './glossary'
 import blockContent from './blockContent'
 import solucion from './solucion'
 import subscription from './subscription'
+import contactMessage from './contactMessage'
 
 // Exportar todos los schemas para usar en sanity.config.ts
 export const schemaTypes = [
@@ -20,4 +21,5 @@ export const schemaTypes = [
   blockContent,
   solucion,
   subscription,
+  contactMessage,
 ]

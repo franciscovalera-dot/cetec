@@ -152,7 +152,7 @@ export default function MarketTechSolucionesPage() {
               {loading ? (
                 <p className="text-center text-gray-400 py-20">Cargando soluciones...</p>
               ) : paginatedItems.length > 0 ? (
-                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedItems.map((sol, idx) => (
                     <Link
                       key={sol._id}

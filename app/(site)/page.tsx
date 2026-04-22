@@ -125,8 +125,10 @@ export default async function HomePage() {
 
       {/* ─── 4 TARJETAS DE SECCIÓN CON GRADIENTES ───────────── */}
       <section className="bg-white pb-24">
-        <div className="w-full mx-auto">
-          <div className="grid grid-cols-4 gap-0">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Negative horizontal margin on lg+ to compensate for the asymmetric halo
+              in the card PNGs (≈14% transparent left padding, ≈1% right). */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-2 lg:gap-0 lg:-ml-[4%] lg:w-[104%]">
             {sectionCards.map((card) => (
               <Link
                 key={card.href}
@@ -142,7 +144,7 @@ export default async function HomePage() {
                 />
 
                 {/* Contenido superpuesto — texto y botón intactos */}
-                <div className="relative w-full h-full flex flex-col items-center justify-center gap-4 py-6 px-12 text-center">
+                <div className="relative w-full h-full flex flex-col items-center justify-center gap-4 py-6 px-6 lg:px-12 text-center">
                   <h3 className="text-xl  text-white whitespace-pre-line leading-tight">
                     {card.title}
                   </h3>
@@ -234,7 +236,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── BLOQUE NEGRO MARKETTECH ────────────────────────── */}
-      <section className="relative bg-[#050505] overflow-hidden min-h-[600px] md:min-h-[720px] flex items-center justify-center">
+      <section className="relative bg-[#050505] overflow-hidden min-h-[480px] sm:min-h-[560px] md:min-h-[720px] flex items-center justify-center">
         {/* Imagen de fondo (gradiente púrpura→naranja) centrada */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -320,7 +322,7 @@ export default async function HomePage() {
             <img
               src="/ellipse-suscripcion.png"
               alt=""
-              className="w-[560px] h-[560px] md:w-[720px] md:h-[720px] object-contain"
+              className="w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] md:w-[560px] md:h-[560px] lg:w-[720px] lg:h-[720px] object-contain"
             />
           </div>
 

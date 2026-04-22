@@ -30,22 +30,22 @@ export default function MarketTechPage() {
       <section className="bg-white pt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className="flex items-center justify-center gap-8 px-6 py-4 border border-gray-200 rounded-lg"
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-8 px-4 sm:px-6 py-4 border border-gray-200 rounded-lg"
             style={{ backgroundColor: '#F9F9F8' }}
           >
-            <span className="w-px h-4 bg-gray-300" />
-            <a href="#soluciones" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <span className="hidden sm:inline-block w-px h-4 bg-gray-300" />
+            <a href="#soluciones" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Soluciones tecnológicas
             </a>
             <span className="w-px h-4 bg-gray-300" />
-            <a href="#materiales" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="#materiales" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Materiales
             </a>
             <span className="w-px h-4 bg-gray-300" />
-            <a href="#tecnologias" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            <a href="#tecnologias" className="text-xs sm:text-sm text-gray-500 hover:text-gray-900 transition-colors">
               Tecnologías habilitadoras
             </a>
-            <span className="w-px h-4 bg-gray-300" />
+            <span className="hidden sm:inline-block w-px h-4 bg-gray-300" />
           </div>
         </div>
       </section>
@@ -83,7 +83,7 @@ export default function MarketTechPage() {
               <img
                 src="/markettech-card.png"
                 alt="Explora tecnologías y materiales innovadores. Base de datos de soluciones tecnológicas y de materiales."
-                className="w-[135%] max-w-none h-auto ml-auto block"
+                className="w-full lg:w-[135%] max-w-none h-auto lg:ml-auto block"
               />
             </div>
           </div>

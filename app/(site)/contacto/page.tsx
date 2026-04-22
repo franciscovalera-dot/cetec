@@ -2,6 +2,7 @@
  * PÁGINA DE CONTACTO
  */
 import Link from 'next/link'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata = { title: 'Contacto' }
 
@@ -68,71 +69,7 @@ export default function ContactoPage() {
             ¿Tienes alguna consulta sobre innovación tecnológica o los contenidos del observatorio? Estamos aquí para ayudarte.
           </p>
 
-          <form className="space-y-4">
-            {/* Nombre + Apellidos */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="nombre"
-                placeholder="Nombre"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-              <input
-                type="text"
-                name="apellidos"
-                placeholder="Apellidos"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-            </div>
-
-            {/* Empresa + Correo */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="empresa"
-                placeholder="Empresa"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-              <input
-                type="email"
-                name="correo"
-                placeholder="Correo"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-            </div>
-
-            {/* Teléfono + Asunto */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="tel"
-                name="telefono"
-                placeholder="Teléfono"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-              <input
-                type="text"
-                name="asunto"
-                placeholder="Asunto"
-                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700"
-              />
-            </div>
-
-            {/* Mensaje */}
-            <textarea
-              name="mensaje"
-              placeholder="Mensaje"
-              rows={5}
-              className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300 placeholder-gray-400 text-gray-700 resize-none"
-            />
-
-            {/* Botón */}
-            <button
-              type="submit"
-              className="w-full py-3 bg-black hover:bg-gray-700 text-white text-sm  rounded-lg transition-colors"
-            >
-              Enviar
-            </button>
-          </form>
+          <ContactForm />
         </div>
 
       </div>

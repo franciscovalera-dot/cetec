@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import type ReCAPTCHA from 'react-google-recaptcha'
+import RecaptchaWidget from './RecaptchaWidget'
 
 /**
  * Formulario de suscripción general (newsletter) — se usa en la home.
@@ -10,10 +12,16 @@ export default function SubscriptionForm() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const captchaRef = useRef<ReCAPTCHA>(null)
+
+  // Si reCAPTCHA no está configurado (no hay site key), permitir submit sin token
+  const captchaEnabled = Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY)
+  const canSubmit = captchaEnabled ? Boolean(captchaToken) : true
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (status === 'loading') return
+    if (status === 'loading' || !canSubmit) return
     setStatus('loading')
     setMessage('')
 
@@ -21,7 +29,7 @@ export default function SubscriptionForm() {
       const res = await fetch('/api/subscriptions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, type: 'general' }),
+        body: JSON.stringify({ email, type: 'general', captchaToken }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -35,6 +43,9 @@ export default function SubscriptionForm() {
     } catch {
       setStatus('error')
       setMessage('Error de conexión')
+    } finally {
+      captchaRef.current?.reset()
+      setCaptchaToken(null)
     }
   }
 
@@ -55,13 +66,19 @@ export default function SubscriptionForm() {
         />
         <button
           type="submit"
-          disabled={status === 'loading'}
+          disabled={status === 'loading' || !canSubmit}
           className="px-4 py-2 text-xs text-white transition-colors whitespace-nowrap flex-shrink-0 disabled:opacity-60"
           style={{ backgroundColor: '#000000' }}
         >
           {status === 'loading' ? '…' : 'Suscríbete'}
         </button>
       </form>
+
+      {captchaEnabled && (
+        <div className="mt-4 flex justify-center">
+          <RecaptchaWidget ref={captchaRef} onChange={setCaptchaToken} />
+        </div>
+      )}
 
       {message && (
         <p
