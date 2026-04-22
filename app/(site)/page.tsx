@@ -281,9 +281,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─── EXPLORAR CONTENIDOS (slider de categorías) ─────── */}
+      {/* ─── EXPLORAR CONTENIDOS (slider de categorías — ancho completo) ─── */}
       <section className="bg-white">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="px-4 sm:px-6 lg:px-8 py-20">
           {/* Cabecera */}
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl  text-gray-900 leading-tight">
@@ -302,17 +302,17 @@ export default async function HomePage() {
       </section>
 
       {/* ─── SUSCRIPCIÓN A ALERTAS ──────────────────────────── */}
-      <section id="suscripcion" className="bg-white py-12 px-4 scroll-mt-24">
+      <section id="suscripcion" className="bg-white pt-12 pb-4 px-4 scroll-mt-24">
         <div
-          className="relative overflow-hidden rounded-3xl py-28 md:py-36"
-          style={{ backgroundColor: '#F0F0F0' }}
+          className="relative overflow-hidden rounded-3xl border border-[#DFDFDF] py-28 md:py-36"
+          style={{ backgroundColor: '#F9F9F8' }}
         >
           {/* Patrón de círculos en cuadrícula cubriendo todo el fondo */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='38' fill='none' stroke='%23D9D0F7' stroke-width='1'/%3E%3C/svg%3E")`,
-              backgroundSize: '80px 80px',
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='110' height='110' viewBox='0 0 110 110' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='55' cy='55' r='53' fill='none' stroke='%23D9D0F7' stroke-width='1'/%3E%3C/svg%3E")`,
+              backgroundSize: '110px 110px',
             }}
           />
 

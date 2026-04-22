@@ -69,14 +69,14 @@ function CategoryIcon({ name }: { name: IconKey }) {
 }
 
 // Ancho tarjeta + gap
-const CARD_W = 190
+const CARD_W = 260
 const GAP = 16
 const STEP = CARD_W + GAP
 
 function CategoryCard({ cat }: { cat: Category }) {
   return (
-    <Link href={cat.href} className="group flex-shrink-0 w-[190px]">
-      <div className="relative h-[230px] rounded-2xl border border-gray-200 bg-white p-6 flex flex-col items-center justify-between text-center overflow-hidden transition-all duration-300 group-hover:border-orange-400 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-600 group-hover:shadow-xl">
+    <Link href={cat.href} className="group flex-shrink-0 w-[260px]">
+      <div className="relative h-[310px] rounded-2xl border border-gray-200 bg-white p-6 flex flex-col items-center justify-between text-center overflow-hidden transition-all duration-300 group-hover:border-orange-400 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-600 group-hover:shadow-xl">
         <h3 className="text-base  text-gray-900 whitespace-pre-line leading-snug group-hover:text-white transition-colors pt-2">
           {cat.title}
         </h3>
