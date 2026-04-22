@@ -23,6 +23,17 @@ interface PageProps {
   params: { category: string; slug: string }
 }
 
+// Etiquetas legibles por sección para el botón "Volver a…"
+const SECTION_LABELS: Record<string, string> = {
+  noticias:   'Noticias',
+  normativa:  'Normativa',
+  formacion:  'Formación',
+  ayudas:     'Ayudas',
+  agenda:     'Agenda',
+  documentos: 'Documentos',
+  markettech: 'MarketTech',
+}
+
 export async function generateStaticParams() {
   try {
     const slugs = await getAllPostSlugs()
@@ -233,6 +244,26 @@ export default async function ArticlePage({ params }: PageProps) {
             )}
           </div>
         </div>
+
+        {/* ─── BOTÓN VOLVER (reactivo según sección) ────────────── */}
+        {(() => {
+          const backSlug = post.seccion || params.category
+          const backLabel = post.category?.name || SECTION_LABELS[backSlug] || 'inicio'
+          return (
+            <div className="mt-10">
+              <Link
+                href={`/${backSlug}`}
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm text-gray-700 border border-[#DFDFDF] rounded hover:bg-gray-100 transition-colors"
+                style={{ backgroundColor: '#F9F9F8' }}
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Volver a {backLabel}
+              </Link>
+            </div>
+          )
+        })()}
       </div>
 
       {/* ─── SOBRE EL AUTOR ────────────────────────────────────── */}
