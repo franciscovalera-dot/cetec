@@ -30,7 +30,7 @@ const columns = [
     title: 'CETEC',
     links: [
       { href: '#', label: 'Web de CETEC' },
-      { href: '#', label: 'Política de privacidad' },
+      { href: '/privacidad', label: 'Política de privacidad' },
       { href: '#', label: 'Servicios tecnológicos' },
       { href: '/contacto', label: 'Contacto' },
     ],
