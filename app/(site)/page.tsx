@@ -236,7 +236,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─── BLOQUE NEGRO MARKETTECH ────────────────────────── */}
-      <section className="relative bg-[#050505] overflow-hidden min-h-[480px] sm:min-h-[560px] md:min-h-[720px] flex items-center justify-center">
+      <section className="relative bg-[#050505] overflow-hidden min-h-screen flex items-center justify-center">
         {/* Imagen de fondo (gradiente púrpura→naranja) centrada */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}

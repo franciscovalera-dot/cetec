@@ -31,9 +31,9 @@ const columns: { title: string; links: FooterLink[] }[] = [
   {
     title: 'CETEC',
     links: [
-      { href: 'https://www.ctcalzado.org', label: 'Web de CETEC', external: true },
+      { href: 'https://ceteccentrotecnologico.org/', label: 'Web de CETEC', external: true },
       { href: '/privacidad', label: 'Política de privacidad' },
-      { href: 'https://www.ctcalzado.org/servicios', label: 'Servicios tecnológicos', external: true },
+      { href: 'https://ceteccentrotecnologico.org/servicios-a-empresas/', label: 'Servicios tecnológicos', external: true },
       { href: '/contacto', label: 'Contacto' },
     ],
   },

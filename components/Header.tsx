@@ -6,7 +6,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 // Subenlaces dentro del desplegable "Contenido"
 const contentLinks = [
@@ -22,11 +22,36 @@ export default function Header() {
   const [contentOpen, setContentOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileContentOpen, setMobileContentOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const lastScrollY = useRef(0)
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY
+      const delta = currentY - lastScrollY.current
+
+      // Siempre visible en el top
+      if (currentY < 64) {
+        setHidden(false)
+      } else if (Math.abs(delta) > 5) {
+        // Bajando: ocultar. Subiendo: mostrar.
+        setHidden(delta > 0)
+      }
+
+      lastScrollY.current = currentY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header
+      className={`sticky top-0 z-50 bg-white shadow-sm transition-transform duration-300 ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* ─── Logo ─────────────────────────────────────── */}
