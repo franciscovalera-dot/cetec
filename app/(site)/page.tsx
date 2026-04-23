@@ -133,14 +133,14 @@ export default async function HomePage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className="group relative block aspect-square"
+                className="group relative block aspect-square transition-transform duration-300 ease-out hover:scale-[1.06]"
               >
                 {/* Imagen de fondo */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={card.image}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
 
                 {/* Contenido superpuesto — texto y botón intactos */}
@@ -271,11 +271,18 @@ export default async function HomePage() {
           {/* Botón — fondo negro sólido */}
           <Link
             href="/markettech"
-            className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black border border-white/10 rounded-full hover:bg-gray-800 transition-colors"
+            className="group inline-flex items-center gap-2 mt-10 px-7 py-3 text-sm  text-white bg-black border border-white/10 rounded-full hover:bg-gray-800 transition-colors"
           >
             Entrar en MarketTech
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-1.5" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clipPath="url(#clip0_entrar_markettech)">
+                <path d="M8.34758 4.60936L5.53652 1.7983L6.27622 1.07694L10.3986 5.19928L6.27622 9.32162L5.53653 8.58192L8.33841 5.78003L0.580754 5.78003L0.580754 4.61853L8.34758 4.60936Z" fill="currentColor" />
+              </g>
+              <defs>
+                <clipPath id="clip0_entrar_markettech">
+                  <rect width="7.35289" height="7.35289" fill="white" transform="translate(5.19928) rotate(45)" />
+                </clipPath>
+              </defs>
             </svg>
           </Link>
         </div>

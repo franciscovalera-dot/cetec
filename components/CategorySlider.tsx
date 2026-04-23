@@ -76,7 +76,7 @@ const STEP = CARD_W + GAP
 function CategoryCard({ cat }: { cat: Category }) {
   return (
     <Link href={cat.href} className="group flex-shrink-0 w-[260px]">
-      <div className="relative h-[310px] rounded-2xl border border-gray-200 bg-white p-6 flex flex-col items-center justify-between text-center overflow-hidden transition-all duration-300 group-hover:border-orange-400 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-600 group-hover:shadow-xl">
+      <div className="relative h-[310px] rounded-2xl border border-gray-200 bg-white p-6 flex flex-col items-center justify-between text-center overflow-hidden transition-all duration-300 ease-out group-hover:border-orange-400 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-600 group-hover:shadow-xl group-hover:scale-[1.06]">
         <h3 className="text-base  text-gray-900 whitespace-pre-line leading-snug group-hover:text-white transition-colors pt-2">
           {cat.title}
         </h3>
@@ -179,7 +179,7 @@ export default function CategorySlider() {
         </button>
       </div>
 
-      <div className="overflow-hidden -mx-4 px-4">
+      <div className="overflow-x-clip overflow-y-visible -mx-4 px-4 py-3">
         <div
           ref={trackRef}
           className="flex gap-4"

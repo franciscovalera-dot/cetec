@@ -110,8 +110,7 @@ export default async function FormacionPage({ searchParams }: Props) {
                       <li key={t.value}>
                         <Link
                           href={{ pathname: '/formacion', query: { ...(sector ? { sector } : {}), ...(active ? {} : { tematica: t.value }) } }}
-                          className="block text-sm py-2.5 pl-4 transition-colors"
-                          style={{ borderLeft: active ? '3px solid #E8622A' : '2px solid #E0E0E0', color: active ? '#E8622A' : '#9E9E9E', fontWeight: active ? 600 : 400 }}
+                          className={`block text-sm py-2.5 pl-4 border-l-[3px] origin-left transition-all duration-200 ease-out hover:scale-105 hover:text-[#E8622A] hover:border-[#E8622A] ${active ? 'border-[#E8622A] text-[#E8622A] font-semibold' : 'border-[#E0E0E0] text-[#9E9E9E] font-normal'}`}
                         >
                           {t.label}
                         </Link>
@@ -129,8 +128,7 @@ export default async function FormacionPage({ searchParams }: Props) {
                       <li key={s.value}>
                         <Link
                           href={{ pathname: '/formacion', query: { ...(tematica ? { tematica } : {}), ...(active ? {} : { sector: s.value }) } }}
-                          className="block text-sm py-2.5 pl-4 transition-colors"
-                          style={{ borderLeft: active ? '3px solid #E8622A' : '2px solid #E0E0E0', color: active ? '#E8622A' : '#9E9E9E', fontWeight: active ? 600 : 400 }}
+                          className={`block text-sm py-2.5 pl-4 border-l-[3px] origin-left transition-all duration-200 ease-out hover:scale-105 hover:text-[#E8622A] hover:border-[#E8622A] ${active ? 'border-[#E8622A] text-[#E8622A] font-semibold' : 'border-[#E0E0E0] text-[#9E9E9E] font-normal'}`}
                         >
                           {s.label}
                         </Link>

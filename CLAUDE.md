@@ -19,21 +19,25 @@ No test framework is configured. Use `npm run lint` for code quality checks.
 
 ## Environment
 
-Copy `.env.local.example` to `.env.local` and fill in the Sanity credentials:
+Copy `.env.local.example` to `.env.local` and fill in:
 - `NEXT_PUBLIC_SANITY_PROJECT_ID`
 - `NEXT_PUBLIC_SANITY_DATASET` (default: `production`)
 - `NEXT_PUBLIC_SANITY_API_VERSION` (default: `2024-01-01`)
-- `SANITY_API_WRITE_TOKEN` — required for the admin panel's write operations
-- `ADMIN_PASSWORD` — used by the custom admin auth endpoint
+- `SANITY_API_WRITE_TOKEN` — required for admin panel write operations
+- `ADMIN_PASSWORD` — credential for `/admin/login`
+- `SESSION_SECRET` — HMAC key that signs admin session cookies (generate with `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`). Rotating this invalidates all active admin sessions.
+- `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY` — reCAPTCHA v2 credentials for public forms
+- `RECAPTCHA_DISABLED=1` — dev-only escape hatch; ignored in production builds
 
 ## Architecture
 
 ### Three route groups
 
 1. **`app/(site)/`** — Public pages with shared Header + Footer layout.
-   - Section listing pages: `noticias/`, `normativa/`, `formacion/`, `ayudas/`, `agenda/`, `documentos/`, `glosario/`, `markettech/`, `contacto/`, `busqueda/`
+   - Section listing pages: `noticias/`, `normativa/`, `formacion/`, `ayudas/`, `agenda/`, `documentos/`, `glosario/`, `markettech/`, `markettech/soluciones/` (filtered listing), `contacto/`, `busqueda/` (global search with alert modal), `privacidad/`
    - `[category]/[slug]/page.tsx` — Dynamic article detail (uses `generateStaticParams` + ISR at 60s, `dynamicParams = true`)
-2. **`app/admin/`** — Custom admin panel (separate layout with `components/AdminNav.tsx`, no site Header/Footer). Sub-sections: `entradas` (posts), `documentos`, `agenda`, `soluciones` (MarketTech), `glosario`, plus `login`. Each has its own API backend under `app/api/admin/`.
+   - `markettech/[slug]/page.tsx` — MarketTech solution detail
+2. **`app/admin/`** — Custom admin panel (separate layout with `components/AdminNav.tsx`, no site Header/Footer). Sub-sections: `entradas` (posts), `documentos`, `agenda`, `soluciones` (MarketTech), `glosario`, `suscripciones` (read-only list + CSV export), plus `login`. Each content type has its own API backend under `app/api/admin/`.
 3. **`app/studio/[[...index]]/`** — Sanity Studio embedded as a client-side SPA at `/studio` with its own layout.
 
 ### Two Sanity clients
@@ -43,14 +47,27 @@ Copy `.env.local.example` to `.env.local` and fill in the Sanity credentials:
 
 ### API routes
 
-Admin (`app/api/admin/`) — all gated behind admin auth, use the write client:
-- `auth/` — Admin password login (uses `ADMIN_PASSWORD`)
+Admin (`app/api/admin/`) — all gated by `checkAuth` (signed session cookie), use the write client:
+- `auth/` — `POST` login / `DELETE` logout / `GET` session check (uses `ADMIN_PASSWORD` + `SESSION_SECRET`)
 - `posts/` + `posts/[id]/` — CRUD for posts
-- `documents/`, `events/`, `glossary/`, `soluciones/` — CRUD for their respective content types
+- `documents/`, `events/`, `glossary/`, `soluciones/`, `subscriptions/` — CRUD / listing for their respective content types
 - `upload/` — Image upload to Sanity
 
 Public (`app/api/`):
-- `soluciones/` — Public read endpoint for MarketTech solutions (used by client-side filtering UI)
+- `soluciones/` (GET) — MarketTech solutions, consumed by the client-side filtering UI
+- `contact/` (POST) — Writes a `contactMessage` doc; enforces reCAPTCHA + field-length limits
+- `subscriptions/` (POST) — Writes a `subscription` doc (newsletter or search alert); reCAPTCHA + dedupe by `email + tipo`
+
+### Admin auth
+
+`lib/admin-auth.ts` owns the session layer:
+- `POST /api/admin/auth` compares `ADMIN_PASSWORD` in constant time (`timingSafeEqual`) and sets an HMAC-SHA256-signed cookie (24h expiry). The cookie payload contains only an expiry timestamp — never the password.
+- `checkAuth()` is imported by every admin API route to verify the cookie before touching the write client.
+- Rotating `SESSION_SECRET` invalidates every active session instantly.
+
+### reCAPTCHA
+
+`lib/recaptcha.ts` provides a server-side `verifyRecaptcha()` used by `/api/contact` and `/api/subscriptions`. It is **fail-closed**: a missing/invalid `RECAPTCHA_SECRET_KEY` causes the endpoints to reject the request. In dev, `RECAPTCHA_DISABLED=1` bypasses verification (ignored when `NODE_ENV=production`). The `components/RecaptchaWidget.tsx` wrapper renders the v2 "I'm not a robot" widget on the client.
 
 ### Content taxonomy
 
@@ -63,9 +80,11 @@ The `category` reference field on posts is marked `hidden: true` (legacy). The `
 
 ### Sanity schemas (`sanity/schemas/`)
 
-Content types: `post`, `category`, `author`, `agenda`, `document`, `glossary`, `solucion`, `blockContent`. Registered in `schemas/index.ts`.
+Content types: `post`, `category`, `author`, `agenda`, `document`, `glossary`, `solucion`, `subscription`, `contactMessage`, `blockContent`. Registered in `schemas/index.ts`.
 
-`solucion` (MarketTech tech solutions) has its own taxonomy distinct from posts: `tecnologia` (tecnologías-verdes/digitales, nanotecnología, fabricación-avanzada, materiales-avanzados), `sector` (plástico/calzado), `reto`, `material`. Detail pages live at `app/(site)/markettech/[slug]/`.
+`solucion` (MarketTech tech solutions) has its own taxonomy distinct from posts: `tecnologia` (tecnologías-verdes/digitales, nanotecnología, fabricación-avanzada, materiales-avanzados), `sector` (plástico/calzado), `reto`, `material`. Detail pages live at `app/(site)/markettech/[slug]/`; filtered listing at `app/(site)/markettech/soluciones/`.
+
+`subscription` stores both newsletter signups (from the homepage form) and filtered search alerts (from `AlertModal` on `/busqueda`). `contactMessage` stores submissions from `/contacto`. Both are created only via the public POST endpoints and read-only in the admin UI (`/admin/suscripciones` offers CSV export).
 
 ### Key patterns
 
