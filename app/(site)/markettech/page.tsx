@@ -78,13 +78,57 @@ export default function MarketTechPage() {
               </Link>
             </div>
 
-            <div className="relative overflow-visible">
+            <div className="relative overflow-visible w-full lg:w-[135%] max-w-none lg:ml-auto">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/markettech-card.png"
-                alt="Explora tecnologías y materiales innovadores. Base de datos de soluciones tecnológicas y de materiales."
-                className="w-full lg:w-[135%] max-w-none h-auto lg:ml-auto block"
+                src="/Group%20112.png"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-auto block"
               />
+
+              {/* Texto overlay dentro del marco blanco */}
+              <div className="absolute inset-0 flex items-start justify-center pt-[20%]" style={{ fontFamily: "'Stack Sans Text', sans-serif" }}>
+                <div className="w-[60%] lg:w-[62%]">
+                  <h3 className="text-gray-900 text-[22px] lg:text-[26px] xl:text-[30px] leading-[1.19]" style={{ fontFamily: "'Stack Sans Text', sans-serif", fontWeight: 400 }}>
+                    Explora tecnologías y materiales innovadores que pueden transformar los procesos y productos de la industria.
+                  </h3>
+
+                  <div className="mt-10 space-y-6">
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-[5px] border border-[#DFDFDF] bg-[#F9F9F8] flex items-center justify-center">
+                        <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="6" y="6" width="12" height="12" rx="1.5" />
+                          <rect x="9.5" y="9.5" width="5" height="5" rx="0.6" />
+                          <path d="M10 6V4M14 6V4M10 20v-2M14 20v-2M6 10H4M6 14H4M20 10h-2M20 14h-2" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-[17px] text-gray-900" style={{ fontFamily: "'Stack Sans Text', sans-serif", fontWeight: 600 }}>Base de datos de soluciones tecnológicas</h4>
+                        <p className="mt-1.5 text-[14px] text-gray-500 leading-relaxed" style={{ fontFamily: "'Stack Sans Text', sans-serif", fontWeight: 400 }}>
+                          MarketTech reúne fichas de soluciones tecnológicas aplicadas que muestran ejemplos de innovación desarrollados en distintos ámbitos industriales.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-[5px] border border-[#DFDFDF] bg-[#F9F9F8] flex items-center justify-center">
+                        <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                          <ellipse cx="12" cy="6" rx="7" ry="2.5" />
+                          <path d="M5 6v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6" />
+                          <path d="M5 11v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-5" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-[17px] text-gray-900" style={{ fontFamily: "'Stack Sans Text', sans-serif", fontWeight: 600 }}>Base de datos de materiales</h4>
+                        <p className="mt-1.5 text-[14px] text-gray-500 leading-relaxed" style={{ fontFamily: "'Stack Sans Text', sans-serif", fontWeight: 400 }}>
+                          Además de soluciones tecnológicas, MarketTech incluye información sobre materiales innovadores que están adquiriendo relevancia en el desarrollo de productos industriales.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
