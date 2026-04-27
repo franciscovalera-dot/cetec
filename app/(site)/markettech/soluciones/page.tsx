@@ -36,6 +36,8 @@ export default function MarketTechSolucionesPage() {
   const [filtroReto, setFiltroReto] = useState('')
   const [filtroMaterial, setFiltroMaterial] = useState('')
   const [pagina, setPagina] = useState(1)
+  const [showFilters, setShowFilters] = useState(false)
+  const activeFiltersCount = [filtroTecnologia, filtroSector, filtroReto, filtroMaterial].filter(Boolean).length
 
   const fetchSoluciones = useCallback(async () => {
     setLoading(true)
@@ -79,8 +81,73 @@ export default function MarketTechSolucionesPage() {
             </button>
           </div>
 
-          {/* Filtros dropdown */}
-          <div className="flex items-stretch border border-[#DFDFDF] rounded-lg bg-[#F9F9F8] mb-12">
+          {/* Filtros mobile — botón colapsable */}
+          <div className="sm:hidden mb-12">
+            <button
+              type="button"
+              onClick={() => setShowFilters(!showFilters)}
+              className="w-full flex items-center justify-between border border-[#DFDFDF] rounded-lg bg-[#F9F9F8] px-5 py-4 text-sm text-gray-700"
+            >
+              <span>
+                Filtros{activeFiltersCount > 0 && <span className="ml-1 text-orange-600">({activeFiltersCount})</span>}
+              </span>
+              <svg className={`w-4 h-4 text-gray-400 transition-transform ${showFilters ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {showFilters && (
+              <div className="mt-2 border border-[#DFDFDF] rounded-lg bg-[#F9F9F8] divide-y divide-[#DFDFDF]">
+                <select
+                  value={filtroTecnologia}
+                  onChange={(e) => { setFiltroTecnologia(e.target.value); setPagina(1) }}
+                  className="w-full text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', paddingRight: '36px' }}
+                >
+                  <option value="">Tecnología habilitadora</option>
+                  {filterOptions.tecnologia.map((t) => <option key={t} value={t}>{t}</option>)}
+                </select>
+                <select
+                  value={filtroSector}
+                  onChange={(e) => { setFiltroSector(e.target.value); setPagina(1) }}
+                  className="w-full text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', paddingRight: '36px' }}
+                >
+                  <option value="">Sector</option>
+                  {filterOptions.sector.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+                <select
+                  value={filtroReto}
+                  onChange={(e) => { setFiltroReto(e.target.value); setPagina(1) }}
+                  className="w-full text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', paddingRight: '36px' }}
+                >
+                  <option value="">Reto que soluciona</option>
+                  {filterOptions.reto.map((r) => <option key={r} value={r}>{r}</option>)}
+                </select>
+                <select
+                  value={filtroMaterial}
+                  onChange={(e) => { setFiltroMaterial(e.target.value); setPagina(1) }}
+                  className="w-full text-sm text-gray-500 bg-transparent focus:outline-none cursor-pointer px-5 py-4 appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center', paddingRight: '36px' }}
+                >
+                  <option value="">Tipo de material</option>
+                  {filterOptions.material.map((m) => <option key={m} value={m}>{m}</option>)}
+                </select>
+                {activeFiltersCount > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => { setFiltroTecnologia(''); setFiltroSector(''); setFiltroReto(''); setFiltroMaterial(''); setPagina(1) }}
+                    className="w-full text-left px-5 py-3 text-xs text-orange-600 hover:bg-orange-50 transition-colors"
+                  >
+                    Limpiar filtros
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Filtros desktop */}
+          <div className="hidden sm:flex items-stretch border border-[#DFDFDF] rounded-lg bg-[#F9F9F8] mb-12">
             <select
               value={filtroTecnologia}
               onChange={(e) => { setFiltroTecnologia(e.target.value); setPagina(1) }}

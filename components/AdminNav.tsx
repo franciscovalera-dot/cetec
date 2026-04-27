@@ -47,19 +47,19 @@ export default function AdminNav() {
   }
 
   return (
-    <nav className="flex items-center gap-1 border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto w-full flex items-center gap-1">
+    <nav className="border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8 overflow-x-auto">
+      <div className="max-w-7xl mx-auto w-full flex items-center gap-1 min-w-max">
         {NAV_ITEMS.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-2 px-4 py-3 text-sm  border-b-2 transition-colors ${
+            className={`flex items-center gap-2 px-3 sm:px-4 py-3 text-xs sm:text-sm border-b-2 transition-colors whitespace-nowrap ${
               isActive(item.href)
                 ? 'border-gray-900 text-gray-900'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
             </svg>
             {item.label}
