@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
   }
 
   const data = await req.json()
-  const { title, date, endDate, location, description, link, imageAssetId } = data
+  const { title, date, endDate, location, description, link } = data
 
   if (!title || !date) {
     return NextResponse.json(
@@ -66,9 +66,6 @@ export async function POST(req: NextRequest) {
     location: location || undefined,
     description: description ? htmlToPortableText(description) : undefined,
     link: link || undefined,
-    image: imageAssetId
-      ? { _type: 'image' as const, asset: { _type: 'reference' as const, _ref: imageAssetId } }
-      : undefined,
   }
 
   try {

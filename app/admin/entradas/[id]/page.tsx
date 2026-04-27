@@ -7,12 +7,13 @@ import dynamic from 'next/dynamic'
 const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), { ssr: false })
 import { portableTextToHtml } from '@/lib/portable-text-html'
 
+// Solo secciones con catch-all /[category]/[slug]. Eventos de agenda viven en
+// /admin/agenda con su propio document type y página.
 const SECCIONES = [
   { value: 'noticias', label: 'Noticias' },
   { value: 'normativa', label: 'Normativa y Legislación' },
   { value: 'formacion', label: 'Formación y Cursos' },
   { value: 'ayudas', label: 'Ayudas y Subvenciones' },
-  { value: 'agenda', label: 'Agenda / Eventos' },
 ]
 
 const TEMATICAS = [

@@ -14,8 +14,6 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
-  const [uploadingImage, setUploadingImage] = useState(false)
 
   const [form, setForm] = useState({
     title: '',
@@ -24,7 +22,6 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
     location: '',
     description: '',
     link: '',
-    imageAssetId: '',
   })
 
   useEffect(() => {
@@ -50,20 +47,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
         location: event.location || '',
         description: portableTextToHtml(event.description),
         link: event.link || '',
-        imageAssetId: event.image?.asset?._ref || '',
       })
-
-      if (event.image?.asset?._ref) {
-        const ref = event.image.asset._ref
-        const parts = ref.replace('image-', '').split('-')
-        if (parts.length >= 3) {
-          const imgId = parts.slice(0, -1).join('-')
-          const format = parts[parts.length - 1]
-          const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || ''
-          const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
-          setImagePreview(`https://cdn.sanity.io/images/${projectId}/${dataset}/${imgId}.${format}`)
-        }
-      }
 
       setLoading(false)
     }
@@ -72,27 +56,6 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
 
   function updateField(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }))
-  }
-
-  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    setImagePreview(URL.createObjectURL(file))
-    setUploadingImage(true)
-
-    const formData = new FormData()
-    formData.append('file', file)
-
-    const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
-
-    if (res.ok) {
-      const { assetId } = await res.json()
-      setForm((prev) => ({ ...prev, imageAssetId: assetId }))
-    } else {
-      setError('Error al subir la imagen')
-    }
-    setUploadingImage(false)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -144,7 +107,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
           </div>
           <button
             onClick={handleSubmit}
-            disabled={saving || uploadingImage}
+            disabled={saving}
             className="inline-flex items-center gap-2 px-5 py-2 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? (
@@ -206,39 +169,6 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
-        {/* Imagen */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h3 className="text-sm  text-gray-900 mb-4">Imagen del evento</h3>
-          {imagePreview ? (
-            <div className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-xl" />
-              {uploadingImage && (
-                <div className="absolute inset-0 bg-black/40 rounded-xl flex items-center justify-center">
-                  <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                </div>
-              )}
-              <button
-                type="button"
-                onClick={() => { setImagePreview(null); setForm((prev) => ({ ...prev, imageAssetId: '' })) }}
-                className="absolute top-2 right-2 p-1.5 bg-black/60 text-white rounded-lg hover:bg-black/80"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          ) : (
-            <label className="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-400 hover:bg-gray-50 transition-colors">
-              <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span className="text-sm text-gray-500">Haz clic para subir una imagen</span>
-              <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
-            </label>
-          )}
-        </div>
-
         {/* Enlace externo */}
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <label className="block text-sm  text-gray-900 mb-2">Enlace externo</label>
@@ -266,7 +196,7 @@ export default function EditarEventoPage({ params }: { params: Promise<{ id: str
           <Link href="/admin/agenda" className="px-5 py-2.5 text-sm  text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors">Cancelar</Link>
           <button
             type="submit"
-            disabled={saving || uploadingImage}
+            disabled={saving}
             className="px-6 py-2.5 text-sm  text-white bg-black rounded-xl hover:bg-gray-800 transition-colors disabled:opacity-50"
           >
             {saving ? 'Guardando...' : 'Guardar cambios'}

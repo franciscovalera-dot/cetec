@@ -207,6 +207,26 @@ export async function getAllEvents(): Promise<AgendaEvent[]> {
   )
 }
 
+/** Obtener un evento individual por su slug */
+export async function getEventBySlug(slug: string): Promise<AgendaEvent | null> {
+  return client.fetch(
+    `*[_type == "agenda" && slug.current == $slug][0] {
+      _id, title, slug, date, endDate, location, image, link, description
+    }`,
+    { slug },
+    { next: { revalidate: 60 } }
+  )
+}
+
+/** Obtener todos los slugs de eventos (para generateStaticParams) */
+export async function getAllEventSlugs(): Promise<{ slug: string }[]> {
+  return client.fetch(
+    `*[_type == "agenda" && defined(slug.current)] { "slug": slug.current }`,
+    {},
+    { next: { revalidate: 60 } }
+  )
+}
+
 /** Obtener próximos eventos de la agenda */
 export async function getUpcomingEvents(limit = 10): Promise<AgendaEvent[]> {
   return client.fetch(
@@ -277,7 +297,7 @@ export async function searchContent(searchTerm: string): Promise<{
         title match $term ||
         location match $term
       )] | order(date desc) [0...10] {
-        _id, title, slug, date, location, image
+        _id, title, slug, date, location, image, link
       }`,
       { term },
       { next: { revalidate: 60 } }
@@ -323,7 +343,7 @@ export async function getAllContent(): Promise<{
       { next: { revalidate: 60 } }
     ),
     client.fetch(
-      `*[_type == "agenda"] | order(date desc) { _id, title, slug, date, location }`,
+      `*[_type == "agenda"] | order(date desc) { _id, title, slug, date, location, link }`,
       {},
       { next: { revalidate: 60 } }
     ),

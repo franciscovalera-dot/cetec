@@ -43,7 +43,7 @@ export async function PUT(
 
   const { id } = await params
   const data = await req.json()
-  const { title, date, endDate, location, description, link, imageAssetId } = data
+  const { title, date, endDate, location, description, link } = data
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const patch: Record<string, any> = {}
@@ -57,13 +57,6 @@ export async function PUT(
   if (location !== undefined) patch.location = location
   if (description !== undefined) patch.description = htmlToPortableText(description)
   if (link !== undefined) patch.link = link
-
-  if (imageAssetId) {
-    patch.image = {
-      _type: 'image',
-      asset: { _type: 'reference', _ref: imageAssetId },
-    }
-  }
 
   try {
     const updated = await writeClient.patch(id).set(patch).commit()

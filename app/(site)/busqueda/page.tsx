@@ -120,7 +120,8 @@ export default async function SearchPage({ searchParams }: Props) {
     results = [...posts, ...events, ...docs, ...glossary]
       .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
 
-    // Excluir glosario y markettech del buscador
+    // Excluir glosario y markettech (no tienen página de detalle navegable
+    // para posts). Eventos sí van a /agenda/[slug] (nueva página de detalle).
     results = results.filter((r) => r.seccion !== 'glosario' && r.seccion !== 'markettech')
 
     if (tematica) results = results.filter((r) => r.tematica === tematica)

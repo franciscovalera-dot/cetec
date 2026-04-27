@@ -93,7 +93,10 @@ function daysAgo(n) {
 
 // ── Taxonomía ────────────────────────────────────────────────────────────────
 
-const SECCIONES = ['noticias', 'normativa', 'formacion', 'ayudas', 'markettech']
+// Solo secciones con página de detalle funcional (catch-all /[category]/[slug]).
+// 'markettech' y 'agenda' tienen rutas específicas para otros document types
+// (solucion, agenda) y un post con esas secciones daría 404 al hacer clic.
+const SECCIONES = ['noticias', 'normativa', 'formacion', 'ayudas']
 const TEMATICAS = ['materiales', 'procesos', 'digitalizacion', 'reciclado', 'ecodiseno']
 const SECTORES  = ['plastico', 'calzado', 'agroalimentario']
 
@@ -102,7 +105,6 @@ const SECCION_LABEL = {
   normativa: 'Normativa',
   formacion: 'Formación',
   ayudas: 'Ayudas',
-  markettech: 'MarketTech',
 }
 
 const TEMATICA_LABEL = {
@@ -261,7 +263,6 @@ function buildBody({ seccion, tematica, sector, title }) {
     normativa: 'Este análisis normativo aborda las implicaciones regulatorias',
     formacion: 'Esta acción formativa cubre los fundamentos y la aplicación práctica',
     ayudas: 'Esta convocatoria de ayudas ofrece financiación específica',
-    markettech: 'Esta solución tecnológica disponible en MarketTech aborda los retos',
   }[seccion]
 
   const p1 = `${seccionFrase} en el ámbito de ${TEMATICA_LABEL[tematica].toLowerCase()} aplicado al sector ${SECTOR_LABEL[sector].toLowerCase()}. ${title} representa una línea de trabajo estratégica para las empresas del sector que buscan mejorar su competitividad y reducir su impacto ambiental.`
