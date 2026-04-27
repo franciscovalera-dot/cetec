@@ -46,8 +46,8 @@ export default function AdminGlosarioPage() {
     const res = await fetch(`/api/admin/glossary?${params.toString()}`)
     if (res.status === 401) { router.push('/admin/login'); return }
 
-    const data = await res.json()
-    setTerms(data)
+    const data = await res.json().catch(() => [])
+    setTerms(Array.isArray(data) ? data : [])
     setLoading(false)
   }, [filtroTematica, filtroSector, busqueda, router])
 
@@ -176,7 +176,7 @@ export default function AdminGlosarioPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {terms.map((term) => (
+                {(Array.isArray(terms) ? terms : []).map((term) => (
                   <tr key={term._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <p className="text-sm  text-gray-900">{term.term}</p>

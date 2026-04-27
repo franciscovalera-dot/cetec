@@ -206,7 +206,7 @@ export default function AdminSuscripcionesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {subs.map((s) => {
+                {(Array.isArray(subs) ? subs : []).map((s) => {
                   const chips = filtersChips(s)
                   const date = s.createdAt
                     ? new Date(s.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })

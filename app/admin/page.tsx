@@ -66,8 +66,8 @@ export default function AdminDashboard() {
       return
     }
 
-    const data = await res.json()
-    setPosts(data)
+    const data = await res.json().catch(() => [])
+    setPosts(Array.isArray(data) ? data : [])
     setLoading(false)
   }, [filtroSeccion, filtroTematica, filtroSector, busqueda, router])
 
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {posts.map((post) => (
+                {(Array.isArray(posts) ? posts : []).map((post) => (
                   <tr key={post._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <p className="text-sm  text-gray-900 line-clamp-1">{post.title}</p>

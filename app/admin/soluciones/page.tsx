@@ -43,7 +43,8 @@ export default function AdminSolucionesPage() {
     if (filtroSector) params.set('sector', filtroSector)
     const res = await fetch(`/api/admin/soluciones?${params.toString()}`)
     if (res.status === 401) { router.push('/admin/login'); return }
-    setItems(await res.json())
+    const data = await res.json().catch(() => [])
+    setItems(Array.isArray(data) ? data : [])
     setLoading(false)
   }, [busqueda, filtroTec, filtroSector, router])
 
@@ -127,7 +128,7 @@ export default function AdminSolucionesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {items.map((s) => (
+                {(Array.isArray(items) ? items : []).map((s) => (
                   <tr key={s._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4"><p className="text-sm  text-gray-900 line-clamp-1">{s.title}</p></td>
                     <td className="px-4 py-4 hidden md:table-cell">{s.tecnologia ? <span className="inline-block text-xs  px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full">{getTecLabel(s.tecnologia)}</span> : <span className="text-xs text-gray-400">—</span>}</td>

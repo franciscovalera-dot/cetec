@@ -48,8 +48,8 @@ export default function AdminDocumentosPage() {
     const res = await fetch(`/api/admin/documents?${params.toString()}`)
     if (res.status === 401) { router.push('/admin/login'); return }
 
-    const data = await res.json()
-    setDocs(data)
+    const data = await res.json().catch(() => [])
+    setDocs(Array.isArray(data) ? data : [])
     setLoading(false)
   }, [filtroTipo, filtroSector, busqueda, router])
 
@@ -180,7 +180,7 @@ export default function AdminDocumentosPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {docs.map((doc) => (
+                {(Array.isArray(docs) ? docs : []).map((doc) => (
                   <tr key={doc._id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4">
                       <p className="text-sm  text-gray-900 line-clamp-1">{doc.title}</p>

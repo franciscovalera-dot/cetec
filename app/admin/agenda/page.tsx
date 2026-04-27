@@ -31,8 +31,8 @@ export default function AdminAgendaPage() {
     const res = await fetch(`/api/admin/events?${params.toString()}`)
     if (res.status === 401) { router.push('/admin/login'); return }
 
-    const data = await res.json()
-    setEvents(data)
+    const data = await res.json().catch(() => [])
+    setEvents(Array.isArray(data) ? data : [])
     setLoading(false)
   }, [filtroPeriodo, busqueda, router])
 
@@ -145,7 +145,7 @@ export default function AdminAgendaPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {events.map((event) => {
+                {(Array.isArray(events) ? events : []).map((event) => {
                   const isPast = new Date(event.date) < new Date()
                   return (
                     <tr key={event._id} className="hover:bg-gray-50 transition-colors">
