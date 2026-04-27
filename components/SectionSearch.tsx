@@ -44,11 +44,11 @@ export default function SectionSearch({
         <div className="w-px bg-gray-200 self-stretch" />
 
         {/* Select de fecha */}
-        <div className="relative w-44 flex-shrink-0 flex items-center">
+        <div className="relative w-[88px] sm:w-44 flex-shrink-0 flex items-center overflow-hidden">
           <select
             name="date"
             defaultValue={date || ''}
-            className="w-full pl-4 pr-8 py-5 text-sm focus:outline-none cursor-pointer border-none appearance-none text-gray-500"
+            className="w-full pl-3 pr-7 sm:pl-4 sm:pr-8 py-5 text-sm focus:outline-none cursor-pointer border-none appearance-none text-gray-500 truncate"
             style={{ backgroundColor: '#F9F9F8' }}
           >
             {DATE_OPTIONS.map((d) => (

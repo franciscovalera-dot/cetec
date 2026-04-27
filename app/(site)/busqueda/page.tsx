@@ -351,21 +351,21 @@ export default async function SearchPage({ searchParams }: Props) {
                 </div>
 
                 {/* Footer: recuento + paginación + crear alerta */}
-                <div className="flex items-center justify-between gap-4 mt-6 text-sm text-gray-500">
-                  <div className="flex items-center gap-6">
-                    <span>
+                <div className="flex items-center justify-between gap-3 mt-6 text-xs text-gray-500">
+                  <div className="flex items-center gap-3 sm:gap-5">
+                    <span className="whitespace-nowrap">
                       Resultados: <span className="text-gray-700">{totalResults}</span>
                     </span>
                     {totalPages > 1 && (
-                      <span className="flex items-center gap-3">
-                        <span>Página {pageSafe} de {totalPages}</span>
+                      <span className="flex items-center gap-2 sm:gap-3">
+                        <span className="whitespace-nowrap">Página {pageSafe} de {totalPages}</span>
                         {pageSafe < totalPages && (
                           <Link
                             href={buildPageHref(pageSafe + 1)}
-                            className="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors"
+                            className="inline-flex items-center gap-1 text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap"
                           >
                             Siguiente
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
                           </Link>

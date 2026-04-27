@@ -165,7 +165,7 @@ export default async function NoticiasPage({ searchParams }: Props) {
 
       {/* Contenido: sidebar + grid */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex gap-10">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
 
           {/* ─── SIDEBAR FILTROS ────────────────────────────── */}
           <aside className="hidden lg:block w-64 flex-shrink-0">

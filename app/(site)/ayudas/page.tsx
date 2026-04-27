@@ -98,7 +98,7 @@ export default async function AyudasPage({ searchParams }: Props) {
         </div>
       </section>
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex gap-10">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="sticky top-24 rounded-md border border-[#DFDFDF] p-6" style={{ backgroundColor: '#F9F9F8' }}>
               <div>
@@ -139,6 +139,37 @@ export default async function AyudasPage({ searchParams }: Props) {
               </div>
             </div>
           </aside>
+
+          {/* Filtros mobile (horizontal scroll) */}
+          <div className="lg:hidden w-full">
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs text-gray-900 uppercase">Temática:</span>
+                {TEMATICAS.map((t) => (
+                  <Link
+                    key={t.value}
+                    href={{ pathname: '/ayudas', query: { ...(sector ? { sector } : {}), ...(tematica === t.value ? {} : { tematica: t.value }) } }}
+                    className={`text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${tematica === t.value ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
+                  >
+                    {t.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs text-gray-900 uppercase">Sector:</span>
+                {SECTORES.map((s) => (
+                  <Link
+                    key={s.value}
+                    href={{ pathname: '/ayudas', query: { ...(tematica ? { tematica } : {}), ...(sector === s.value ? {} : { sector: s.value }) } }}
+                    className={`text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${sector === s.value ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="flex-1 min-w-0">
             {posts.length > 0 ? (
               <>

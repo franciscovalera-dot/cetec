@@ -128,7 +128,7 @@ export default async function HomePage() {
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Negative horizontal margin on lg+ to compensate for the asymmetric halo
               in the card PNGs (≈14% transparent left padding, ≈1% right). */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-2 lg:gap-0 lg:-ml-[4%] lg:w-[104%]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 sm:gap-2 lg:gap-0 lg:-ml-[4%] lg:w-[104%] [&>*+*]:-mt-12 sm:[&>*+*]:mt-0">
             {sectionCards.map((card) => (
               <Link
                 key={card.href}
@@ -316,10 +316,9 @@ export default async function HomePage() {
         >
           {/* Patrón de círculos en cuadrícula cubriendo todo el fondo */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none bg-[length:75px_75px] sm:bg-[length:110px_110px]"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='110' height='110' viewBox='0 0 110 110' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='55' cy='55' r='53' fill='none' stroke='%23D9D0F7' stroke-width='1'/%3E%3C/svg%3E")`,
-              backgroundSize: '110px 110px',
             }}
           />
 
@@ -329,7 +328,7 @@ export default async function HomePage() {
             <img
               src="/ellipse-suscripcion.png"
               alt=""
-              className="w-[380px] h-[380px] sm:w-[480px] sm:h-[480px] md:w-[560px] md:h-[560px] lg:w-[720px] lg:h-[720px] object-contain"
+              className="w-[700px] h-[700px] sm:w-[480px] sm:h-[480px] md:w-[560px] md:h-[560px] lg:w-[720px] lg:h-[720px] object-contain max-w-none"
             />
           </div>
 

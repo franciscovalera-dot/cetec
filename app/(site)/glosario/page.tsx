@@ -59,7 +59,7 @@ export default async function GlosarioPage({ searchParams }: Props) {
       </section>
 
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex gap-10">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
 
           {/* ─── SIDEBAR ────────────────────────────────────────── */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
@@ -108,6 +108,36 @@ export default async function GlosarioPage({ searchParams }: Props) {
             </div>
           </aside>
 
+          {/* Filtros mobile (horizontal scroll) */}
+          <div className="lg:hidden w-full">
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs text-gray-900 uppercase">Temática:</span>
+                {TEMATICAS.map((t) => (
+                  <Link
+                    key={t.value}
+                    href={{ pathname: '/glosario', query: { ...(sector ? { sector } : {}), ...(query ? { q: query } : {}), ...(tematica === t.value ? {} : { tematica: t.value }) } }}
+                    className={`text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${tematica === t.value ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
+                  >
+                    {t.label}
+                  </Link>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs text-gray-900 uppercase">Sector:</span>
+                {SECTORES.map((s) => (
+                  <Link
+                    key={s.value}
+                    href={{ pathname: '/glosario', query: { ...(tematica ? { tematica } : {}), ...(query ? { q: query } : {}), ...(sector === s.value ? {} : { sector: s.value }) } }}
+                    className={`text-xs px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${sector === s.value ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-50 hover:text-orange-600'}`}
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* ─── ÁREA PRINCIPAL ─────────────────────────────────── */}
           <div className="flex-1 min-w-0">
 
@@ -139,10 +169,10 @@ export default async function GlosarioPage({ searchParams }: Props) {
                   <div
                     key={term._id}
                     id={term.slug.current}
-                    className="flex gap-6 px-6 py-4 border-b border-[#DFDFDF] last:border-b-0 hover:bg-gray-100 transition-colors"
+                    className="flex flex-col sm:flex-row gap-4 sm:gap-6 px-6 py-4 border-b border-[#DFDFDF] last:border-b-0 hover:bg-gray-100 transition-colors"
                   >
                     {/* Término */}
-                    <div className="w-48 flex-shrink-0 pt-0.5">
+                    <div className="w-full sm:w-48 flex-shrink-0 pt-0.5">
                       <span className=" text-sm text-gray-900 leading-snug">{term.term}</span>
                       {term.category && (
                         <span className="block text-xs text-orange-500 mt-0.5">{term.category.name}</span>
