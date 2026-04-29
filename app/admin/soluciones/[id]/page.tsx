@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -23,8 +23,8 @@ const RETOS = [
 ]
 const MATERIALES = [{ value: 'bioplasticos', label: 'Bioplásticos' }, { value: 'polimeros', label: 'Polímeros' }]
 
-export default function EditarSolucionPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+export default function EditarSolucionPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

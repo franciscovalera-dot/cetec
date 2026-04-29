@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
@@ -17,8 +17,8 @@ const SECTORES = [
   { value: 'agroalimentario', label: 'Agroalimentario' },
 ]
 
-export default function EditarDocumentoPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+export default function EditarDocumentoPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

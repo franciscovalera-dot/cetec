@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -8,8 +8,8 @@ const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), { ss
 import { portableTextToHtml } from '@/lib/portable-text-html'
 
 
-export default function EditarEventoPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params)
+export default function EditarEventoPage({ params }: { params: { id: string } }) {
+  const { id } = params
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

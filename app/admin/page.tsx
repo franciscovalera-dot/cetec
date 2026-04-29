@@ -5,14 +5,13 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import AdminNav from '@/components/AdminNav'
 
-// Constantes de filtros (duplicadas aquí para uso client-side)
+// Solo secciones con detalle navegable (catch-all /[category]/[slug]).
+// Agenda y MarketTech tienen su propio document type y admin separado.
 const SECCIONES = [
   { value: 'noticias', label: 'Noticias' },
   { value: 'normativa', label: 'Normativa' },
   { value: 'formacion', label: 'Formación' },
   { value: 'ayudas', label: 'Ayudas' },
-  { value: 'agenda', label: 'Agenda' },
-  { value: 'markettech', label: 'MarketTech' },
 ]
 
 const TEMATICAS = [
